@@ -5,12 +5,25 @@
  */
 package com.lhh.core;
 
+import com.lhh.dao.MongoConnection;
+import com.lhh.server.apiserver.WebAPIServer;
+import com.lhh.server.socketserver.WebSocketServer;
+import com.lhh.util.Util;
+
 /**
  *
  * @author Linh
  */
 public class Core {
-    public static void main(String[] args) {
-        
+    public static void main(String[] args) throws Exception {
+        Util.addDebugLog("Initiate MongoDB connection....");
+        MongoConnection.init();
+        Util.addDebugLog("Server is starting....");
+        Util.addDebugLog("Socket Server is starting....");
+        WebSocketServer.startServer();
+        Util.addDebugLog("API Server is starting....");
+        WebAPIServer.startServer();
+        Util.addDebugLog("DONE! Server is started");
     }
+    
 }
