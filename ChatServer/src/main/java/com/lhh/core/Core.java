@@ -7,7 +7,7 @@ package com.lhh.core;
 
 import com.lhh.dao.MongoConnection;
 import com.lhh.server.apiserver.WebAPIServer;
-import com.lhh.server.socketserver.WebSocketServer;
+import com.lhh.server.chatserver.WebSocketServer;
 import com.lhh.util.Util;
 
 /**

@@ -3,8 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.lhh.server.socketserver;
-
+package com.lhh.server.chatserver.messageio;
 
 import java.io.IOException;
 import javax.websocket.CloseReason;
@@ -19,29 +18,27 @@ import javax.websocket.server.ServerEndpoint;
  *
  * @author Administrator
  */
-
 @ServerEndpoint(value = "/chat")
-public class ServerEndPoint {
-    
+public class MessageInput {
+
     @OnOpen
     public void onOpen(Session userSession) {
-        
+        System.out.println("some thing connect to server");
     }
 
     @OnClose
     public void onClose(Session userSession, CloseReason reason) throws IOException {
-        
+
     }
 
     @OnMessage
     public void onMessage(Session userSession, String message) throws IOException {
-        
-        
+        System.out.println("message: " + message);
     }
-    
+
     @OnError
     public void error(Session session, Throwable t) throws IOException {
-        
+
     }
-    
+
 }
