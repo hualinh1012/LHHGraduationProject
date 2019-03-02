@@ -13,9 +13,9 @@ import com.mongodb.client.MongoDatabase;
  */
 public class DBLoader {
 
-    private static final MongoDatabase USER_DB = MongoConnection.mongo.getDatabase("userdb");
-    private static final MongoDatabase CHAT_DB = MongoConnection.mongo.getDatabase("chatlogdb");
-    private static final MongoDatabase STATIC_FILE_DB = MongoConnection.mongo.getDatabase("staticfiledb");
+    private static final MongoDatabase USER_DB = MongoConnection.mongo.getDatabase("user");
+    private static final MongoDatabase CHAT_DB = MongoConnection.mongo.getDatabase("chatlog");
+    private static final MongoDatabase STATIC_FILE_DB = MongoConnection.mongo.getDatabase("staticfile");
 
     public static MongoDatabase getUserDB() {
         return USER_DB;

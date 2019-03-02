@@ -48,12 +48,12 @@ public class DailyLogger {
     
     public static void debug(String message){
         System.out.println(message);
-//        String inforMessage = completeMessage(message);
-//        logger.debug(inforMessage);
+        String inforMessage = completeMessage(message);
+        logger.debug(inforMessage);
     }
     
     public static void error(Throwable t){
-//        logger.error("At " + DateFormat.format_yyyyMMddHHmmssSSS(new Date()), t);
+        logger.error("At " + DateFormat.format_yyyyMMddHHmmssSSS(new Date()), t);
     }
     
     public static void info(String message){
