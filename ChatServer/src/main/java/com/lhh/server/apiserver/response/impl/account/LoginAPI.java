@@ -11,6 +11,9 @@ import com.lhh.server.apiserver.request.ClientRequest;
 import com.lhh.server.apiserver.response.IApiAdapter;
 import com.lhh.server.apiserver.response.ServerResponse;
 import com.lhh.server.apiserver.response.common.EntityRespond;
+import com.lhh.server.entity.impl.LoginData;
+import com.lhh.server.session.Session;
+import com.lhh.server.session.SessionManager;
 import com.lhh.util.ServerException;
 import com.lhh.util.Util;
 import com.lhh.util.constant.ParamKey;
@@ -29,8 +32,10 @@ public class LoginAPI implements IApiAdapter {
             String email = request.getStringParam(ParamKey.EMAIL);
             String password = request.getStringParam(ParamKey.PASSWORD);
             if (User.validateEmail(email)) {
-                User user = UserDAO.login(email, password);
-                response.data = user;
+                User user = UserDAO.login(email, password);                
+                Session session = new Session(user.userId);
+                SessionManager.add(session);
+                response.data = new LoginData(session.token);
                 response.code = ResponseCode.SUCCESS;
             }
         } catch (ServerException ex) {

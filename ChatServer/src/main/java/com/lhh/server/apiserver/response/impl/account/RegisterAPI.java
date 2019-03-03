@@ -11,6 +11,9 @@ import com.lhh.server.apiserver.request.ClientRequest;
 import com.lhh.server.apiserver.response.IApiAdapter;
 import com.lhh.server.apiserver.response.ServerResponse;
 import com.lhh.server.apiserver.response.common.EntityRespond;
+import com.lhh.server.entity.impl.LoginData;
+import com.lhh.server.session.Session;
+import com.lhh.server.session.SessionManager;
 import com.lhh.util.ServerException;
 import com.lhh.util.Util;
 import com.lhh.util.constant.ResponseCode;
@@ -34,9 +37,12 @@ public class RegisterAPI implements IApiAdapter{
             String originalPwd = request.getStringParam(ParamKey.ORIGINAL_PASSWORD);
             User newUser = new User(userName, email, originalPwd, password, gender, dateOfBirth);
             if (newUser.isValidUserInfo()){
-                UserDAO.insertUser(newUser);                
+                User user = UserDAO.insertUser(newUser); 
+                Session session = new Session(user.userId);
+                SessionManager.add(session);
+                response.data = new LoginData(session.token);
+                response.code = ResponseCode.SUCCESS;
             }
-            response.code = ResponseCode.SUCCESS;
         }
         catch (ServerException ex){
             response.code = ex.getErrorCode();

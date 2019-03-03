@@ -28,4 +28,8 @@ public class SessionManager {
             return null;
         }
     }
+    
+    public static void add(Session session){
+        SS.put(session.token, session);
+    }
 }

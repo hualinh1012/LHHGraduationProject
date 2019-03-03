@@ -30,18 +30,18 @@ class HomePage extends Component {
 	render() {
 		return (
 			<div>
-                <div class="page-content">
-                    <div class="form-v8-content">
-                        <div class="form-left">
+                <div className="page-content">
+                    <div className="form-v8-content">
+                        <div className="form-left">
                             <img src="/banner.jpg" alt="form"/>
                         </div>
-                        <div class="form-right">
-                            <div class="tab">
-                                <div class="tab-inner">
-                                <button class="tablinks" onClick={(event) => this.changeTab(event, 'sign-up')} id="defaultOpen">Sign Up</button>
+                        <div className="form-right">
+                            <div className="tab">
+                                <div className="tab-inner">
+                                <button className="tablinks" onClick={(event) => this.changeTab(event, 'sign-up')} id="defaultOpen">Sign Up</button>
                                 </div>
-                                <div class="tab-inner">
-                                    <button class="tablinks" onClick={(event) => this.changeTab(event, 'sign-in')}>Sign In</button>
+                                <div className="tab-inner">
+                                    <button className="tablinks" onClick={(event) => this.changeTab(event, 'sign-in')}>Sign In</button>
                                 </div>
                             </div>
                             <Login/>

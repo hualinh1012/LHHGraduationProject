@@ -59,6 +59,7 @@ public class ServerHandler extends AbstractHandler {
 
             if (session != null){
                 request.put(ParamKey.USER_ID, session.userID);
+                session.resetExpire();
             }
             
             ServerResponse response = null;
