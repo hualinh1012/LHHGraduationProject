@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Login from '../components/HomePage/Login';
-import Register from '../components/HomePage/Register';
+import Login from '../components/HomePage/Register';
+import Register from '../components/HomePage/Login';
 
 class HomePage extends Component {
 	constructor(props) {
@@ -9,8 +9,13 @@ class HomePage extends Component {
 			
 		};
     }
+
+    componentWillMount = () => {
+    }
+
     componentDidMount = () => {
 		window.scrollTo(0, 0);
+        document.getElementById("defaultOpen").click();
 	}
 
     changeTab = (evt, name) => {
@@ -38,10 +43,10 @@ class HomePage extends Component {
                         <div className="form-right">
                             <div className="tab">
                                 <div className="tab-inner">
-                                <button className="tablinks" onClick={(event) => this.changeTab(event, 'sign-up')} id="defaultOpen">Sign Up</button>
+                                    <button className="tablinks" onClick={(event) => this.changeTab(event, 'sign-in')} id="defaultOpen">Sign In</button>
                                 </div>
                                 <div className="tab-inner">
-                                    <button className="tablinks" onClick={(event) => this.changeTab(event, 'sign-in')}>Sign In</button>
+                                <button className="tablinks" onClick={(event) => this.changeTab(event, 'sign-up')}>Sign Up</button>
                                 </div>
                             </div>
                             <Login/>
