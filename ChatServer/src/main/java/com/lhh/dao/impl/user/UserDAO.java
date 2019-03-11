@@ -11,6 +11,7 @@ import com.lhh.util.DateFormat;
 import com.lhh.util.ServerException;
 import com.lhh.util.Util;
 import com.lhh.util.constant.ResponseCode;
+import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
@@ -59,27 +60,35 @@ public class UserDAO {
             doc.put(User.ORIGINAL_PASSWORD, inputUser.originalPassword);
             doc.put(User.REGISTER_DATE, DateFormat.format(Util.getGMTTime()));
             COLLECTION.insertOne(doc);
-            
+
+            String userId = doc.getObjectId(User.ID).toString();
+            upadateUserId(userId);
+
             User user = User.fromDBObject(doc);
             return user;
         }
     }
 
-    public static User login(String email, String password) throws ServerException{
+    private static void upadateUserId(String id) {
+        BasicDBObject find = new BasicDBObject(User.ID, new ObjectId(id));
+        BasicDBObject set = new BasicDBObject("$set", new BasicDBObject(User.USER_ID, id));
+        COLLECTION.updateOne(find, set);
+    }
+
+    public static User login(String email, String password) throws ServerException {
         Bson findObj = new Document(User.EMAIL, email);
         Document doc = (Document) COLLECTION.find(findObj).first();
-        if (doc == null) { 
+        if (doc == null) {
             throw new ServerException(ResponseCode.EMAIL_NOTE_FOUND);
-        }
-        else {
+        } else {
             byte[] b = md.digest(password.getBytes());
             String pwd = Util.byteToString(b);
-            
+
             String userPwd = doc.getString(User.PASSWORD);
-            if (!userPwd.equals(pwd)){
+            if (!userPwd.equals(pwd)) {
                 throw new ServerException(ResponseCode.PASSWORD_NOT_MATCH);
             }
-            
+
             User user = User.fromDBObject(doc);
             return user;
         }
@@ -92,6 +101,18 @@ public class UserDAO {
         return user;
     }
 
+    public static List<User> getUserInfo(List<String> lstUID) {
+        List<User> lstUser = new ArrayList<>();
+        Bson findObj = Filters.in(User.USER_ID, lstUID);
+        Bson sortObj = new Document(User.USER_NAME, 1);
+        Iterable<Document> result = COLLECTION.find(findObj).sort(sortObj);
+        for (Document doc : result) {
+            User user = User.fromDBObject(doc);
+            lstUser.add(user);
+        }
+        return lstUser;
+    }
+
     public static List<User> searchUser(String keyword) {
         List<User> result = new ArrayList<>();
         Document email = new Document(User.EMAIL, new Document("$regex", keyword));
@@ -99,10 +120,11 @@ public class UserDAO {
         Bson query = Filters.or(email, userName);
         Document sort = new Document(User.USER_NAME, -1);
         FindIterable<Document> docs = COLLECTION.find(query).sort(sort);
-        for (Document doc : docs){
+        for (Document doc : docs) {
             User user = User.fromDBObject(doc);
             result.add(user);
         }
         return result;
     }
+
 }

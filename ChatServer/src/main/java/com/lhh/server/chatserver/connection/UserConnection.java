@@ -5,6 +5,8 @@
  */
 package com.lhh.server.chatserver.connection;
 
+import com.lhh.server.entity.impl.Message;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import javax.websocket.Session;
 
 /**
@@ -15,20 +17,14 @@ public class UserConnection {
 
     public String userId;
     public Session session;
-
-    public boolean authFlag;
-    public long expTime;
+    
+    public ConcurrentLinkedQueue<Message> inbox;
+    public ConcurrentLinkedQueue<Message> outbox;
 
     public UserConnection(String userId, Session session) {
         this.userId = userId;
         this.session = session;
-    }
-
-    public UserConnection(String userId, Session session, boolean authFlag, long expTime) {
-        this.userId = userId;
-        this.session = session;
-        this.authFlag = authFlag;
-        this.expTime = expTime;
-    }
-    
+        inbox = new ConcurrentLinkedQueue<>();
+        outbox = new ConcurrentLinkedQueue<>();
+    }    
 }

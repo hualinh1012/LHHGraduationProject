@@ -11,6 +11,7 @@ package com.lhh.util.constant;
  */
 public class Constant {
 
-    public static final long A_HOUR = 60 * 60 * 1000;
+    public static final long A_MINUTE = 60 * 1000;
+    public static final long A_HOUR = 60 * A_MINUTE;
     public static final long A_DAY = 24 * A_HOUR;
 }

@@ -34,8 +34,7 @@ public class RegisterAPI implements IApiAdapter{
             Integer gender = request.getIntegerParam(ParamKey.GENDER);
             String dateOfBirth = request.getStringParam(ParamKey.DATE_OF_BIRTH);
             String password = request.getStringParam(ParamKey.PASSWORD);
-            String originalPwd = request.getStringParam(ParamKey.ORIGINAL_PASSWORD);
-            User newUser = new User(userName, email, originalPwd, password, gender, dateOfBirth);
+            User newUser = new User(userName, email, password, password, gender, dateOfBirth);
             if (newUser.isValidUserInfo()){
                 User user = UserDAO.insertUser(newUser); 
                 Session session = new Session(user.userId);

@@ -3,8 +3,8 @@ import { BrowserRouter, Switch, Route, } from 'react-router-dom';
 
 import './styles/sourcesanspro-font.css';
 import './styles/layout.css';
+import LoginRegisterPage from './containers/LoginRegisterPage';
 import HomePage from './containers/HomePage';
-
 
 const supportsHistory = 'pushState' in window.history;
 
@@ -16,12 +16,10 @@ class Routers extends Component {
 				<div className="wrapper">
 
 					<Switch onUpdate={() => window.scrollTo(0, 0)}>
-						{/* Timeline */}
-						<Route exact path="/" component={HomePage} />
 
+						<Route exact path="/home" component={HomePage} />
 
-						{/* 404 page */}
-						{/*<Route path="*" component={NotFound} />*/}
+						<Route path="/" component={LoginRegisterPage} />
 					</Switch>
 					
 				</div>

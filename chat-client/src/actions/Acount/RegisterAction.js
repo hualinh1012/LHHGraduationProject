@@ -1,12 +1,15 @@
 import axios from 'axios';
 import { SERVER_API } from '../../constant';
-import { LOGIN } from '../../types';
+import { REGISTER } from '../../types';
 
-const login_action = (email, password) => {
-
+const register_action = (email, username, dob, gender, password) => {
+    console.log(password)
     const data = {
-        'api': 'login',
+        'api': 'register',
         'email': email,
+        'user_name': username,
+        'gender': gender,
+        'dob':dob,
         'pwd': password
     }
 
@@ -22,16 +25,16 @@ const login_action = (email, password) => {
         }
 
         return {
-            type: LOGIN,
+            type: REGISTER,
             payload: res.data
         };
     })
     .catch(err => {
         return {
-            type: LOGIN,
+            type: REGISTER,
             payload: {}
         };
     });
 }
 
-export { login_action };
+export { register_action };

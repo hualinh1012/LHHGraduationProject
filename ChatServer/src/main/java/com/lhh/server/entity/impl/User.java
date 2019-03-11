@@ -129,7 +129,7 @@ public class User implements IEntity {
         if (dob == null) {
             return true;
         }
-        if (dob.length() != 8) {
+        if (dob.length() != 10) {
             return false;
         }
         int age = Util.convertBirthdayToAge(dob);

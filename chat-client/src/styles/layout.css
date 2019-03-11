@@ -248,3 +248,12 @@ body {
 		-webkit-flex-direction: column;
 	}
 }
+
+.error-message {
+	margin-bottom: 35px;
+	margin-left: 10px;
+}
+
+.error-message span {
+	color: yellow;
+}

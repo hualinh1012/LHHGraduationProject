@@ -22,8 +22,9 @@ public class AddContactAPI implements IApiAdapter {
     public ServerResponse execute(ClientRequest request) {
         ServerResponse response = new ServerResponse();
         try {
+            String userId = request.getStringParam(ParamKey.USER_ID);
             String friendId = request.getStringParam(ParamKey.FRIEND_ID);
-            ContactDAO.add(friendId);
+            ContactDAO.add(userId, friendId);
             response.code = ResponseCode.SUCCESS;
         } catch (Exception e) {
             Util.addErrorLog(e);

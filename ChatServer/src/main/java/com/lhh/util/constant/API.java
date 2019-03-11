@@ -10,6 +10,6 @@ package com.lhh.util.constant;
  * @author Linh
  */
 public class API {
-    public static final String REGISTER = "reg";
+    public static final String REGISTER = "register";
     public static final String LOGIN = "login";
 }

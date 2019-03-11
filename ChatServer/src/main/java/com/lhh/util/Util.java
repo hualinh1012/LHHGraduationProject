@@ -11,6 +11,9 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.TimeZone;
 import javax.servlet.http.HttpServletRequest;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 /**
  *
@@ -67,7 +70,7 @@ public class Util {
         int age = 0;
         if (time != null) {
             age = 0;
-            Date bir = DateFormat.parse_yyyyMMdd(time);
+            Date bir = DateFormat.parse_yyyy_MM_dd(time);
             Date now = new Date();
             age = now.getYear() - bir.getYear();
             int nowMonth = now.getMonth();
@@ -100,5 +103,11 @@ public class Util {
         } catch (Exception ex) {
         }
         return result;
+    }
+
+    public static JSONObject fromJSONObject(String jsonString) throws ParseException {
+        JSONParser parser = new JSONParser();
+        JSONObject json = (JSONObject) parser.parse(jsonString);
+        return json;
     }
 }

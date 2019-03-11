@@ -9,12 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import javax.websocket.Session;
 
 /**
  *
  * @author Linh Hua
  */
-public class UCStorage {
+public class UserConnectionStorage {
     private static final ConcurrentHashMap<String, List<UserConnection>> CONNECTION_MAP = new ConcurrentHashMap<>();
     private static final ConcurrentLinkedQueue<UserConnection> CONNECTION_QUEUE = new ConcurrentLinkedQueue<>();
     
@@ -43,5 +44,14 @@ public class UCStorage {
     
     public static UserConnection poll(){
         return CONNECTION_QUEUE.poll();
+    }
+    
+    public static void remove(Session session){
+        for (UserConnection uc : CONNECTION_QUEUE){
+            if (session.equals(uc.session)){
+                CONNECTION_MAP.get(uc.userId).remove(uc);
+                CONNECTION_QUEUE.remove(uc);
+            }
+        }
     }
 }
