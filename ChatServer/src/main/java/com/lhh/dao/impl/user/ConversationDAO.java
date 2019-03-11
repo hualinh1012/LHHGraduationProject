@@ -14,9 +14,6 @@ import com.mongodb.client.MongoCursor;
 import java.util.ArrayList;
 import java.util.List;
 import org.bson.Document;
-import org.bson.types.ObjectId;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 
 /**
  *

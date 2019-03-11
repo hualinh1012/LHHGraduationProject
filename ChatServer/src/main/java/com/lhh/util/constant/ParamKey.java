@@ -30,4 +30,5 @@ public class ParamKey {
     public static final String DATE_OF_BIRTH = "dob";
     public static final String AVATAR_ID = "avatar_id";
     public static final String FRIEND_ID = "friend_id";
+    public static final String SEARCH = "search";
 }

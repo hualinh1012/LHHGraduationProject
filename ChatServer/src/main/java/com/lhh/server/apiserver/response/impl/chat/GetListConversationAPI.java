@@ -21,7 +21,7 @@ import java.util.List;
  *
  * @author Linh
  */
-public class ListConversationAPI implements IApiAdapter {
+public class GetListConversationAPI implements IApiAdapter {
 
     @Override
     public ServerResponse execute(ClientRequest request) {

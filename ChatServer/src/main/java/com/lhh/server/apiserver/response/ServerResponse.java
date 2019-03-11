@@ -7,6 +7,7 @@ package com.lhh.server.apiserver.response;
 
 import com.lhh.util.constant.ResponseCode;
 import com.lhh.util.constant.ParamKey;
+import com.lhh.util.constant.ResponseMessage;
 import org.json.simple.JSONObject;
 
 /**
@@ -15,7 +16,6 @@ import org.json.simple.JSONObject;
  */
 public class ServerResponse {
     public int code;
-    public String message;
 
     public ServerResponse(int code) {
         this.code = code;
@@ -28,6 +28,7 @@ public class ServerResponse {
     public JSONObject toJsonObject(){
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(ParamKey.ERROR_CODE, code);
+        jsonObject.put(ParamKey.ERROR_MESSAGE, ResponseMessage.getMessage(code));
         return jsonObject;
     }
 

@@ -11,9 +11,14 @@ import com.lhh.util.DateFormat;
 import com.lhh.util.ServerException;
 import com.lhh.util.Util;
 import com.lhh.util.constant.ResponseCode;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.model.Filters;
 import java.security.MessageDigest;
+import java.util.ArrayList;
+import java.util.List;
 import org.bson.Document;
+import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 
 /**
@@ -41,7 +46,6 @@ public class UserDAO {
         if (result != null) { // found email --> error
             throw new ServerException(ResponseCode.EMAIL_REGISTED);
         } else { //not found --> register
-            String dbPass = inputUser.password;
             byte[] b = md.digest(inputUser.password.getBytes());
             String uPass = Util.byteToString(b);
             inputUser.password = uPass;
@@ -62,7 +66,7 @@ public class UserDAO {
     }
 
     public static User login(String email, String password) throws ServerException{
-        Document findObj = new Document(User.EMAIL, email);
+        Bson findObj = new Document(User.EMAIL, email);
         Document doc = (Document) COLLECTION.find(findObj).first();
         if (doc == null) { 
             throw new ServerException(ResponseCode.EMAIL_NOTE_FOUND);
@@ -82,9 +86,23 @@ public class UserDAO {
     }
 
     public static User getUserInfo(String friendId) {
-        Document findObj = new Document(User.ID, new ObjectId(friendId));
+        Bson findObj = new Document(User.ID, new ObjectId(friendId));
         Document doc = (Document) COLLECTION.find(findObj).first();
         User user = User.fromDBObject(doc);
         return user;
+    }
+
+    public static List<User> searchUser(String keyword) {
+        List<User> result = new ArrayList<>();
+        Document email = new Document(User.EMAIL, new Document("$regex", keyword));
+        Document userName = new Document(User.USER_NAME, new Document("$regex", keyword));
+        Bson query = Filters.or(email, userName);
+        Document sort = new Document(User.USER_NAME, -1);
+        FindIterable<Document> docs = COLLECTION.find(query).sort(sort);
+        for (Document doc : docs){
+            User user = User.fromDBObject(doc);
+            result.add(user);
+        }
+        return result;
     }
 }
