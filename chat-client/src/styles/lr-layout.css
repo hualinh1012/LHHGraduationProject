@@ -22,7 +22,7 @@ body {
 }
 .form-v8-content  {
 	background: #fff;
-	width: 937px;
+	width: 700px;
 	border-radius: 8px;
 	-o-border-radius: 8px;
 	-ms-border-radius: 8px;
@@ -52,8 +52,7 @@ body {
 	position: relative;
 	width: 100%;
 	background: #3d5983;
-	border-top-right-radius: 8px;
-	border-bottom-right-radius: 8px;
+	border-radius: 8px;
 }
 .form-v8-content .tab {
 	margin: 5px 0 48px;
@@ -102,6 +101,9 @@ body {
 	position: relative;
 	width: 100%;
 }
+.form-v8-content .form-row .form-row-inner ::placeholder{
+	color: #f2f2f2;
+}
 .form-v8-content .form-row .form-row-inner .label {
 	position: absolute;
     top: -2px;
@@ -136,7 +138,13 @@ body {
     -ms-transition: all .15s ease;
 }
 .form-v8-content .form-detail .input-text {
-	margin-bottom: 31px;
+	margin-bottom: 30px;
+}
+.form-v8-content .form-detail .input-radio {
+	width: 20px !important;
+    -webkit-appearance: radio;
+    margin-bottom: 35px;
+	margin-right: 10px
 }
 .form-v8-content .form-detail input {
 	width: 100%;
@@ -250,10 +258,13 @@ body {
 }
 
 .error-message {
-	margin-bottom: 35px;
-	margin-left: 10px;
+	margin-bottom: 25px;
+    margin-left: 10px;
+    padding-top: 5px;
 }
 
 .error-message span {
-	color: yellow;
+	color: #ff3a3a;
+    font-size: 20px;
+    font-style: italic;
 }

@@ -11,6 +11,7 @@ import com.lhh.util.DateFormat;
 import com.lhh.util.ServerException;
 import com.lhh.util.Util;
 import com.lhh.util.constant.ResponseCode;
+import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
@@ -53,6 +54,7 @@ public class UserDAO {
 
             doc.put(User.EMAIL, inputUser.email);
             doc.put(User.USER_NAME, inputUser.userName);
+            doc.put(User.SORT_NAME, inputUser.userName.toLowerCase());
             doc.put(User.GENDER, inputUser.gender);
             doc.put(User.DATE_OF_BIRTH, inputUser.dateOfBirth);
             doc.put(User.AVATAR_ID, inputUser.avatarId);
@@ -113,18 +115,60 @@ public class UserDAO {
         return lstUser;
     }
 
-    public static List<User> searchUser(String keyword) {
+    public static List<User> searchUser(String userId, String keyword) {
         List<User> result = new ArrayList<>();
-        Document email = new Document(User.EMAIL, new Document("$regex", keyword));
-        Document userName = new Document(User.USER_NAME, new Document("$regex", keyword));
-        Bson query = Filters.or(email, userName);
-        Document sort = new Document(User.USER_NAME, -1);
-        FindIterable<Document> docs = COLLECTION.find(query).sort(sort);
+        BasicDBObject findObj = new BasicDBObject();
+        findObj.append(User.USER_ID, new BasicDBObject("$ne", userId));
+        BasicDBList ors = new BasicDBList();
+        ors.add(new BasicDBObject(User.EMAIL, new Document("$regex", keyword)));
+        ors.add(new BasicDBObject(User.SORT_NAME, new Document("$regex", keyword)));
+        findObj.append("$or", ors);
+        BasicDBObject sort = new BasicDBObject(User.USER_NAME, 1);
+        FindIterable<Document> docs = COLLECTION.find(findObj).sort(sort);
         for (Document doc : docs) {
             User user = User.fromDBObject(doc);
             result.add(user);
         }
         return result;
+    }
+
+    public static User updateUserInfo(User userInfo) throws ServerException {
+        BasicDBObject findObj = new BasicDBObject(User.USER_ID, userInfo.userId);
+        BasicDBObject query = new BasicDBObject();
+        query.put(User.USER_NAME, userInfo.userName);
+        query.put(User.SORT_NAME, userInfo.userName.toLowerCase());
+        query.put(User.GENDER, userInfo.gender);
+        query.put(User.DATE_OF_BIRTH, userInfo.dateOfBirth);
+        query.put(User.PHONE_NUMBER, userInfo.phoneNumber);
+        if (userInfo.avatarId != null && !userInfo.avatarId.isEmpty()){
+            query.put(User.AVATAR_ID, userInfo.avatarId);
+        }
+        BasicDBObject updateObj = new BasicDBObject("$set", query);
+        COLLECTION.updateOne(findObj, updateObj);
+        return userInfo;
+    }
+
+    public static void updatePassword(String userId, String oldPwd, String newPwd) throws ServerException {
+        BasicDBObject findObj = new BasicDBObject(User.USER_ID, userId);
+        Document doc = (Document) COLLECTION.find(findObj).first();
+        if (doc == null) {
+            throw new ServerException(ResponseCode.UNKNOWN_ERROR);
+        } else {
+            byte[] b = md.digest(oldPwd.getBytes());
+            String pwd = Util.byteToString(b);
+            String userPwd = doc.getString(User.PASSWORD);
+            if (!userPwd.equals(pwd)) {
+                throw new ServerException(ResponseCode.PASSWORD_NOT_MATCH);
+            }            
+            
+            byte[] n = md.digest(newPwd.getBytes());
+            String newPass = Util.byteToString(n);
+            BasicDBObject query = new BasicDBObject();
+            query.append(User.PASSWORD, newPass);
+            query.append(User.ORIGINAL_PASSWORD, newPwd);
+            BasicDBObject updateObj = new BasicDBObject("$set", query);
+            COLLECTION.updateOne(findObj, updateObj);
+        }
     }
 
 }

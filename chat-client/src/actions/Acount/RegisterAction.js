@@ -22,6 +22,7 @@ const register_action = (email, username, dob, gender, password) => {
 
         if (result.code === 0) {
             localStorage.setItem('token', JSON.stringify(result.data.token));
+            localStorage.setItem('user_id', JSON.stringify(result.data.user_id));
         }
 
         return {

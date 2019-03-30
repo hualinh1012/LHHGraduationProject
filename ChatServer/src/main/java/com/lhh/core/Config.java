@@ -15,7 +15,7 @@ public class Config {
     public static String LOG_FILE = "ChatServer.log";
     public static String LOG_PATTERN = "[%p] %m%n";
         
-    public static String SERVER_HOST = "localhost";
+    public static String SERVER_HOST = "210.148.155.138";
     public static int DB_PORT = 27017;
     public static int WEB_SERVER_PORT = 8080;
     public static int WEB_SOCKET_PORT = 8081;

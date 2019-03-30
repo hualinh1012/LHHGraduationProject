@@ -29,6 +29,10 @@ public class ParamKey {
     public static final String GENDER = "gender";
     public static final String DATE_OF_BIRTH = "dob";
     public static final String AVATAR_ID = "avatar_id";
+    public static final String AVATAR = "avatar";
     public static final String FRIEND_ID = "friend_id";
     public static final String SEARCH = "search";
+    public static final String PHONE_NUMBER = "phone_number";
+    public static final String NEW_PASSWORD = "new_pwd";
+    public static final String OLD_PASSWORD = "old_pwd";
 }

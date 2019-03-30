@@ -7,13 +7,16 @@ package com.lhh.dao.impl.user;
 
 import com.lhh.dao.DBLoader;
 import com.lhh.server.entity.impl.Contact;
+import com.lhh.util.DateFormat;
 import com.lhh.util.Util;
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import org.bson.BsonArray;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
@@ -36,23 +39,23 @@ public class ContactDAO {
     }
 
     public static void add(String userId, String friendId) {
-        BasicDBObject findObj = new BasicDBObject(Contact.ID, new ObjectId(userId));
-        findObj.append(Contact.LIST_CONTACT, friendId);
-        Bson contact = (BasicDBObject) COLLECTION.find(findObj).first();
-        if (contact != null) {
-            BasicDBObject obj = new BasicDBObject(Contact.LIST_CONTACT, friendId);
-            BasicDBObject updateCommand = new BasicDBObject("$push", obj);
-            COLLECTION.updateOne(findObj, updateCommand);
+        Document document = new Document(Contact.USER_ID, userId);
+        document.append(Contact.USER_ID, userId);
+        document.append(Contact.FRIEND_ID, friendId);
+        Bson obj = (Bson) COLLECTION.find(document).first();
+        if (obj == null){
+            document.append(Contact.TIME, DateFormat.format(new Date()));
+            COLLECTION.insertOne(document);
         }
     }
 
     public static List<String> getListContact(String userId) {
         List<String> result = new ArrayList<>();
-        BasicDBObject findObj = new BasicDBObject(Contact.ID, new ObjectId(userId));
-        BasicDBObject contact = (BasicDBObject) COLLECTION.find(findObj).first();
-        BasicDBList lstContact = (BasicDBList) contact.get(Contact.LIST_CONTACT);
-        for (Object friendId : lstContact){
-            result.add(friendId.toString());
+        BasicDBObject findObj = new BasicDBObject(Contact.USER_ID, userId);
+        FindIterable<Document> docs = COLLECTION.find(findObj);
+        for (Document doc : docs) {
+            String friendId = doc.getString(Contact.FRIEND_ID);
+            result.add(friendId);
         }
         return result;
     }

@@ -27,6 +27,9 @@ public class User implements IEntity {
     public static final String USER_NAME = "user_name";
     public String userName;
 
+    public static final String SORT_NAME = "sort_name";
+    public String sortName;
+
     public static final String EMAIL = "email";
     public String email;
 
@@ -42,12 +45,15 @@ public class User implements IEntity {
     public static final String DATE_OF_BIRTH = "dob";
     public String dateOfBirth;
 
+    public static final String PHONE_NUMBER = "phone_number";
+    public String phoneNumber;
+
     public static final String AVATAR_ID = "avatar_id";
     public String avatarId;
 
     public static final String REGISTER_DATE = "register_date";
     public String registerDate;
-
+    
     public User() {
     }
 
@@ -58,6 +64,25 @@ public class User implements IEntity {
         this.password = password;
         this.gender = gender;
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public User(String userId, String userName, String email, String originalPassword, String password, Integer gender, String dateOfBirth) {
+        this.userId = userId;
+        this.userName = userName;
+        this.email = email;
+        this.originalPassword = originalPassword;
+        this.password = password;
+        this.gender = gender;
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public User(String userId, String userName, Integer gender, String dateOfBirth, String phoneNumber, String avatarId) {
+        this.userId = userId;
+        this.userName = userName;
+        this.gender = gender;
+        this.dateOfBirth = dateOfBirth;
+        this.phoneNumber = phoneNumber;
+        this.avatarId = avatarId;
     }
 
     @Override
@@ -87,15 +112,17 @@ public class User implements IEntity {
     public static User fromDBObject(Document doc) {
         User user = new User();
         user.userId = doc.getObjectId(ID).toString();
+        user.userName = doc.getString(USER_NAME);
         user.email = doc.getString(EMAIL);
         user.gender = doc.getInteger(GENDER);
         user.dateOfBirth = doc.getString(DATE_OF_BIRTH);
+        user.phoneNumber = doc.getString(PHONE_NUMBER);
         user.avatarId = doc.getString(AVATAR_ID);
         user.registerDate = doc.getString(REGISTER_DATE);
         return user;
     }
 
-    public boolean isValidUserInfo() throws ServerException {
+    public boolean validateRegister() throws ServerException {
         if (userName == null || userName.isEmpty()) {
             throw new ServerException(ResponseCode.WRONG_DATA_FORMAT);
         }
@@ -113,6 +140,23 @@ public class User implements IEntity {
         }
         return true;
     }
+
+    public boolean validateUpdateUser() throws ServerException {
+        if (userName == null || userName.isEmpty()) {
+            throw new ServerException(ResponseCode.WRONG_DATA_FORMAT);
+        }
+        if (gender < 0 || gender > 1) {
+            throw new ServerException(ResponseCode.WRONG_DATA_FORMAT);
+        }
+        if (userName.length() > 32) {
+            throw new ServerException(ResponseCode.INVALID_USER_NAME);
+        }
+        if (!validateBirthday(dateOfBirth)) {
+            throw new ServerException(ResponseCode.INVALID_DATE_OF_BIRTH);
+        }
+        return true;
+    }
+       
 
     private static final String EMAIL_REGEX = "^([0-9a-zA-Z!#$%&`*+-\\/=?^_'.{}|~]+@)((\\[(\\d{1,3}\\.){3}\\d{1,3}\\])|(([0-9a-zA-Z-]*[0-9a-zA-Z]\\.)+[a-zA-Z]{2,6}))$";
     private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);

@@ -6,42 +6,33 @@
 package com.lhh.server.apiserver.response.impl.account;
 
 import com.lhh.dao.impl.user.UserDAO;
-import com.lhh.server.entity.impl.User;
 import com.lhh.server.apiserver.request.ClientRequest;
 import com.lhh.server.apiserver.response.IApiAdapter;
 import com.lhh.server.apiserver.response.ServerResponse;
 import com.lhh.server.apiserver.response.common.EntityRespond;
 import com.lhh.server.entity.impl.LoginData;
+import com.lhh.server.entity.impl.User;
 import com.lhh.server.session.Session;
 import com.lhh.server.session.SessionManager;
 import com.lhh.util.ServerException;
 import com.lhh.util.Util;
-import com.lhh.util.constant.ResponseCode;
 import com.lhh.util.constant.ParamKey;
+import com.lhh.util.constant.ResponseCode;
 
 /**
  *
  * @author Linh
  */
-public class RegisterAPI implements IApiAdapter{
+public class ChangePasswordAPI implements IApiAdapter{
 
     @Override
     public ServerResponse execute(ClientRequest request) {
         EntityRespond response = new EntityRespond();
         try {
-            String userName = request.getStringParam(ParamKey.USER_NAME);
-            String email = request.getStringParam(ParamKey.EMAIL);
-            Integer gender = request.getIntegerParam(ParamKey.GENDER);
-            String dateOfBirth = request.getStringParam(ParamKey.DATE_OF_BIRTH);
-            String password = request.getStringParam(ParamKey.PASSWORD);
-            User newUser = new User(userName, email, password, password, gender, dateOfBirth);
-            if (newUser.validateRegister()){
-                User user = UserDAO.insertUser(newUser); 
-                Session session = new Session(user.userId);
-                SessionManager.add(session);
-                response.data = new LoginData(session.token);
-                response.code = ResponseCode.SUCCESS;
-            }
+            String userId = request.getStringParam(ParamKey.USER_ID);
+            String newPwd = request.getStringParam(ParamKey.NEW_PASSWORD);
+            String oldPwd = request.getStringParam(ParamKey.OLD_PASSWORD);
+            UserDAO.updatePassword(userId, oldPwd, newPwd);
         }
         catch (ServerException ex){
             response.code = ex.getErrorCode();

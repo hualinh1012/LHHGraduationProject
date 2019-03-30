@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route, } from 'react-router-dom';
 
 import './styles/sourcesanspro-font.css';
-import './styles/layout.css';
+import './styles/main-layout.css';
+import './styles/lr-layout.css';
+
 import LoginRegisterPage from './containers/LoginRegisterPage';
 import HomePage from './containers/HomePage';
 

@@ -5,15 +5,18 @@
  */
 package com.lhh.server.apiserver.response.impl.activities;
 
+import com.lhh.dao.impl.user.ContactDAO;
 import com.lhh.dao.impl.user.UserDAO;
 import com.lhh.server.apiserver.request.ClientRequest;
 import com.lhh.server.apiserver.response.IApiAdapter;
 import com.lhh.server.apiserver.response.ServerResponse;
 import com.lhh.server.apiserver.response.common.ListEntityRespond;
+import com.lhh.server.entity.impl.Contact;
 import com.lhh.server.entity.impl.User;
 import com.lhh.util.Util;
 import com.lhh.util.constant.ParamKey;
 import com.lhh.util.constant.ResponseCode;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,9 +29,21 @@ public class SearchContactAPI implements IApiAdapter {
     public ServerResponse execute(ClientRequest request) {
         ListEntityRespond response = new ListEntityRespond();
         try {
+            String userId = request.getStringParam(ParamKey.USER_ID);
             String search = request.getStringParam(ParamKey.SEARCH);
-            List<User> lstUser = UserDAO.searchUser(search);
-            response.data = lstUser;
+            List<User> lstUser = UserDAO.searchUser(userId, search);
+            List<String> lstContact = ContactDAO.getListContact(userId);
+            List<Contact> result = new ArrayList<>();
+            lstUser.forEach((user) -> {
+                Contact contact = new Contact();
+                contact.friendId = user.userId;
+                contact.friendName = user.userName;
+                contact.friendAva = user.avatarId;
+                contact.status = 1;
+                contact.isAdded = lstContact.contains(user.userId);
+                result.add(contact);
+            });
+            response.data = result;
             response.code = ResponseCode.SUCCESS;
         } catch (Exception e) {
             Util.addErrorLog(e);

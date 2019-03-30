@@ -29,50 +29,49 @@ class Login extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-		if (nextProps.user_login.data) {
-			switch (nextProps.user_login.data.code) {
-				case 0:
-					this.setState({ is_login: true });
-					break;
+        if (nextProps.user_login.data) {
+            switch (nextProps.user_login.data.code) {
+                case 0:
+                    this.setState({ is_login: true });
+                    break;
 
-				case 1:
-					this.setState({
-						errorMessage: 'Lỗi không xác định'
-					});
-					break;
+                case 1:
+                    this.setState({
+                        errorMessage: 'Lỗi không xác định'
+                    });
+                    break;
 
-				default:
-					this.setState({
-						disabled_btn_login: false,
-						message_error: 'Không thể kết nối tới máy chủ!'
-					});
-					break;
-			}
-		}
-	}
+                default:
+                    this.setState({
+                        disabled_btn_login: false,
+                        message_error: 'Không thể kết nối tới máy chủ!'
+                    });
+                    break;
+            }
+        }
+    }
 
     render() {
         const { is_login } = this.state;
-		if (is_login) {
-			// redirect_page(BASE_URL);
-			return (<Redirect to='/home' />);
+        if (is_login) {
+            return (<Redirect to='/home' />);
         }
         return (
             <form className="form-detail" onSubmit={this.handleLogin} method="post" autoComplete="on">
-                <div className="error-message"><span>{this.state.errorMessage}</span></div>
                 <div className="tabcontent" id="sign-in">
+                    <div className="error-message"><span>{this.state.errorMessage}</span></div>
                     <div className="form-row">
                         <label className="form-row-inner">
-                            <input type="text" name="l_email" className="input-text" required />
-                            <span className="label">E-mail</span>
-                            <span className="border"></span>
+                            <input type="text" name="l_email" className="input-text" required placeholder="E-mail" />
+                            {/* <span className="label">E-mail</span>
+                            <span className="border"></span> */}
                         </label>
                     </div>
                     <div className="form-row">
                         <label className="form-row-inner">
-                            <input type="password" name="l_password" className="input-text" required />
-                            <span className="label">Mật khẩu</span>
-                            <span className="border"></span>
+                            <input type="password" name="l_password" className="input-text" required placeholder="Mật khẩu" />
+                            {/* <span className="label">Mật khẩu</span>
+                            <span className="border"></span> */}
                         </label>
                     </div>
                     <div className="form-row-last">

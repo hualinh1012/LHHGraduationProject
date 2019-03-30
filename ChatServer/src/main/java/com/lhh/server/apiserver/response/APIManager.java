@@ -5,8 +5,8 @@
  */
 package com.lhh.server.apiserver.response;
 
-import com.lhh.server.apiserver.response.impl.account.LoginAPI;
-import com.lhh.server.apiserver.response.impl.account.RegisterAPI;
+import com.lhh.server.apiserver.response.impl.account.*;
+import com.lhh.server.apiserver.response.impl.activities.*;
 import com.lhh.util.constant.API;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +25,13 @@ public class APIManager {
     static {        
         m.put(API.REGISTER, new RegisterAPI());
         m.put(API.LOGIN, new LoginAPI());
+        m.put(API.GET_USER_INFO, new GetUserInfoAPI());
+        m.put(API.UPDATE_USER_INFO, new UpdateUserInfoAPI());
+        m.put(API.CHANGE_PASSWORD, new ChangePasswordAPI());
+        
+        m.put(API.SEARCH_CONTACT, new SearchContactAPI());
+        m.put(API.GET_LIST_CONTACT, new GetListContact());
+        m.put(API.ADD_CONTACT, new AddContactAPI());
     }
     
     //init list non-token api

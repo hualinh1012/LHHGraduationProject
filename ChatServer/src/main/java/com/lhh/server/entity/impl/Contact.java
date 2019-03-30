@@ -13,12 +13,14 @@ import org.json.simple.JSONObject;
  * @author Linh
  */
 public class Contact implements IEntity {
-    public static final String ID = "_id";
+    
     public static final String USER_ID = "user_id";
-    public static final String LIST_CONTACT = "lst_contact";
     
     public static final String FRIEND_ID = "friend_id";
     public String friendId;
+    
+    public static final String TIME = "time";
+    public String time;
     
     public static final String FRIEND_NAME = "friend_name";
     public String friendName;
@@ -28,6 +30,9 @@ public class Contact implements IEntity {
     
     public static final String STATUS = "status";
     public Integer status;
+    
+    public static final String IS_ADDED = "is_added";
+    public Boolean isAdded;
 
     public Contact() {
     }
@@ -50,6 +55,9 @@ public class Contact implements IEntity {
         }
         if (status != null){
             jo.put(STATUS, status);
+        }
+        if (isAdded != null){
+            jo.put(IS_ADDED, isAdded);
         }
         return jo;
     }

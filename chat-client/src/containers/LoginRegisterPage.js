@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import Login from '../components/LoginRegister/Login';
-import Register from '../components/LoginRegister/Login';
+import Register from '../components/LoginRegister/Register';
 import { isLogin } from '../utils';
 
 class LoginRegisterPage extends Component {
@@ -49,16 +49,16 @@ class LoginRegisterPage extends Component {
             <div>
                 <div className="page-content">
                     <div className="form-v8-content">
-                        <div className="form-left">
+                        {/* <div className="form-left">
                             <img src="/banner.jpg" alt="form" />
-                        </div>
+                        </div> */}
                         <div className="form-right">
                             <div className="tab">
                                 <div className="tab-inner">
-                                    <button className="tablinks" onClick={(event) => this.changeTab(event, 'sign-in')} id="defaultOpen">Sign In</button>
+                                    <button className="tablinks" onClick={(event) => this.changeTab(event, 'sign-in')} id="defaultOpen">Đăng nhập</button>
                                 </div>
                                 <div className="tab-inner">
-                                    <button className="tablinks" onClick={(event) => this.changeTab(event, 'sign-up')}>Sign Up</button>
+                                    <button className="tablinks" onClick={(event) => this.changeTab(event, 'sign-up')}>Đăng ký</button>
                                 </div>
                             </div>
                             <Login />
