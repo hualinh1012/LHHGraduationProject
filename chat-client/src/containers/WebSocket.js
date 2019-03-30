@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SERVER_SOCKET from '../constant';
+import { SERVER_SOCKET } from '../constant';
 import { isLogin } from '../utils';
 
 let ws_local = false;
@@ -19,9 +19,9 @@ class WebSocket extends Component {
         try {
             const { ready_state } = this.state
             if (isLogin()) {
-
+                console.log("conectttt")
                 const ws = new WebSocket(SERVER_SOCKET);
-
+                console.log("done")
                 if (ready_state !== 1)
                     ws.onopen = () => {
                         // console.log("Its connected");
@@ -33,6 +33,25 @@ class WebSocket extends Component {
                         // console.log('CLIENT SEND AUTH = ', JSON.stringify(messages));
                         ws.send(JSON.stringify(messages)); // send a message
                     };
+
+                ws.onmessage = e => {
+                    try {
+                        const result_socket = JSON.parse(e.data);
+                        /**
+                         * AUTH
+                         */
+                        if (result_socket.msg_type === "AUTH") {
+                            if (result_socket.value === "success") {
+                                this.setState({
+                                    ready_state: 1
+                                })
+                                ws_local = ws;
+                            }
+                        }
+                    } catch (error) {
+                        console.warn("Error socket connect!!");
+                    }
+                };
             }
         } catch (error) {
             console.warn("Error socket connect = ", error);

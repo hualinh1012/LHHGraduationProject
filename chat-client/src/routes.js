@@ -7,6 +7,7 @@ import './styles/lr-layout.css';
 
 import LoginRegisterPage from './containers/LoginRegisterPage';
 import HomePage from './containers/HomePage';
+import WebSocket from './containers/WebSocket';
 
 const supportsHistory = 'pushState' in window.history;
 
@@ -24,8 +25,10 @@ class Routers extends Component {
 						<Route path="/" component={LoginRegisterPage} />
 					</Switch>
 					
+					<WebSocket/>
 				</div>
 			</BrowserRouter>
+
 		);
 	}
 }
