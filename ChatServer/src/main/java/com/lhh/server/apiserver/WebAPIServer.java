@@ -25,7 +25,7 @@ public class WebAPIServer implements Runnable {
     @Override
     public void run() {
         try {
-            Server server = new Server(Config.WEB_SERVER_PORT);
+            Server server = new Server(Config.API_SERVER_PORT);
             server.setHandler(new ServerHandler());
             server.start();
             server.join();
