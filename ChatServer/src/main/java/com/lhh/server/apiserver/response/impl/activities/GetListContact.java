@@ -40,6 +40,7 @@ public class GetListContact implements IApiAdapter {
                 contact.friendName = user.userName;
                 contact.friendAva = null;
                 contact.status = 1;
+                contact.isAdded = true;
                 lstContact.add(contact);
             }
             response.data = lstContact;

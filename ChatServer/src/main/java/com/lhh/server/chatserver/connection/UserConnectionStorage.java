@@ -42,16 +42,23 @@ public class UserConnectionStorage {
         CONNECTION_QUEUE.add(uc);
     }
     
+    public static void putConnection(UserConnection uc){
+        if (uc == null || uc.userId == null){
+            return;
+        }
+        CONNECTION_QUEUE.add(uc);
+    }
+    
     public static UserConnection poll(){
         return CONNECTION_QUEUE.poll();
     }
     
     public static void remove(Session session){
-        for (UserConnection uc : CONNECTION_QUEUE){
-            if (session.equals(uc.session)){
-                CONNECTION_MAP.get(uc.userId).remove(uc);
-                CONNECTION_QUEUE.remove(uc);
-            }
-        }
+        CONNECTION_QUEUE.stream().filter((uc) -> (session.equals(uc.session))).map((uc) -> {
+            CONNECTION_MAP.get(uc.userId).remove(uc);
+            return uc;
+        }).forEachOrdered((uc) -> {
+            CONNECTION_QUEUE.remove(uc);
+        });
     }
 }

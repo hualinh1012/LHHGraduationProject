@@ -5,8 +5,9 @@ import { get_user_info_action } from './Acount/GetUserInfoAction';
 import { update_user_info_action } from './Acount/UpdateUserInfoAction';
 import { change_password_action } from './Acount/ChangePasswordAction';
 import { search_contact_action } from './Communication/SearchContact';
-import { add_contact_acton } from './Communication/AddContact';
+import { add_contact_action } from './Communication/AddContact';
 import { get_list_contact_action } from './Communication/GetListContact';
+import { start_conversation_action } from './Communication/StartConversation';
 
 export {
     clear_data,
@@ -16,6 +17,7 @@ export {
     update_user_info_action,
     change_password_action,
     search_contact_action,
-    add_contact_acton,
-    get_list_contact_action
+    add_contact_action,
+    get_list_contact_action,
+    start_conversation_action
 }

@@ -7,6 +7,7 @@ package com.lhh.server.entity.impl;
 
 import com.lhh.server.entity.IEntity;
 import java.util.List;
+import org.bson.Document;
 import org.json.simple.JSONObject;
 
 /**
@@ -37,18 +38,49 @@ public class Conversation implements IEntity {
     public static final String TIME = "time";
     public String time;
 
+    public static final String USER_ID = "user_id";
+    
     public static final String USER_LIST = "lst_user";
     public List<String> lstUser;
+    
+    public static final String IS_EXISTED = "is_existed";
+    public Boolean isExisted;
 
     @Override
     public JSONObject toJsonObject() {
         JSONObject jo = new JSONObject();
-        jo.put(CONVERSATION_ID, conversationId);
-        jo.put(CONVERSATION_NAME, conversationName);
-        jo.put(AVATAR_ID, avatarId);
-        jo.put(AVATAR_URL, avatarUrl);
-        jo.put(LAST_MESSAGE, lastMessage);
-        jo.put(TIME, time);
+        if (conversationId != null) {
+            jo.put(CONVERSATION_ID, conversationId);
+        }
+        if (conversationName != null) {
+            jo.put(CONVERSATION_NAME, conversationName);
+        }
+        if (avatarId != null) {
+            jo.put(AVATAR_ID, avatarId);
+        }
+        if (avatarUrl != null) {
+            jo.put(AVATAR_URL, avatarUrl);
+        }
+        if (lastMessage != null) {
+            jo.put(LAST_MESSAGE, lastMessage);
+        }
+        if (time != null) {
+            jo.put(TIME, time);
+        }
+        if (isExisted != null) {
+            jo.put(IS_EXISTED, isExisted);
+        }
         return jo;
+    }
+
+    public static Conversation fromDBObject(Document obj) {
+        Conversation conversation = new Conversation();
+        conversation.conversationId = obj.get(Conversation.ID).toString();
+        conversation.conversationName = (String) obj.get(Conversation.CONVERSATION_NAME);
+        conversation.conversationType = (Integer) obj.get(Conversation.CONVERSATION_TYPE);
+        conversation.avatarId = (String) obj.get(Conversation.AVATAR_ID);
+        conversation.lastMessage = (String) obj.get(Conversation.LAST_MESSAGE);
+        conversation.time = (String) obj.get(Conversation.TIME);
+        return conversation;
     }
 }

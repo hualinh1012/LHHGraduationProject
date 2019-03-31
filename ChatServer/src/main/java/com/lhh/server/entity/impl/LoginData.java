@@ -15,15 +15,20 @@ import org.json.simple.JSONObject;
 public class LoginData implements IEntity {
     public static final String TOKEN = "token";
     public String token;
+    
+    public static final String USER_ID = "user_id";
+    public String userId;
 
-    public LoginData(String token) {
+    public LoginData(String token, String userId) {
         this.token = token;
+        this.userId = userId;
     }
 
     @Override
     public JSONObject toJsonObject() {
         JSONObject jo = new JSONObject();
         jo.put(TOKEN, token);
+        jo.put(USER_ID, userId);
         return jo;
     }
     

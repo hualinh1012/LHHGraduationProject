@@ -10,14 +10,20 @@ package com.lhh.core;
  * @author Linh
  */
 public class Config {
-    
+
     public static String LOG_LEVEL = "DEBUG";
     public static String LOG_FILE = "ChatServer.log";
     public static String LOG_PATTERN = "[%p] %m%n";
-        
-    public static String SERVER_HOST = "210.148.155.138";
-    public static int DB_PORT = 27017;
-    public static int WEB_SERVER_PORT = 8080;
+
+    public static String API_SERVER_HOST = "localhost";
+    public static int API_SERVER_PORT = 8080;
+
+    public static String WEBSOCKET_SERVER_HOST = "localhost";
     public static int WEB_SOCKET_PORT = 8081;
-    
+
+    public static String DB_SERVER_HOST = "210.148.155.138";
+    public static int DB_PORT = 27017;
+
+    public static int WEB_SOCKET_OUTPUT_WORKER = 5;
+
 }

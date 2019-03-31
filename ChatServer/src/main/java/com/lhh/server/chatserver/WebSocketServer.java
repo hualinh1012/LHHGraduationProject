@@ -7,29 +7,23 @@ package com.lhh.server.chatserver;
 
 import com.lhh.core.Config;
 import com.lhh.server.chatserver.messageio.MessageInput;
-import com.lhh.util.Util;
-import javax.websocket.DeploymentException;
-import org.glassfish.tyrus.server.Server;
+import com.lhh.server.chatserver.messageio.MessageOutput;
 
 /**
  *
  * @author Linh
  */
-public class WebSocketServer implements Runnable {
+public class WebSocketServer {
 
     public static void startServer() {
-        WebSocketServer server = new WebSocketServer();
-        Thread t = new Thread(server);
-        t.start();
-    }
+        MessageInput input = new MessageInput();
+        Thread in = new Thread(input);
+        in.start();
 
-    @Override
-    public void run() {
-        try {
-            Server webSocketServer = new Server(Config.SERVER_HOST, Config.WEB_SOCKET_PORT, "/ws", null, MessageInput.class);
-            webSocketServer.start();
-        } catch (DeploymentException e) {
-            Util.addErrorLog(e);
+        for (int i = 0; i < Config.WEB_SOCKET_OUTPUT_WORKER; i++) {
+            MessageOutput output = new MessageOutput();
+            Thread out = new Thread(output);
+            out.start();
         }
     }
 

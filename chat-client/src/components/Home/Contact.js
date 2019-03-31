@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { add_contact_acton } from '../../actions';
+import { add_contact_action, start_conversation_action } from '../../actions';
 
 class Contact extends Component {
     constructor(props) {
@@ -14,13 +14,17 @@ class Contact extends Component {
         this.props.add_contact_acton(friendId);
     }
 
+    start_conversation = (friendId) => {
+        this.props.start_conversation_action(friendId);
+    }
+
     render() {
         const data = this.props.data
         return (
             <ul>
                 {data.map((item) => {
                     return (
-                        <li className="contact" key={item.friend_id}>
+                        <li className="contact" key={item.friend_id} onDoubleClick={() => this.start_conversation(item.friend_id)}>
                             <div className="wrap">
                             {/* <span className="contact-status online"></span> */}
                                 <img src={item.friend_ava ? item.friend_ava : '/default_ava.png'} alt="" />
@@ -44,4 +48,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, { add_contact_acton })(Contact);
+export default connect(mapStateToProps, { add_contact_action, start_conversation_action })(Contact);

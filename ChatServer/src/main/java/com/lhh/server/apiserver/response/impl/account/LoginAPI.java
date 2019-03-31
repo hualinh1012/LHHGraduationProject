@@ -35,7 +35,7 @@ public class LoginAPI implements IApiAdapter {
                 User user = UserDAO.login(email, password);                
                 Session session = new Session(user.userId);
                 SessionManager.add(session);
-                response.data = new LoginData(session.token);
+                response.data = new LoginData(session.token, user.userId);
                 response.code = ResponseCode.SUCCESS;
             }
         } catch (ServerException ex) {

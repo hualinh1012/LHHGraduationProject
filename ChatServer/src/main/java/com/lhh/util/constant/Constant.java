@@ -14,4 +14,9 @@ public class Constant {
     public static final long A_MINUTE = 60 * 1000;
     public static final long A_HOUR = 60 * A_MINUTE;
     public static final long A_DAY = 24 * A_HOUR;
+    
+    public static class ConversationType {
+        public static final int PRIVATE = 0;
+        public static final int GROUP = 0;
+    }
 }

@@ -39,7 +39,7 @@ public class RegisterAPI implements IApiAdapter{
                 User user = UserDAO.insertUser(newUser); 
                 Session session = new Session(user.userId);
                 SessionManager.add(session);
-                response.data = new LoginData(session.token);
+                response.data = new LoginData(session.token, user.userId);
                 response.code = ResponseCode.SUCCESS;
             }
         }

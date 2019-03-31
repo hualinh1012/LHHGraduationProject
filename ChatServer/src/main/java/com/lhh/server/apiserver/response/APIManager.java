@@ -7,6 +7,7 @@ package com.lhh.server.apiserver.response;
 
 import com.lhh.server.apiserver.response.impl.account.*;
 import com.lhh.server.apiserver.response.impl.activities.*;
+import com.lhh.server.apiserver.response.impl.chat.*;
 import com.lhh.util.constant.API;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,8 @@ public class APIManager {
         m.put(API.SEARCH_CONTACT, new SearchContactAPI());
         m.put(API.GET_LIST_CONTACT, new GetListContact());
         m.put(API.ADD_CONTACT, new AddContactAPI());
+        
+        m.put(API.START_CONVERSATION, new StartConversationAPI());
     }
     
     //init list non-token api

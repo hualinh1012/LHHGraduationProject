@@ -1,12 +1,12 @@
 import axios from 'axios';
 import { SERVER_API } from '../../constant';
-import { ADD_CONTACT } from '../../types';
+import { START_CONVERSATION } from '../../types';
 
-const add_contact_action = (friendId) => {
+const start_conversation_action = (friendId) => {
     var token = localStorage.getItem('token');
 
     const data = {
-        'api': 'add_contact',
+        'api': 'start_conversation',
         'token': JSON.parse(token),
         'friend_id': friendId
     }
@@ -18,16 +18,16 @@ const add_contact_action = (friendId) => {
     }).then(res => {
         
         return {
-            type: ADD_CONTACT,
+            type: START_CONVERSATION,
             payload: res.data
         };
     })
     .catch(err => {
         return {
-            type: ADD_CONTACT,
+            type: START_CONVERSATION,
             payload: {}
         };
     });
 }
 
-export { add_contact_action };
+export { start_conversation_action };

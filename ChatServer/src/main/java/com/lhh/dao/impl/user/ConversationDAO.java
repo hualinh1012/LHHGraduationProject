@@ -7,7 +7,12 @@ package com.lhh.dao.impl.user;
 
 import com.lhh.dao.DBLoader;
 import com.lhh.server.entity.impl.Conversation;
+import com.lhh.util.DateFormat;
 import com.lhh.util.Util;
+import com.lhh.util.constant.Constant;
+import com.mongodb.BasicDBList;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
@@ -40,16 +45,48 @@ public class ConversationDAO {
         result.skip(skip).limit(take);
         MongoCursor cursor = result.iterator();
         while (cursor.hasNext()){
-            Document doc = (Document) cursor.next();
-            Conversation conversation = new Conversation();
-            conversation.conversationId = doc.getObjectId(Conversation.ID).toString();
-            conversation.conversationName = doc.getString(Conversation.CONVERSATION_NAME);
-            conversation.conversationType = doc.getInteger(Conversation.CONVERSATION_TYPE);
-            conversation.avatarId = doc.getString(Conversation.AVATAR_ID);
-            conversation.lastMessage = doc.getString(Conversation.LAST_MESSAGE);
-            conversation.time = doc.getString(Conversation.TIME);
-            lstConversation.add(conversation);
+//            DBObject doc = (DBObject) cursor.next();
+//            Conversation conversation = Conversation.fromDBObject(doc);
+//            lstConversation.add(conversation);
         }
         return lstConversation;
+    }
+
+    public static boolean isConversationExist(String userId, String friendId) {
+        BasicDBObject findObj = new BasicDBObject();
+        BasicDBList ands = new BasicDBList();
+        ands.add(new BasicDBObject(Conversation.USER_LIST, new BasicDBObject("$elemMatch", new BasicDBObject(Conversation.USER_ID, userId))));
+        ands.add(new BasicDBObject(Conversation.USER_LIST, new BasicDBObject("$elemMatch", new BasicDBObject(Conversation.USER_ID, friendId))));
+        findObj.append("$and", ands);
+        findObj.append(Conversation.CONVERSATION_TYPE, Constant.ConversationType.PRIVATE);
+        Util.addDebugLog("---> "+findObj);
+        Document obj = (Document) COLLECTION.find(findObj).first();
+        return obj != null;
+    }
+
+    public static Conversation createConversation(String userId, String friendId) {
+        Document insObj = new Document();
+        BasicDBList lstUser = new BasicDBList();
+        lstUser.add(new BasicDBObject(Conversation.USER_ID, userId));
+        lstUser.add(new BasicDBObject(Conversation.USER_ID, friendId));
+        insObj.append(Conversation.USER_LIST, lstUser);
+        insObj.append(Conversation.CONVERSATION_TYPE, Constant.ConversationType.PRIVATE);
+        insObj.append(Conversation.TIME, DateFormat.format(Util.currentTime()));
+        COLLECTION.insertOne(insObj);
+        Conversation conversation = Conversation.fromDBObject(insObj);
+        return conversation;
+    }
+
+    public static Conversation getConversation(String userId, String friendId) {
+        BasicDBObject findObj = new BasicDBObject();
+        BasicDBList ands = new BasicDBList();
+        ands.add(new BasicDBObject(Conversation.USER_LIST, new BasicDBObject("$elemMatch", new BasicDBObject(Conversation.USER_ID, userId))));
+        ands.add(new BasicDBObject(Conversation.USER_LIST, new BasicDBObject("$elemMatch", new BasicDBObject(Conversation.USER_ID, friendId))));
+        findObj.append("$and", ands);
+        findObj.append(Conversation.CONVERSATION_TYPE, Constant.ConversationType.PRIVATE);
+        Util.addDebugLog("---> "+findObj);
+        Document obj = (Document) COLLECTION.find(findObj).first();
+        Conversation conversation = Conversation.fromDBObject(obj);
+        return conversation;
     }
 }

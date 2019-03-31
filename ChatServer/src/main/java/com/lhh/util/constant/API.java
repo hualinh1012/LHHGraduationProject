@@ -19,4 +19,5 @@ public class API {
     public static final String ADD_CONTACT = "add_contact";
     public static final String GET_LIST_CONTACT = "get_list_contact";
     public static final String GET_LIST_CONVERSATION = "get_list_conversation";
+    public static final String START_CONVERSATION = "start_conversation";
 }
