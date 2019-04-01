@@ -9,9 +9,7 @@ import com.lhh.dao.DBLoader;
 import com.lhh.server.entity.impl.Contact;
 import com.lhh.util.DateFormat;
 import com.lhh.util.Util;
-import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
-import com.mongodb.DBObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import java.util.ArrayList;
@@ -19,7 +17,6 @@ import java.util.Date;
 import java.util.List;
 import org.bson.Document;
 import org.bson.conversions.Bson;
-import org.bson.types.ObjectId;
 
 /**
  *

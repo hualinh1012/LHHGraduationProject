@@ -30,12 +30,12 @@ import org.json.simple.parser.ParseException;
  * @author Administrator
  */
 @ServerEndpoint(value = "/chat")
-public class MessageInput implements Runnable {
+public class WebSocketEndPoint implements Runnable {
 
     @Override
     public void run() {
         try {
-            Server webSocketServer = new Server(Config.WEBSOCKET_SERVER_HOST, Config.WEB_SOCKET_PORT, "/ws", null, MessageInput.class);
+            Server webSocketServer = new Server(Config.WEBSOCKET_SERVER_HOST, Config.WEB_SOCKET_PORT, "/ws", null, WebSocketEndPoint.class);
             webSocketServer.start();
         } catch (DeploymentException e) {
             Util.addErrorLog(e);

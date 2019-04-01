@@ -43,7 +43,7 @@ public class Message implements IEntity {
         jo.put(TO, to);
         jo.put(TIME, time);
         jo.put(TYPE, type);
-        jo.put(VALUE, VALUE);
+        jo.put(VALUE, value);
         return jo;        
     }
     

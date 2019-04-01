@@ -5,17 +5,20 @@
  */
 package com.lhh.server.chatserver.messageio;
 
+import com.lhh.dao.impl.user.ConversationDAO;
 import com.lhh.server.chatserver.connection.UserConnection;
 import com.lhh.server.chatserver.connection.UserConnectionStorage;
+import com.lhh.server.chatserver.logger.MessageLogger;
 import com.lhh.server.entity.impl.Message;
 import com.lhh.util.DateFormat;
 import com.lhh.util.Util;
+import java.util.List;
 
 /**
  *
  * @author Linh Hua
  */
-public class MessageOutput implements Runnable {
+public class WebSocketWorker implements Runnable {
 
     @Override
     public void run() {
@@ -26,8 +29,7 @@ public class MessageOutput implements Runnable {
                     processInBox(uc);
                     processOutBox(uc);
                     UserConnectionStorage.putConnection(uc);
-                }
-                else {
+                } else {
                     sleep();
                 }
             } catch (Exception e) {
@@ -37,23 +39,47 @@ public class MessageOutput implements Runnable {
     }
 
     private void processInBox(UserConnection uc) {
-
+        if (uc.inbox.isEmpty()) {
+            return;
+        }
+        for (int i = 0; i < uc.inbox.size(); i++) {
+            Message msg = uc.inbox.poll();
+            uc.session.getAsyncRemote().sendText(msg.toJsonObject().toJSONString());
+        }
     }
 
     private void processOutBox(UserConnection uc) {
-        if (uc.outbox.isEmpty()){
+        if (uc.outbox.isEmpty()) {
             return;
         }
-        
-        for (int i = 0; i < uc.outbox.size(); i++){
+        for (int i = 0; i < uc.outbox.size(); i++) {
             Message msg = uc.outbox.poll();
             if (msg == null) {
                 continue;
             }
-            msg.time = DateFormat.format(Util.currentTime());
+            if (msg.type == Message.MessageType.TEXT
+                || msg.type == Message.MessageType.FILE
+                || msg.type == Message.MessageType.EMOJI) {
+
+                msg.time = DateFormat.format(Util.currentTime());
+
+                List<String> lstUserId = ConversationDAO.getMember(msg.to);
+                if (lstUserId == null || lstUserId.isEmpty()) {
+                    continue;
+                }
+
+                for (String toUserId : lstUserId) {
+                    List<UserConnection> lstConnection = UserConnectionStorage.getUserConnections(toUserId);
+                    for (UserConnection to : lstConnection){
+                        to.inbox.add(msg);
+                    } 
+                }
+                
+                MessageLogger.log(msg);
+            }
         }
     }
-    
+
     private void sleep() {
         try {
             Thread.sleep(10);

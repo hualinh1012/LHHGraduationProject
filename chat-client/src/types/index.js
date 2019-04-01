@@ -7,6 +7,7 @@ export const REGISTER = 'REGISTER';
 export const GET_USER_INFO = 'GET_USER_INFO';
 export const UPDATE_USER_INFO = 'UPDATE_USER_INFO';
 export const CHANGE_PASSWORD = 'CHANGE_PASSWORD';
+export const GET_FRIEND_INFO = 'GET_FRIEND_INFO';
 
 // CHAT
 export const SEARCH_CONTACT = 'SEARCH_CONTACT';

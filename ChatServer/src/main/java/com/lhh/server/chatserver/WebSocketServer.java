@@ -6,8 +6,9 @@
 package com.lhh.server.chatserver;
 
 import com.lhh.core.Config;
-import com.lhh.server.chatserver.messageio.MessageInput;
-import com.lhh.server.chatserver.messageio.MessageOutput;
+import com.lhh.server.chatserver.logger.MessageLogger;
+import com.lhh.server.chatserver.messageio.WebSocketEndPoint;
+import com.lhh.server.chatserver.messageio.WebSocketWorker;
 
 /**
  *
@@ -16,15 +17,20 @@ import com.lhh.server.chatserver.messageio.MessageOutput;
 public class WebSocketServer {
 
     public static void startServer() {
-        MessageInput input = new MessageInput();
-        Thread in = new Thread(input);
-        in.start();
 
         for (int i = 0; i < Config.WEB_SOCKET_OUTPUT_WORKER; i++) {
-            MessageOutput output = new MessageOutput();
-            Thread out = new Thread(output);
-            out.start();
+            WebSocketWorker worker = new WebSocketWorker();
+            Thread t = new Thread(worker);
+            t.start();
         }
+        
+        WebSocketEndPoint server = new WebSocketEndPoint();
+        Thread t1 = new Thread(server);
+        t1.start();
+        
+        MessageLogger logger = new MessageLogger();
+        Thread t2 = new Thread(logger);
+        t2.start();
     }
 
 }

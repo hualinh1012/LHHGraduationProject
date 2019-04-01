@@ -26,14 +26,20 @@ public class Conversation implements IEntity {
     public static final String CONVERSATION_TYPE = "conversation_type";
     public Integer conversationType;
 
+    public static final String CREATE_TIME = "create_time";
+    public String create_time;
+
     public static final String AVATAR_ID = "avatar_id";
     public String avatarId;
 
     public static final String AVATAR_URL = "avatar_url";
     public String avatarUrl;
 
-    public static final String LAST_MESSAGE = "last_message";
-    public String lastMessage;
+    public static final String LAST_MESSAGE_TYPE = "last_message_type";
+    public String lastMessageType;
+
+    public static final String LAST_MESSAGE_VALUE = "last_message_value";
+    public String lastMessageValue;
 
     public static final String TIME = "time";
     public String time;
@@ -61,8 +67,11 @@ public class Conversation implements IEntity {
         if (avatarUrl != null) {
             jo.put(AVATAR_URL, avatarUrl);
         }
-        if (lastMessage != null) {
-            jo.put(LAST_MESSAGE, lastMessage);
+        if (lastMessageType != null) {
+            jo.put(LAST_MESSAGE_TYPE, lastMessageType);
+        }
+        if (lastMessageValue != null) {
+            jo.put(LAST_MESSAGE_VALUE, lastMessageValue);
         }
         if (time != null) {
             jo.put(TIME, time);
@@ -79,7 +88,8 @@ public class Conversation implements IEntity {
         conversation.conversationName = (String) obj.get(Conversation.CONVERSATION_NAME);
         conversation.conversationType = (Integer) obj.get(Conversation.CONVERSATION_TYPE);
         conversation.avatarId = (String) obj.get(Conversation.AVATAR_ID);
-        conversation.lastMessage = (String) obj.get(Conversation.LAST_MESSAGE);
+        conversation.lastMessageType = (String) obj.get(Conversation.LAST_MESSAGE_TYPE);
+        conversation.lastMessageValue = (String) obj.get(Conversation.LAST_MESSAGE_VALUE);
         conversation.time = (String) obj.get(Conversation.TIME);
         return conversation;
     }

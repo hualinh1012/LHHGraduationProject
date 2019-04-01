@@ -8,6 +8,7 @@ import { search_contact_action } from './Communication/SearchContact';
 import { add_contact_action } from './Communication/AddContact';
 import { get_list_contact_action } from './Communication/GetListContact';
 import { start_conversation_action } from './Communication/StartConversation';
+import { get_friend_info_action } from './Acount/GetFriendInfoAction';
 
 export {
     clear_data,
@@ -19,5 +20,6 @@ export {
     search_contact_action,
     add_contact_action,
     get_list_contact_action,
-    start_conversation_action
+    start_conversation_action,
+    get_friend_info_action
 }

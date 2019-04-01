@@ -11,7 +11,7 @@ class Contact extends Component {
     }
 
     add_friend = (friendId) => {
-        this.props.add_contact_acton(friendId);
+        this.props.add_contact_action(friendId);
     }
 
     start_conversation = (friendId) => {

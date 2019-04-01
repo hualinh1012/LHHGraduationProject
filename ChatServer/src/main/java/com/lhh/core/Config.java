@@ -21,7 +21,7 @@ public class Config {
     public static String WEBSOCKET_SERVER_HOST = "localhost";
     public static int WEB_SOCKET_PORT = 8081;
 
-    public static String DB_SERVER_HOST = "210.148.155.138";
+    public static String DB_SERVER_HOST = "10.64.100.31";
     public static int DB_PORT = 27017;
 
     public static int WEB_SOCKET_OUTPUT_WORKER = 5;
