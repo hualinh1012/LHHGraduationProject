@@ -6,6 +6,7 @@
 package com.lhh.server.chatserver.messageio;
 
 import com.lhh.dao.impl.user.ConversationDAO;
+import com.lhh.dao.impl.user.UnreadConversationDAO;
 import com.lhh.server.chatserver.connection.UserConnection;
 import com.lhh.server.chatserver.connection.UserConnectionStorage;
 import com.lhh.server.chatserver.logger.MessageLogger;
@@ -45,6 +46,8 @@ public class WebSocketWorker implements Runnable {
         for (int i = 0; i < uc.inbox.size(); i++) {
             Message msg = uc.inbox.poll();
             uc.session.getAsyncRemote().sendText(msg.toJsonObject().toJSONString());
+            
+            UnreadConversationDAO.updateUnreadMessage(uc.userId, msg.to);
         }
     }
 

@@ -5,7 +5,7 @@
  */
 package com.lhh.server.chatserver.logger;
 
-import com.lhh.dao.impl.user.ChatLogDAO;
+import com.lhh.dao.impl.chat.ChatLogDAO;
 import com.lhh.dao.impl.user.ConversationDAO;
 import com.lhh.server.entity.impl.Message;
 import com.lhh.util.Util;

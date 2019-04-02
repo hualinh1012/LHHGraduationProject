@@ -41,8 +41,8 @@ public class Conversation implements IEntity {
     public static final String LAST_MESSAGE_VALUE = "last_message_value";
     public String lastMessageValue;
 
-    public static final String TIME = "time";
-    public String time;
+    public static final String LAST_MESSAGE_TIME = "last_message_time";
+    public String lastMessageTime;
 
     public static final String USER_ID = "user_id";
     
@@ -73,8 +73,8 @@ public class Conversation implements IEntity {
         if (lastMessageValue != null) {
             jo.put(LAST_MESSAGE_VALUE, lastMessageValue);
         }
-        if (time != null) {
-            jo.put(TIME, time);
+        if (lastMessageTime != null) {
+            jo.put(LAST_MESSAGE_TIME, lastMessageTime);
         }
         if (isExisted != null) {
             jo.put(IS_EXISTED, isExisted);
@@ -90,7 +90,7 @@ public class Conversation implements IEntity {
         conversation.avatarId = (String) obj.get(Conversation.AVATAR_ID);
         conversation.lastMessageType = (String) obj.get(Conversation.LAST_MESSAGE_TYPE);
         conversation.lastMessageValue = (String) obj.get(Conversation.LAST_MESSAGE_VALUE);
-        conversation.time = (String) obj.get(Conversation.TIME);
+        conversation.lastMessageTime = (String) obj.get(Conversation.LAST_MESSAGE_TIME);
         return conversation;
     }
 }

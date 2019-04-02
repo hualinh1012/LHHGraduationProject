@@ -42,7 +42,7 @@ public class ConversationDAO {
     public static List<Conversation> getListConversation(String userId, Integer skip, Integer take) {
         List<Conversation> lstConversation = new ArrayList<>();
         Document findObj = new Document(Conversation.USER_LIST, new Document("$elemMatch", userId));
-        Document sortObj = new Document(Conversation.TIME, -1);
+        Document sortObj = new Document(Conversation.LAST_MESSAGE_TIME, -1);
         FindIterable result = COLLECTION.find(findObj).sort(sortObj);
         result.skip(skip).limit(take);
         MongoCursor cursor = result.iterator();
@@ -111,7 +111,7 @@ public class ConversationDAO {
         BasicDBObject query = new BasicDBObject();
         query.append(Conversation.LAST_MESSAGE_TYPE, msg.type);
         query.append(Conversation.LAST_MESSAGE_VALUE, msg.value);
-        query.append(Conversation.TIME, msg.time);
+        query.append(Conversation.LAST_MESSAGE_TIME, msg.time);
         BasicDBObject updObj = new BasicDBObject("$set", query);
         COLLECTION.updateOne(findObj, updObj);
     }

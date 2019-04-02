@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.lhh.dao.impl.user;
+package com.lhh.dao.impl.chat;
 
 import com.lhh.dao.DBLoader;
 import com.lhh.server.entity.impl.Message;
