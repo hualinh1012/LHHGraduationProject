@@ -88,8 +88,13 @@ public class ConversationDAO {
         findObj.append(Conversation.CONVERSATION_TYPE, Constant.ConversationType.PRIVATE);
         Util.addDebugLog("---> " + findObj);
         Document obj = (Document) COLLECTION.find(findObj).first();
-        Conversation conversation = Conversation.fromDBObject(obj);
-        return conversation;
+        if (obj != null) {
+            Conversation conversation = new Conversation();
+            conversation.conversationId = obj.get(Conversation.ID).toString();
+            return conversation;
+        } else {
+            return null;
+        }
     }
 
     public static List<String> getMember(String id) {
@@ -106,7 +111,7 @@ public class ConversationDAO {
         return lstUserId;
     }
 
-    public static void updateConversation(Message msg){
+    public static void updateConversation(Message msg) {
         BasicDBObject findObj = new BasicDBObject(Conversation.ID, new ObjectId(msg.to));
         BasicDBObject query = new BasicDBObject();
         query.append(Conversation.LAST_MESSAGE_TYPE, msg.type);
@@ -114,5 +119,17 @@ public class ConversationDAO {
         query.append(Conversation.LAST_MESSAGE_TIME, msg.time);
         BasicDBObject updObj = new BasicDBObject("$set", query);
         COLLECTION.updateOne(findObj, updObj);
+    }
+
+    public static Conversation getConversationDetail(String conversationId) {
+        BasicDBObject findObj = new BasicDBObject(Conversation.ID, new ObjectId(conversationId));
+        Document doc = (Document) COLLECTION.find(findObj).first();
+        if (doc != null){
+            Conversation conversation = Conversation.fromDBObject(doc);
+            return conversation;
+        }
+        else {
+            return null;
+        }
     }
 }

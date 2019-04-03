@@ -1,35 +1,27 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import { clear_data, get_friend_info_action } from '../../actions';
+import { clear_data, get_conversation_detail_action } from '../../actions';
 import { connect } from 'react-redux';
 import { isLogin } from '../../utils';
 
-class FriendProfile extends Component {
+class ConversationDetail extends Component {
     
     constructor(props) {
         super(props);
         this.state = {
-            loading: true,
-            user_info: '',
             is_login: isLogin(),
-            show_friend_profile_popup: false
+            conversation_detail: '',
+            show_conversation_detail_popup: false
         };
-        this.getFriendInfo = this.getFriendInfo.bind(this);
-    }
-
-    getFriendInfo = () => {
-        this.props.get_friend_info_action();
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({
-            loading: false
-        })
-        if (nextProps.user_info.data) {
-            switch (nextProps.user_info.data.code) {
+        console.log(nextProps.conversation_detail.data)
+        if (nextProps.conversation_detail.data) {
+            switch (nextProps.conversation_detail.data.code) {
                 case 0:
                     this.setState({
-                        user_info: nextProps.user_info.data.data
+                        conversation_detail: nextProps.conversation_detail.data.data
                     });
                     break;
 
@@ -50,17 +42,14 @@ class FriendProfile extends Component {
     }
 
     render() {
-        var { loading, is_login } = this.state;
+        var { is_login } = this.state;
         if (!is_login) {
             return (<Redirect to='/' />);
         }
-        if (loading) {
-            this.getFriendInfo();
-        }
         return (
             <div className="contact-profile">
-                <img src={this.state.user_info.user_ava ? this.state.user_info.user_ava : '/default_ava.png'} alt="" />
-                <p>{this.state.user_info.user_name}</p>
+                <img src={this.state.conversation_detail.avatar_url ? this.state.conversation_detail.avatar_url : '/default_ava.png'} alt="" />
+                <p>{this.state.conversation_detail.conversation_name}</p>
                 <div className="social-media">
                     <i className="fa fa-facebook" aria-hidden="true"></i>
                     <i className="fa fa-twitter" aria-hidden="true"></i>
@@ -73,8 +62,8 @@ class FriendProfile extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        user_info: state.friend_info_reducer
+        conversation_detail: state.get_conversation_detail_reducer
     }
 }
 
-export default connect(mapStateToProps, { get_friend_info_action, clear_data })(FriendProfile);
+export default connect(mapStateToProps, { get_conversation_detail_action, clear_data })(ConversationDetail);

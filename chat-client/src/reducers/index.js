@@ -12,6 +12,8 @@ import {change_password_reducer} from './Account/ChangePassReducer';
 import {list_contact_reducer} from './Communication/ListContactReducer';
 import {friend_info_reducer} from './Account/FriendInfoReducer';
 import {start_conversation_reducer} from './Communication/StartConversationReducer';
+import {load_conversation_reducer} from './Communication/LoadConversationReducer';
+import {get_conversation_detail_reducer} from './Communication/GetConversationDetailReducer';
 
 const reducer = combineReducers({
     user_login_reducer,
@@ -20,7 +22,9 @@ const reducer = combineReducers({
     change_password_reducer,
     list_contact_reducer,
     friend_info_reducer,
-    start_conversation_reducer
+    start_conversation_reducer,
+    load_conversation_reducer,
+    get_conversation_detail_reducer
 });
 
 export default reducer;

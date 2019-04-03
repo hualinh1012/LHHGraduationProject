@@ -89,6 +89,7 @@ public class WebSocketEndPoint implements Runnable {
                             Util.addDebugLog("----> Web socket: socket is valid, add to POLL");
                         }
                     }
+                    break;
                 }
                 default: {
                     boolean isValidSession = false;
@@ -112,6 +113,7 @@ public class WebSocketEndPoint implements Runnable {
                     if (!isValidSession) {
                         userSession.close();
                     }
+                    break;
                 }
             }
         } catch (IOException | ParseException ex) {

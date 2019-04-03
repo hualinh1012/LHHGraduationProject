@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { add_contact_action, start_conversation_action } from '../../actions';
+import { add_contact_action, start_conversation_action, load_conversation_action, get_conversation_detail_action } from '../../actions';
 
 class Contact extends Component {
     constructor(props) {
@@ -16,6 +16,20 @@ class Contact extends Component {
 
     start_conversation = (friendId) => {
         this.props.start_conversation_action(friendId);
+        this.props.load_conversation_action();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.start_conversation.data) {
+            switch (nextProps.start_conversation.data.code) {
+                case 0:
+                    const {conversation_id} = nextProps.start_conversation.data.data;
+                    this.props.get_conversation_detail_action(conversation_id)
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     render() {
@@ -26,7 +40,7 @@ class Contact extends Component {
                     return (
                         <li className="contact" key={item.friend_id} onDoubleClick={() => this.start_conversation(item.friend_id)}>
                             <div className="wrap">
-                            {/* <span className="contact-status online"></span> */}
+                                {/* <span className="contact-status online"></span> */}
                                 <img src={item.friend_ava ? item.friend_ava : '/default_ava.png'} alt="" />
                                 <div className="meta">
                                     <p className="name" key={item.friend_id}>{item.friend_name}</p>
@@ -35,7 +49,7 @@ class Contact extends Component {
                             </div>
                         </li>
                     )
-                })}                
+                })}
             </ul>
         );
     }
@@ -44,8 +58,8 @@ class Contact extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        
+        start_conversation: state.start_conversation_reducer
     }
 }
 
-export default connect(mapStateToProps, { add_contact_action, start_conversation_action })(Contact);
+export default connect(mapStateToProps, { add_contact_action, start_conversation_action, load_conversation_action, get_conversation_detail_action })(Contact);

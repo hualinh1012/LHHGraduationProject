@@ -3,12 +3,14 @@ import $ from 'jquery';
 import Profile from '../components/Home/Profile';
 import SideBar from '../components/Home/SideBar';
 import ChatPannel from '../components/Home/ChatPannel';
+import { load_conversation_action } from '../actions';
+import { connect } from 'react-redux';
 
 class HomePage extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			first_load: true
+			load_conversation: false
 		};
 	}
 
@@ -47,31 +49,40 @@ class HomePage extends Component {
 			$("#status-options").removeClass("active");
 		});
 
-		function newMessage() {
-			var message = $(".message-input input").val();
-			if ($.trim(message) === '') {
-				return false;
-			}
-			$('<li class="sent"><img src="http://emilcarlsson.se/assets/mikeross.png" alt="" /><p>' + message + '</p></li>').appendTo($('.messages ul'));
-			$('.message-input input').val(null);
-			$('.contact.active .preview').html('<span>You: </span>' + message);
-			$(".messages").animate({ scrollTop: $(document).height() }, "fast");
-		};
+		// function newMessage() {
+		// 	var message = $(".message-input input").val();
+		// 	if ($.trim(message) === '') {
+		// 		return false;
+		// 	}
+		// 	$('<li class="sent"><img src="http://emilcarlsson.se/assets/mikeross.png" alt="" /><p>' + message + '</p></li>').appendTo($('.messages ul'));
+		// 	$('.message-input input').val(null);
+		// 	$('.contact.active .preview').html('<span>You: </span>' + message);
+		// 	$(".messages").animate({ scrollTop: $(document).height() }, "fast");
+		// };
 
-		$('.submit').click(function () {
-			newMessage();
-		});
+		// $('.submit').click(function () {
+		// 	newMessage();
+		// });
 
-		$(window).on('keydown', function (e) {
-			if (e.which === 13) {
-				newMessage();
-				return false;
-			}
-		});
+		// $(window).on('keydown', function (e) {
+		// 	if (e.which === 13) {
+		// 		newMessage();
+		// 		return false;
+		// 	}
+		// });
+	}
+
+	componentWillReceiveProps(nextProps) {
+		console.log(nextProps.data)
+		if (nextProps.data) {
+			this.setState({
+				load_conversation: nextProps.data.load_conversation
+			})
+		}
 	}
 
 	render() {
-		const { first_load } = this.state;
+		const { load_conversation } = this.state;
 		return (
 			<div id="frame">
 				<div id="sidepanel">
@@ -79,7 +90,7 @@ class HomePage extends Component {
 					<SideBar />
 				</div>
 				<div className="content">
-					{first_load === true ? null : <ChatPannel />}
+					{load_conversation === false ? null : <ChatPannel />}
 
 				</div>
 			</div>
@@ -87,4 +98,10 @@ class HomePage extends Component {
 	}
 }
 
-export default HomePage;
+const mapStateToProps = (state) => {
+    return {
+        data: state.load_conversation_reducer
+    }
+}
+
+export default connect(mapStateToProps, { load_conversation_action })(HomePage);

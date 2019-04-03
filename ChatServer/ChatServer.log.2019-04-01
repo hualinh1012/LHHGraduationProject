@@ -1,0 +1,425 @@
+[DEBUG] At 20190401143118962 : Initiate MongoDB connection....
+[DEBUG] At 20190401143120015 : Server is starting....
+[DEBUG] At 20190401143120015 : Socket Server is starting....
+[DEBUG] At 20190401143120037 : API Server is starting....
+[DEBUG] At 20190401143120050 : DONE! Server is started
+[DEBUG] At 20190401143302213 : ----> Web socket: Unauthenticated connection has connect to server
+[DEBUG] At 20190401143302295 : ----> Web socket: receive message from client: {"type":"AUTH","value":"cc8aa1f0-eb40-4202-b75f-7cf5e0ed5840","from":"5c989a6e1ad58075ee1448ed"}
+[DEBUG] At 20190401143302427 : ----> Web socket: session encounter error -> close...
+[DEBUG] At 20190401143302465 : ----> Web socket: session close...
+[DEBUG] At 20190401143302493 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"get_user_info","token":"cc8aa1f0-eb40-4202-b75f-7cf5e0ed5840"}
+[DEBUG] At 20190401143302634 : Respond: {"code":3,"message":"INVALID_TOKEN"}
+[DEBUG] At 20190401151527901 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"login","pwd":"123456","email":"test01@gmail.com"}
+[ERROR] At 20190401151528458
+com.lhh.util.ServerException: 15
+	at com.lhh.dao.impl.user.UserDAO.login(UserDAO.java:84)
+	at com.lhh.server.apiserver.response.impl.account.LoginAPI.execute(LoginAPI.java:35)
+	at com.lhh.server.apiserver.handler.ServerHandler.handle(ServerHandler.java:68)
+	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:132)
+	at org.eclipse.jetty.server.Server.handle(Server.java:502)
+	at org.eclipse.jetty.server.HttpChannel.handle(HttpChannel.java:364)
+	at org.eclipse.jetty.server.HttpConnection.onFillable(HttpConnection.java:260)
+	at org.eclipse.jetty.io.AbstractConnection$ReadCallback.succeeded(AbstractConnection.java:305)
+	at org.eclipse.jetty.io.FillInterest.fillable(FillInterest.java:103)
+	at org.eclipse.jetty.io.ChannelEndPoint$2.run(ChannelEndPoint.java:118)
+	at org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.runTask(EatWhatYouKill.java:333)
+	at org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.doProduce(EatWhatYouKill.java:310)
+	at org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.tryProduce(EatWhatYouKill.java:168)
+	at org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.produce(EatWhatYouKill.java:132)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:765)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$2.run(QueuedThreadPool.java:683)
+	at java.lang.Thread.run(Thread.java:748)
+[DEBUG] At 20190401151528470 : Respond: {"code":15,"message":"PASSWORD_NOT_MATCH"}
+[DEBUG] At 20190401151530909 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"login","pwd":"123456","email":"test01@gmail.com"}
+[ERROR] At 20190401151530911
+com.lhh.util.ServerException: 15
+	at com.lhh.dao.impl.user.UserDAO.login(UserDAO.java:84)
+	at com.lhh.server.apiserver.response.impl.account.LoginAPI.execute(LoginAPI.java:35)
+	at com.lhh.server.apiserver.handler.ServerHandler.handle(ServerHandler.java:68)
+	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:132)
+	at org.eclipse.jetty.server.Server.handle(Server.java:502)
+	at org.eclipse.jetty.server.HttpChannel.handle(HttpChannel.java:364)
+	at org.eclipse.jetty.server.HttpConnection.onFillable(HttpConnection.java:260)
+	at org.eclipse.jetty.io.AbstractConnection$ReadCallback.succeeded(AbstractConnection.java:305)
+	at org.eclipse.jetty.io.FillInterest.fillable(FillInterest.java:103)
+	at org.eclipse.jetty.io.ChannelEndPoint$2.run(ChannelEndPoint.java:118)
+	at org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.runTask(EatWhatYouKill.java:333)
+	at org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.doProduce(EatWhatYouKill.java:310)
+	at org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.tryProduce(EatWhatYouKill.java:168)
+	at org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.run(EatWhatYouKill.java:126)
+	at org.eclipse.jetty.util.thread.ReservedThreadExecutor$ReservedThread.run(ReservedThreadExecutor.java:366)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:765)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$2.run(QueuedThreadPool.java:683)
+	at java.lang.Thread.run(Thread.java:748)
+[DEBUG] At 20190401151530911 : Respond: {"code":15,"message":"PASSWORD_NOT_MATCH"}
+[DEBUG] At 20190401151612817 : Client request: {"gender":"0","user_name":"linh","dob":"2019-04-01","ip":"0:0:0:0:0:0:0:1","api":"register","pwd":"123456","email":"test01@gmail.com"}
+[ERROR] At 20190401151612817
+com.lhh.util.ServerException: 13
+	at com.lhh.server.entity.impl.User.validateRegister(User.java:139)
+	at com.lhh.server.apiserver.response.impl.account.RegisterAPI.execute(RegisterAPI.java:38)
+	at com.lhh.server.apiserver.handler.ServerHandler.handle(ServerHandler.java:68)
+	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:132)
+	at org.eclipse.jetty.server.Server.handle(Server.java:502)
+	at org.eclipse.jetty.server.HttpChannel.handle(HttpChannel.java:364)
+	at org.eclipse.jetty.server.HttpConnection.onFillable(HttpConnection.java:260)
+	at org.eclipse.jetty.io.AbstractConnection$ReadCallback.succeeded(AbstractConnection.java:305)
+	at org.eclipse.jetty.io.FillInterest.fillable(FillInterest.java:103)
+	at org.eclipse.jetty.io.ChannelEndPoint$2.run(ChannelEndPoint.java:118)
+	at org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.runTask(EatWhatYouKill.java:333)
+	at org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.doProduce(EatWhatYouKill.java:310)
+	at org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.tryProduce(EatWhatYouKill.java:168)
+	at org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.run(EatWhatYouKill.java:126)
+	at org.eclipse.jetty.util.thread.ReservedThreadExecutor$ReservedThread.run(ReservedThreadExecutor.java:366)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:765)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$2.run(QueuedThreadPool.java:683)
+	at java.lang.Thread.run(Thread.java:748)
+[DEBUG] At 20190401151612817 : Respond: {"code":13,"message":"INVALID_DATE_OF_BIRTH"}
+[DEBUG] At 20190401151618992 : Client request: {"gender":"0","user_name":"linh","dob":"1996-04-01","ip":"0:0:0:0:0:0:0:1","api":"register","pwd":"123456","email":"test01@gmail.com"}
+[DEBUG] At 20190401151619520 : Respond: {"code":0,"data":{"user_id":"5ca1c8d2d2dadf10ec87aeeb","token":"d2c3b3f6-4693-4fad-b740-1999aca8f33c"},"message":"SUCCESS"}
+[DEBUG] At 20190401151619570 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"get_user_info","token":"d2c3b3f6-4693-4fad-b740-1999aca8f33c"}
+[DEBUG] At 20190401151619573 : Respond: {"code":0,"data":{"gender":0,"user_id":"5ca1c8d2d2dadf10ec87aeeb","user_name":"linh","dob":"1996-04-01","email":"test01@gmail.com"},"message":"SUCCESS"}
+[DEBUG] At 20190401151626816 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"login","pwd":"123123","email":"test01@gmail.com"}
+[ERROR] At 20190401151626857
+com.lhh.util.ServerException: 15
+	at com.lhh.dao.impl.user.UserDAO.login(UserDAO.java:91)
+	at com.lhh.server.apiserver.response.impl.account.LoginAPI.execute(LoginAPI.java:35)
+	at com.lhh.server.apiserver.handler.ServerHandler.handle(ServerHandler.java:68)
+	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:132)
+	at org.eclipse.jetty.server.Server.handle(Server.java:502)
+	at org.eclipse.jetty.server.HttpChannel.handle(HttpChannel.java:364)
+	at org.eclipse.jetty.server.HttpConnection.onFillable(HttpConnection.java:260)
+	at org.eclipse.jetty.io.AbstractConnection$ReadCallback.succeeded(AbstractConnection.java:305)
+	at org.eclipse.jetty.io.FillInterest.fillable(FillInterest.java:103)
+	at org.eclipse.jetty.io.ChannelEndPoint$2.run(ChannelEndPoint.java:118)
+	at org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.runTask(EatWhatYouKill.java:333)
+	at org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.doProduce(EatWhatYouKill.java:310)
+	at org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.tryProduce(EatWhatYouKill.java:168)
+	at org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.run(EatWhatYouKill.java:126)
+	at org.eclipse.jetty.util.thread.ReservedThreadExecutor$ReservedThread.run(ReservedThreadExecutor.java:366)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:765)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$2.run(QueuedThreadPool.java:683)
+	at java.lang.Thread.run(Thread.java:748)
+[DEBUG] At 20190401151626857 : Respond: {"code":15,"message":"PASSWORD_NOT_MATCH"}
+[DEBUG] At 20190401151651224 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"login","pwd":"123456","email":"test01@gmail.com"}
+[DEBUG] At 20190401151651226 : Respond: {"code":0,"data":{"user_id":"5ca1c8d2d2dadf10ec87aeeb","token":"8624f66e-dbe9-4feb-9231-1fb6a81aeedf"},"message":"SUCCESS"}
+[DEBUG] At 20190401151651245 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"get_user_info","token":"8624f66e-dbe9-4feb-9231-1fb6a81aeedf"}
+[DEBUG] At 20190401151651247 : Respond: {"code":0,"data":{"gender":0,"user_id":"5ca1c8d2d2dadf10ec87aeeb","user_name":"linh","dob":"1996-04-01","email":"test01@gmail.com"},"message":"SUCCESS"}
+[DEBUG] At 20190401151709919 : Client request: {"gender":"0","user_name":"linh2","dob":"1996-04-01","ip":"0:0:0:0:0:0:0:1","api":"register","pwd":"123456","email":"test02@gmail.com"}
+[DEBUG] At 20190401151709922 : Respond: {"code":0,"data":{"user_id":"5ca1c905d2dadf10ec87aeec","token":"0af090df-e4b0-472e-887b-4bacd65ca051"},"message":"SUCCESS"}
+[DEBUG] At 20190401151709937 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"get_user_info","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401151709940 : Respond: {"code":0,"data":{"gender":0,"user_id":"5ca1c905d2dadf10ec87aeec","user_name":"linh2","dob":"1996-04-01","email":"test02@gmail.com"},"message":"SUCCESS"}
+[DEBUG] At 20190401151712618 : Client request: {"search":"linh","ip":"0:0:0:0:0:0:0:1","api":"search_contact","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401151712675 : Respond: {"code":0,"data":[{"friend_name":"linh","is_added":false,"friend_id":"5ca1c8d2d2dadf10ec87aeeb","status":1}],"message":"SUCCESS"}
+[DEBUG] At 20190401151737415 : ----> Web socket: Unauthenticated connection has connect to server
+[DEBUG] At 20190401151737458 : ----> Web socket: receive message from client: {"type":"AUTH","value":"0af090df-e4b0-472e-887b-4bacd65ca051","from":"5ca1c905d2dadf10ec87aeec"}
+[DEBUG] At 20190401151737459 : ----> Web socket: socket is valid, add to POLL
+[DEBUG] At 20190401151737459 : ----> Web socket: add message to OUTBOX
+[DEBUG] At 20190401151737460 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"get_user_info","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401151737462 : Respond: {"code":0,"data":{"gender":0,"user_id":"5ca1c905d2dadf10ec87aeec","user_name":"linh2","dob":"1996-04-01","email":"test02@gmail.com"},"message":"SUCCESS"}
+[DEBUG] At 20190401151739395 : Client request: {"search":"te","ip":"0:0:0:0:0:0:0:1","api":"search_contact","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401151739399 : Respond: {"code":0,"data":[{"friend_name":"linh","is_added":false,"friend_id":"5ca1c8d2d2dadf10ec87aeeb","status":1}],"message":"SUCCESS"}
+[DEBUG] At 20190401151859916 : ----> Web socket: session close...
+[DEBUG] At 20190401151900230 : ----> Web socket: Unauthenticated connection has connect to server
+[DEBUG] At 20190401151900280 : ----> Web socket: receive message from client: {"type":"AUTH","value":"0af090df-e4b0-472e-887b-4bacd65ca051","from":"5ca1c905d2dadf10ec87aeec"}
+[DEBUG] At 20190401151900280 : ----> Web socket: socket is valid, add to POLL
+[DEBUG] At 20190401151900280 : ----> Web socket: add message to OUTBOX
+[DEBUG] At 20190401151900284 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"get_user_info","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401151900287 : Respond: {"code":0,"data":{"gender":0,"user_id":"5ca1c905d2dadf10ec87aeec","user_name":"linh2","dob":"1996-04-01","email":"test02@gmail.com"},"message":"SUCCESS"}
+[DEBUG] At 20190401151910447 : Client request: {"search":"te","ip":"0:0:0:0:0:0:0:1","api":"search_contact","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401151910449 : Respond: {"code":0,"data":[{"friend_name":"linh","is_added":false,"friend_id":"5ca1c8d2d2dadf10ec87aeeb","status":1}],"message":"SUCCESS"}
+[DEBUG] At 20190401151916165 : ----> Web socket: session close...
+[DEBUG] At 20190401151916475 : ----> Web socket: Unauthenticated connection has connect to server
+[DEBUG] At 20190401151916509 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"get_user_info","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401151916510 : ----> Web socket: receive message from client: {"type":"AUTH","value":"0af090df-e4b0-472e-887b-4bacd65ca051","from":"5ca1c905d2dadf10ec87aeec"}
+[DEBUG] At 20190401151916510 : ----> Web socket: socket is valid, add to POLL
+[DEBUG] At 20190401151916513 : Respond: {"code":0,"data":{"gender":0,"user_id":"5ca1c905d2dadf10ec87aeec","user_name":"linh2","dob":"1996-04-01","email":"test02@gmail.com"},"message":"SUCCESS"}
+[DEBUG] At 20190401151916513 : ----> Web socket: session encounter error -> close...
+[DEBUG] At 20190401151916514 : ----> Web socket: session close...
+[DEBUG] At 20190401151918620 : Client request: {"search":"te","ip":"0:0:0:0:0:0:0:1","api":"search_contact","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401151918625 : Respond: {"code":0,"data":[{"friend_name":"linh","is_added":false,"friend_id":"5ca1c8d2d2dadf10ec87aeeb","status":1}],"message":"SUCCESS"}
+[DEBUG] At 20190401151919988 : Client request: {"friend_id":"5ca1c8d2d2dadf10ec87aeeb","ip":"0:0:0:0:0:0:0:1","api":"start_conversation","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401151920021 : ---> { "$and" : [{ "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c905d2dadf10ec87aeec" } } }, { "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c8d2d2dadf10ec87aeeb" } } }], "conversation_type" : 0 }
+[DEBUG] At 20190401151920214 : Respond: {"code":0,"data":{"is_existed":false,"conversation_id":"5ca1c988d2dadf10ec87aef0"},"message":"SUCCESS"}
+[DEBUG] At 20190401151921476 : Client request: {"friend_id":"5ca1c8d2d2dadf10ec87aeeb","ip":"0:0:0:0:0:0:0:1","api":"start_conversation","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401151921476 : ---> { "$and" : [{ "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c905d2dadf10ec87aeec" } } }, { "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c8d2d2dadf10ec87aeeb" } } }], "conversation_type" : 0 }
+[DEBUG] At 20190401151921482 : ---> { "$and" : [{ "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c905d2dadf10ec87aeec" } } }, { "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c8d2d2dadf10ec87aeeb" } } }], "conversation_type" : 0 }
+[DEBUG] At 20190401151921484 : Respond: {"code":0,"data":{"is_existed":true,"conversation_id":"5ca1c988d2dadf10ec87aef0"},"message":"SUCCESS"}
+[DEBUG] At 20190401151922183 : Client request: {"friend_id":"5ca1c8d2d2dadf10ec87aeeb","ip":"0:0:0:0:0:0:0:1","api":"start_conversation","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401151922184 : ---> { "$and" : [{ "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c905d2dadf10ec87aeec" } } }, { "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c8d2d2dadf10ec87aeeb" } } }], "conversation_type" : 0 }
+[DEBUG] At 20190401151922185 : ---> { "$and" : [{ "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c905d2dadf10ec87aeec" } } }, { "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c8d2d2dadf10ec87aeeb" } } }], "conversation_type" : 0 }
+[DEBUG] At 20190401151922186 : Respond: {"code":0,"data":{"is_existed":true,"conversation_id":"5ca1c988d2dadf10ec87aef0"},"message":"SUCCESS"}
+[DEBUG] At 20190401151935775 : Client request: {"friend_id":"5ca1c8d2d2dadf10ec87aeeb","ip":"0:0:0:0:0:0:0:1","api":"start_conversation","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401151935775 : ---> { "$and" : [{ "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c905d2dadf10ec87aeec" } } }, { "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c8d2d2dadf10ec87aeeb" } } }], "conversation_type" : 0 }
+[DEBUG] At 20190401151935778 : ---> { "$and" : [{ "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c905d2dadf10ec87aeec" } } }, { "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c8d2d2dadf10ec87aeeb" } } }], "conversation_type" : 0 }
+[DEBUG] At 20190401151935779 : Respond: {"code":0,"data":{"is_existed":true,"conversation_id":"5ca1c988d2dadf10ec87aef0"},"message":"SUCCESS"}
+[DEBUG] At 20190401151939885 : Client request: {"friend_id":"5ca1c8d2d2dadf10ec87aeeb","ip":"0:0:0:0:0:0:0:1","api":"start_conversation","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401151939885 : ---> { "$and" : [{ "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c905d2dadf10ec87aeec" } } }, { "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c8d2d2dadf10ec87aeeb" } } }], "conversation_type" : 0 }
+[DEBUG] At 20190401151939888 : ---> { "$and" : [{ "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c905d2dadf10ec87aeec" } } }, { "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c8d2d2dadf10ec87aeeb" } } }], "conversation_type" : 0 }
+[DEBUG] At 20190401151939889 : Respond: {"code":0,"data":{"is_existed":true,"conversation_id":"5ca1c988d2dadf10ec87aef0"},"message":"SUCCESS"}
+[DEBUG] At 20190401152128621 : ----> Web socket: Unauthenticated connection has connect to server
+[DEBUG] At 20190401152128641 : ----> Web socket: receive message from client: {"type":"AUTH","value":"0af090df-e4b0-472e-887b-4bacd65ca051","from":"5ca1c905d2dadf10ec87aeec"}
+[DEBUG] At 20190401152128642 : ----> Web socket: socket is valid, add to POLL
+[DEBUG] At 20190401152128642 : ----> Web socket: session close...
+[DEBUG] At 20190401152128660 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"get_user_info","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401152128662 : Respond: {"code":0,"data":{"gender":0,"user_id":"5ca1c905d2dadf10ec87aeec","user_name":"linh2","dob":"1996-04-01","email":"test02@gmail.com"},"message":"SUCCESS"}
+[DEBUG] At 20190401152133490 : Client request: {"search":"t","ip":"0:0:0:0:0:0:0:1","api":"search_contact","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401152133492 : Respond: {"code":0,"data":[{"friend_name":"linh","is_added":false,"friend_id":"5ca1c8d2d2dadf10ec87aeeb","status":1}],"message":"SUCCESS"}
+[DEBUG] At 20190401152135078 : Client request: {"friend_id":"5ca1c8d2d2dadf10ec87aeeb","ip":"0:0:0:0:0:0:0:1","api":"add_contact","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401152135226 : Respond: {"code":0,"message":"SUCCESS"}
+[DEBUG] At 20190401152136764 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"get_list_contact","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401152136769 : Respond: {"code":0,"data":[{"friend_name":"linh","is_added":true,"friend_id":"5ca1c8d2d2dadf10ec87aeeb","status":1}],"message":"SUCCESS"}
+[DEBUG] At 20190401153829346 : ----> Web socket: Unauthenticated connection has connect to server
+[DEBUG] At 20190401153829391 : ----> Web socket: receive message from client: {"type":"AUTH","value":"0af090df-e4b0-472e-887b-4bacd65ca051","from":"5ca1c905d2dadf10ec87aeec"}
+[DEBUG] At 20190401153829392 : ----> Web socket: socket is valid, add to POLL
+[DEBUG] At 20190401153829393 : ----> Web socket: session close...
+[DEBUG] At 20190401153829398 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"get_user_info","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401153829400 : Respond: {"code":0,"data":{"gender":0,"user_id":"5ca1c905d2dadf10ec87aeec","user_name":"linh2","dob":"1996-04-01","email":"test02@gmail.com"},"message":"SUCCESS"}
+[DEBUG] At 20190401153837360 : ----> Web socket: Unauthenticated connection has connect to server
+[DEBUG] At 20190401153837398 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"get_user_info","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401153837400 : Respond: {"code":0,"data":{"gender":0,"user_id":"5ca1c905d2dadf10ec87aeec","user_name":"linh2","dob":"1996-04-01","email":"test02@gmail.com"},"message":"SUCCESS"}
+[DEBUG] At 20190401153837401 : ----> Web socket: receive message from client: {"type":"AUTH","value":"0af090df-e4b0-472e-887b-4bacd65ca051","from":"5ca1c905d2dadf10ec87aeec"}
+[DEBUG] At 20190401153837401 : ----> Web socket: socket is valid, add to POLL
+[DEBUG] At 20190401153837401 : ----> Web socket: add message to OUTBOX
+[DEBUG] At 20190401154029640 : ----> Web socket: session close...
+[DEBUG] At 20190401154030055 : ----> Web socket: Unauthenticated connection has connect to server
+[DEBUG] At 20190401154030101 : ----> Web socket: receive message from client: {"type":"AUTH","value":"0af090df-e4b0-472e-887b-4bacd65ca051","from":"5ca1c905d2dadf10ec87aeec"}
+[DEBUG] At 20190401154030102 : ----> Web socket: socket is valid, add to POLL
+[DEBUG] At 20190401154030102 : ----> Web socket: session close...
+[DEBUG] At 20190401154030103 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"get_user_info","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401154030246 : Respond: {"code":0,"data":{"gender":0,"user_id":"5ca1c905d2dadf10ec87aeec","user_name":"linh2","dob":"1996-04-01","email":"test02@gmail.com"},"message":"SUCCESS"}
+[DEBUG] At 20190401154457613 : ----> Web socket: Unauthenticated connection has connect to server
+[DEBUG] At 20190401154457672 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"get_user_info","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401154457674 : Respond: {"code":0,"data":{"gender":0,"user_id":"5ca1c905d2dadf10ec87aeec","user_name":"linh2","dob":"1996-04-01","email":"test02@gmail.com"},"message":"SUCCESS"}
+[DEBUG] At 20190401154457677 : ----> Web socket: receive message from client: {"type":"AUTH","value":"0af090df-e4b0-472e-887b-4bacd65ca051","from":"5ca1c905d2dadf10ec87aeec"}
+[DEBUG] At 20190401154457677 : ----> Web socket: socket is valid, add to POLL
+[DEBUG] At 20190401154457678 : ----> Web socket: session close...
+[DEBUG] At 20190401154625206 : ----> Web socket: Unauthenticated connection has connect to server
+[DEBUG] At 20190401154625220 : ----> Web socket: receive message from client: {"type":"AUTH","value":"0af090df-e4b0-472e-887b-4bacd65ca051","from":"5ca1c905d2dadf10ec87aeec"}
+[DEBUG] At 20190401154625220 : ----> Web socket: socket is valid, add to POLL
+[DEBUG] At 20190401154625222 : ----> Web socket: session close...
+[DEBUG] At 20190401154625235 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"get_user_info","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401154625237 : Respond: {"code":0,"data":{"gender":0,"user_id":"5ca1c905d2dadf10ec87aeec","user_name":"linh2","dob":"1996-04-01","email":"test02@gmail.com"},"message":"SUCCESS"}
+[DEBUG] At 20190401154732037 : ----> Web socket: Unauthenticated connection has connect to server
+[DEBUG] At 20190401154732078 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"get_user_info","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401154732079 : ----> Web socket: receive message from client: {"type":"AUTH","value":"0af090df-e4b0-472e-887b-4bacd65ca051","from":"5ca1c905d2dadf10ec87aeec"}
+[DEBUG] At 20190401154732079 : ----> Web socket: socket is valid, add to POLL
+[DEBUG] At 20190401154732080 : Respond: {"code":0,"data":{"gender":0,"user_id":"5ca1c905d2dadf10ec87aeec","user_name":"linh2","dob":"1996-04-01","email":"test02@gmail.com"},"message":"SUCCESS"}
+[DEBUG] At 20190401154732080 : ----> Web socket: session close...
+[DEBUG] At 20190401154803051 : ----> Web socket: Unauthenticated connection has connect to server
+[DEBUG] At 20190401154803077 : ----> Web socket: receive message from client: {"type":"AUTH","value":"0af090df-e4b0-472e-887b-4bacd65ca051","from":"5ca1c905d2dadf10ec87aeec"}
+[DEBUG] At 20190401154803077 : ----> Web socket: socket is valid, add to POLL
+[DEBUG] At 20190401154803077 : ----> Web socket: add message to OUTBOX
+[DEBUG] At 20190401154803079 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"get_user_info","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401154803094 : Respond: {"code":0,"data":{"gender":0,"user_id":"5ca1c905d2dadf10ec87aeec","user_name":"linh2","dob":"1996-04-01","email":"test02@gmail.com"},"message":"SUCCESS"}
+[DEBUG] At 20190401154813572 : ----> Web socket: session close...
+[DEBUG] At 20190401154814337 : ----> Web socket: Unauthenticated connection has connect to server
+[DEBUG] At 20190401154814359 : ----> Web socket: receive message from client: {"type":"AUTH","value":"0af090df-e4b0-472e-887b-4bacd65ca051","from":"5ca1c905d2dadf10ec87aeec"}
+[DEBUG] At 20190401154814360 : ----> Web socket: socket is valid, add to POLL
+[DEBUG] At 20190401154814360 : ----> Web socket: add message to OUTBOX
+[DEBUG] At 20190401154814360 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"get_user_info","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401154814362 : Respond: {"code":0,"data":{"gender":0,"user_id":"5ca1c905d2dadf10ec87aeec","user_name":"linh2","dob":"1996-04-01","email":"test02@gmail.com"},"message":"SUCCESS"}
+[DEBUG] At 20190401154912955 : ----> Web socket: session close...
+[DEBUG] At 20190401154914099 : ----> Web socket: Unauthenticated connection has connect to server
+[DEBUG] At 20190401154914125 : ----> Web socket: receive message from client: {"type":"AUTH","value":"0af090df-e4b0-472e-887b-4bacd65ca051","from":"5ca1c905d2dadf10ec87aeec"}
+[DEBUG] At 20190401154914126 : ----> Web socket: socket is valid, add to POLL
+[DEBUG] At 20190401154914126 : ----> Web socket: add message to OUTBOX
+[DEBUG] At 20190401154914145 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"get_user_info","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401154914147 : Respond: {"code":0,"data":{"gender":0,"user_id":"5ca1c905d2dadf10ec87aeec","user_name":"linh2","dob":"1996-04-01","email":"test02@gmail.com"},"message":"SUCCESS"}
+[DEBUG] At 20190401154945333 : ----> Web socket: session close...
+[DEBUG] At 20190401154946176 : ----> Web socket: Unauthenticated connection has connect to server
+[DEBUG] At 20190401154946216 : ----> Web socket: receive message from client: {"type":"AUTH","value":"0af090df-e4b0-472e-887b-4bacd65ca051","from":"5ca1c905d2dadf10ec87aeec"}
+[DEBUG] At 20190401154946216 : ----> Web socket: socket is valid, add to POLL
+[DEBUG] At 20190401154946216 : ----> Web socket: session encounter error -> close...
+[DEBUG] At 20190401154946217 : ----> Web socket: session close...
+[DEBUG] At 20190401154946236 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"get_user_info","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401154946238 : Respond: {"code":0,"data":{"gender":0,"user_id":"5ca1c905d2dadf10ec87aeec","user_name":"linh2","dob":"1996-04-01","email":"test02@gmail.com"},"message":"SUCCESS"}
+[DEBUG] At 20190401155012784 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"get_user_info","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401155012784 : ----> Web socket: Unauthenticated connection has connect to server
+[DEBUG] At 20190401155012786 : ----> Web socket: receive message from client: {"type":"AUTH","value":"0af090df-e4b0-472e-887b-4bacd65ca051","from":"5ca1c905d2dadf10ec87aeec"}
+[DEBUG] At 20190401155012786 : Respond: {"code":0,"data":{"gender":0,"user_id":"5ca1c905d2dadf10ec87aeec","user_name":"linh2","dob":"1996-04-01","email":"test02@gmail.com"},"message":"SUCCESS"}
+[DEBUG] At 20190401155012787 : ----> Web socket: socket is valid, add to POLL
+[DEBUG] At 20190401155012787 : ----> Web socket: add message to OUTBOX
+[DEBUG] At 20190401155022934 : ----> Web socket: session close...
+[DEBUG] At 20190401155023869 : ----> Web socket: Unauthenticated connection has connect to server
+[DEBUG] At 20190401155023916 : ----> Web socket: receive message from client: {"type":"AUTH","value":"0af090df-e4b0-472e-887b-4bacd65ca051","from":"5ca1c905d2dadf10ec87aeec"}
+[DEBUG] At 20190401155023916 : ----> Web socket: socket is valid, add to POLL
+[DEBUG] At 20190401155023917 : ----> Web socket: session close...
+[DEBUG] At 20190401155023918 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"get_user_info","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401155023920 : Respond: {"code":0,"data":{"gender":0,"user_id":"5ca1c905d2dadf10ec87aeec","user_name":"linh2","dob":"1996-04-01","email":"test02@gmail.com"},"message":"SUCCESS"}
+[DEBUG] At 20190401155045102 : ----> Web socket: Unauthenticated connection has connect to server
+[DEBUG] At 20190401155045142 : ----> Web socket: receive message from client: {"type":"AUTH","value":"0af090df-e4b0-472e-887b-4bacd65ca051","from":"5ca1c905d2dadf10ec87aeec"}
+[DEBUG] At 20190401155045142 : ----> Web socket: socket is valid, add to POLL
+[DEBUG] At 20190401155045142 : ----> Web socket: add message to OUTBOX
+[DEBUG] At 20190401155045142 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"get_user_info","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401155045144 : Respond: {"code":0,"data":{"gender":0,"user_id":"5ca1c905d2dadf10ec87aeec","user_name":"linh2","dob":"1996-04-01","email":"test02@gmail.com"},"message":"SUCCESS"}
+[DEBUG] At 20190401155059513 : ----> Web socket: session close...
+[DEBUG] At 20190401155100518 : ----> Web socket: Unauthenticated connection has connect to server
+[DEBUG] At 20190401155100563 : ----> Web socket: receive message from client: {"type":"AUTH","value":"0af090df-e4b0-472e-887b-4bacd65ca051","from":"5ca1c905d2dadf10ec87aeec"}
+[DEBUG] At 20190401155100563 : ----> Web socket: socket is valid, add to POLL
+[DEBUG] At 20190401155100563 : ----> Web socket: add message to OUTBOX
+[DEBUG] At 20190401155100563 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"get_user_info","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401155100565 : Respond: {"code":0,"data":{"gender":0,"user_id":"5ca1c905d2dadf10ec87aeec","user_name":"linh2","dob":"1996-04-01","email":"test02@gmail.com"},"message":"SUCCESS"}
+[DEBUG] At 20190401155100598 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"get_user_info","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401155100625 : Respond: {"code":0,"data":{"gender":0,"user_id":"5ca1c905d2dadf10ec87aeec","user_name":"linh2","dob":"1996-04-01","email":"test02@gmail.com"},"message":"SUCCESS"}
+[DEBUG] At 20190401155119232 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"get_list_contact","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401155119283 : Respond: {"code":0,"data":[{"friend_name":"linh","is_added":true,"friend_id":"5ca1c8d2d2dadf10ec87aeeb","status":1}],"message":"SUCCESS"}
+[DEBUG] At 20190401155321910 : ----> Web socket: session close...
+[DEBUG] At 20190401155322874 : ----> Web socket: Unauthenticated connection has connect to server
+[DEBUG] At 20190401155322885 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"get_user_info","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401155322887 : Respond: {"code":0,"data":{"gender":0,"user_id":"5ca1c905d2dadf10ec87aeec","user_name":"linh2","dob":"1996-04-01","email":"test02@gmail.com"},"message":"SUCCESS"}
+[DEBUG] At 20190401155322889 : ----> Web socket: receive message from client: {"type":"AUTH","value":"0af090df-e4b0-472e-887b-4bacd65ca051","from":"5ca1c905d2dadf10ec87aeec"}
+[DEBUG] At 20190401155322889 : ----> Web socket: socket is valid, add to POLL
+[DEBUG] At 20190401155322889 : ----> Web socket: add message to OUTBOX
+[DEBUG] At 20190401155322991 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"get_user_info","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401155322993 : Respond: {"code":0,"data":{"gender":0,"user_id":"5ca1c905d2dadf10ec87aeec","user_name":"linh2","dob":"1996-04-01","email":"test02@gmail.com"},"message":"SUCCESS"}
+[DEBUG] At 20190401155413534 : ----> Web socket: session close...
+[DEBUG] At 20190401155414581 : ----> Web socket: Unauthenticated connection has connect to server
+[DEBUG] At 20190401155414614 : ----> Web socket: receive message from client: {"type":"AUTH","value":"0af090df-e4b0-472e-887b-4bacd65ca051","from":"5ca1c905d2dadf10ec87aeec"}
+[DEBUG] At 20190401155414614 : ----> Web socket: socket is valid, add to POLL
+[DEBUG] At 20190401155414615 : ----> Web socket: add message to OUTBOX
+[DEBUG] At 20190401155414655 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"get_user_info","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401155414655 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"get_user_info","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401155414657 : Respond: {"code":0,"data":{"gender":0,"user_id":"5ca1c905d2dadf10ec87aeec","user_name":"linh2","dob":"1996-04-01","email":"test02@gmail.com"},"message":"SUCCESS"}
+[DEBUG] At 20190401155414797 : Respond: {"code":0,"data":{"gender":0,"user_id":"5ca1c905d2dadf10ec87aeec","user_name":"linh2","dob":"1996-04-01","email":"test02@gmail.com"},"message":"SUCCESS"}
+[DEBUG] At 20190401155547623 : ----> Web socket: session close...
+[DEBUG] At 20190401155548853 : ----> Web socket: Unauthenticated connection has connect to server
+[DEBUG] At 20190401155548948 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"get_user_info","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401155548948 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"get_user_info","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401155548950 : ----> Web socket: receive message from client: {"type":"AUTH","value":"0af090df-e4b0-472e-887b-4bacd65ca051","from":"5ca1c905d2dadf10ec87aeec"}
+[DEBUG] At 20190401155548950 : ----> Web socket: socket is valid, add to POLL
+[DEBUG] At 20190401155548951 : ----> Web socket: session close...
+[DEBUG] At 20190401155548951 : Respond: {"code":0,"data":{"gender":0,"user_id":"5ca1c905d2dadf10ec87aeec","user_name":"linh2","dob":"1996-04-01","email":"test02@gmail.com"},"message":"SUCCESS"}
+[DEBUG] At 20190401155549019 : Respond: {"code":0,"data":{"gender":0,"user_id":"5ca1c905d2dadf10ec87aeec","user_name":"linh2","dob":"1996-04-01","email":"test02@gmail.com"},"message":"SUCCESS"}
+[DEBUG] At 20190401160206187 : ----> Web socket: Unauthenticated connection has connect to server
+[DEBUG] At 20190401160206289 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"get_user_info","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401160206289 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"get_user_info","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401160206291 : Respond: {"code":0,"data":{"gender":0,"user_id":"5ca1c905d2dadf10ec87aeec","user_name":"linh2","dob":"1996-04-01","email":"test02@gmail.com"},"message":"SUCCESS"}
+[DEBUG] At 20190401160206315 : ----> Web socket: receive message from client: {"type":"AUTH","value":"0af090df-e4b0-472e-887b-4bacd65ca051","from":"5ca1c905d2dadf10ec87aeec"}
+[DEBUG] At 20190401160206315 : ----> Web socket: socket is valid, add to POLL
+[DEBUG] At 20190401160206337 : ----> Web socket: session close...
+[DEBUG] At 20190401160206338 : Respond: {"code":0,"data":{"gender":0,"user_id":"5ca1c905d2dadf10ec87aeec","user_name":"linh2","dob":"1996-04-01","email":"test02@gmail.com"},"message":"SUCCESS"}
+[DEBUG] At 20190401160302310 : ----> Web socket: Unauthenticated connection has connect to server
+[DEBUG] At 20190401160302341 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"get_user_info","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401160302343 : Respond: {"code":0,"data":{"gender":0,"user_id":"5ca1c905d2dadf10ec87aeec","user_name":"linh2","dob":"1996-04-01","email":"test02@gmail.com"},"message":"SUCCESS"}
+[DEBUG] At 20190401160302347 : ----> Web socket: receive message from client: {"type":"AUTH","value":"0af090df-e4b0-472e-887b-4bacd65ca051","from":"5ca1c905d2dadf10ec87aeec"}
+[DEBUG] At 20190401160302347 : ----> Web socket: socket is valid, add to POLL
+[DEBUG] At 20190401160302347 : ----> Web socket: add message to OUTBOX
+[DEBUG] At 20190401160304172 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"get_list_contact","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401160304176 : Respond: {"code":0,"data":[{"friend_name":"linh","is_added":true,"friend_id":"5ca1c8d2d2dadf10ec87aeeb","status":1}],"message":"SUCCESS"}
+[DEBUG] At 20190401160305178 : Client request: {"friend_id":"5ca1c8d2d2dadf10ec87aeeb","ip":"0:0:0:0:0:0:0:1","api":"start_conversation","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401160305178 : ---> { "$and" : [{ "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c905d2dadf10ec87aeec" } } }, { "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c8d2d2dadf10ec87aeeb" } } }], "conversation_type" : 0 }
+[DEBUG] At 20190401160305180 : ---> { "$and" : [{ "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c905d2dadf10ec87aeec" } } }, { "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c8d2d2dadf10ec87aeeb" } } }], "conversation_type" : 0 }
+[DEBUG] At 20190401160305182 : Respond: {"code":0,"data":{"is_existed":true,"conversation_id":"5ca1c988d2dadf10ec87aef0"},"message":"SUCCESS"}
+[DEBUG] At 20190401160352696 : Client request: {"friend_id":"5ca1c8d2d2dadf10ec87aeeb","ip":"0:0:0:0:0:0:0:1","api":"start_conversation","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401160352696 : ---> { "$and" : [{ "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c905d2dadf10ec87aeec" } } }, { "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c8d2d2dadf10ec87aeeb" } } }], "conversation_type" : 0 }
+[DEBUG] At 20190401160352698 : ---> { "$and" : [{ "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c905d2dadf10ec87aeec" } } }, { "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c8d2d2dadf10ec87aeeb" } } }], "conversation_type" : 0 }
+[DEBUG] At 20190401160352699 : Respond: {"code":0,"data":{"is_existed":true,"conversation_id":"5ca1c988d2dadf10ec87aef0"},"message":"SUCCESS"}
+[DEBUG] At 20190401160353601 : Client request: {"friend_id":"5ca1c8d2d2dadf10ec87aeeb","ip":"0:0:0:0:0:0:0:1","api":"start_conversation","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401160353601 : ---> { "$and" : [{ "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c905d2dadf10ec87aeec" } } }, { "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c8d2d2dadf10ec87aeeb" } } }], "conversation_type" : 0 }
+[DEBUG] At 20190401160353603 : ---> { "$and" : [{ "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c905d2dadf10ec87aeec" } } }, { "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c8d2d2dadf10ec87aeeb" } } }], "conversation_type" : 0 }
+[DEBUG] At 20190401160353604 : Respond: {"code":0,"data":{"is_existed":true,"conversation_id":"5ca1c988d2dadf10ec87aef0"},"message":"SUCCESS"}
+[DEBUG] At 20190401160402636 : Client request: {"friend_id":"5ca1c8d2d2dadf10ec87aeeb","ip":"0:0:0:0:0:0:0:1","api":"start_conversation","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401160402636 : ---> { "$and" : [{ "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c905d2dadf10ec87aeec" } } }, { "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c8d2d2dadf10ec87aeeb" } } }], "conversation_type" : 0 }
+[DEBUG] At 20190401160402638 : ---> { "$and" : [{ "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c905d2dadf10ec87aeec" } } }, { "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c8d2d2dadf10ec87aeeb" } } }], "conversation_type" : 0 }
+[DEBUG] At 20190401160402639 : Respond: {"code":0,"data":{"is_existed":true,"conversation_id":"5ca1c988d2dadf10ec87aef0"},"message":"SUCCESS"}
+[DEBUG] At 20190401160403786 : Client request: {"friend_id":"5ca1c8d2d2dadf10ec87aeeb","ip":"0:0:0:0:0:0:0:1","api":"start_conversation","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401160403786 : ---> { "$and" : [{ "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c905d2dadf10ec87aeec" } } }, { "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c8d2d2dadf10ec87aeeb" } } }], "conversation_type" : 0 }
+[DEBUG] At 20190401160403788 : ---> { "$and" : [{ "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c905d2dadf10ec87aeec" } } }, { "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c8d2d2dadf10ec87aeeb" } } }], "conversation_type" : 0 }
+[DEBUG] At 20190401160403789 : Respond: {"code":0,"data":{"is_existed":true,"conversation_id":"5ca1c988d2dadf10ec87aef0"},"message":"SUCCESS"}
+[DEBUG] At 20190401160405755 : Client request: {"friend_id":"5ca1c8d2d2dadf10ec87aeeb","ip":"0:0:0:0:0:0:0:1","api":"start_conversation","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401160405755 : ---> { "$and" : [{ "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c905d2dadf10ec87aeec" } } }, { "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c8d2d2dadf10ec87aeeb" } } }], "conversation_type" : 0 }
+[DEBUG] At 20190401160405757 : ---> { "$and" : [{ "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c905d2dadf10ec87aeec" } } }, { "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c8d2d2dadf10ec87aeeb" } } }], "conversation_type" : 0 }
+[DEBUG] At 20190401160405758 : Respond: {"code":0,"data":{"is_existed":true,"conversation_id":"5ca1c988d2dadf10ec87aef0"},"message":"SUCCESS"}
+[DEBUG] At 20190401162034430 : ----> Web socket: session close...
+[DEBUG] At 20190401162034942 : ----> Web socket: Unauthenticated connection has connect to server
+[DEBUG] At 20190401162034966 : ----> Web socket: receive message from client: {"type":"AUTH","value":"0af090df-e4b0-472e-887b-4bacd65ca051","from":"5ca1c905d2dadf10ec87aeec"}
+[DEBUG] At 20190401162034966 : ----> Web socket: socket is valid, add to POLL
+[DEBUG] At 20190401162034966 : ----> Web socket: add message to OUTBOX
+[DEBUG] At 20190401162035005 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"get_user_info","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401162035007 : Respond: {"code":0,"data":{"gender":0,"user_id":"5ca1c905d2dadf10ec87aeec","user_name":"linh2","dob":"1996-04-01","email":"test02@gmail.com"},"message":"SUCCESS"}
+[DEBUG] At 20190401162044076 : ----> Web socket: session close...
+[DEBUG] At 20190401162044967 : ----> Web socket: Unauthenticated connection has connect to server
+[DEBUG] At 20190401162045044 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"get_user_info","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401162045046 : Respond: {"code":0,"data":{"gender":0,"user_id":"5ca1c905d2dadf10ec87aeec","user_name":"linh2","dob":"1996-04-01","email":"test02@gmail.com"},"message":"SUCCESS"}
+[DEBUG] At 20190401162045059 : ----> Web socket: receive message from client: {"type":"AUTH","value":"0af090df-e4b0-472e-887b-4bacd65ca051","from":"5ca1c905d2dadf10ec87aeec"}
+[DEBUG] At 20190401162045059 : ----> Web socket: socket is valid, add to POLL
+[DEBUG] At 20190401162045059 : ----> Web socket: add message to OUTBOX
+[DEBUG] At 20190401162722076 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"get_list_contact","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401162722079 : Respond: {"code":0,"data":[{"friend_name":"linh","is_added":true,"friend_id":"5ca1c8d2d2dadf10ec87aeeb","status":1}],"message":"SUCCESS"}
+[DEBUG] At 20190401162725449 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"get_list_contact","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401162725452 : Respond: {"code":0,"data":[{"friend_name":"linh","is_added":true,"friend_id":"5ca1c8d2d2dadf10ec87aeeb","status":1}],"message":"SUCCESS"}
+[DEBUG] At 20190401163106046 : ----> Web socket: session close...
+[DEBUG] At 20190401163108762 : ----> Web socket: Unauthenticated connection has connect to server
+[DEBUG] At 20190401163108846 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"get_user_info","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401163108847 : ----> Web socket: receive message from client: {"type":"AUTH","value":"0af090df-e4b0-472e-887b-4bacd65ca051","from":"5ca1c905d2dadf10ec87aeec"}
+[DEBUG] At 20190401163108847 : ----> Web socket: socket is valid, add to POLL
+[DEBUG] At 20190401163108848 : Respond: {"code":0,"data":{"gender":0,"user_id":"5ca1c905d2dadf10ec87aeec","user_name":"linh2","dob":"1996-04-01","email":"test02@gmail.com"},"message":"SUCCESS"}
+[DEBUG] At 20190401163108849 : ----> Web socket: session close...
+[DEBUG] At 20190401163112980 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"get_list_contact","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401163112983 : Respond: {"code":0,"data":[{"friend_name":"linh","is_added":true,"friend_id":"5ca1c8d2d2dadf10ec87aeeb","status":1}],"message":"SUCCESS"}
+[DEBUG] At 20190401163115819 : Client request: {"friend_id":"5ca1c8d2d2dadf10ec87aeeb","ip":"0:0:0:0:0:0:0:1","api":"start_conversation","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401163115819 : ---> { "$and" : [{ "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c905d2dadf10ec87aeec" } } }, { "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c8d2d2dadf10ec87aeeb" } } }], "conversation_type" : 0 }
+[DEBUG] At 20190401163115821 : ---> { "$and" : [{ "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c905d2dadf10ec87aeec" } } }, { "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c8d2d2dadf10ec87aeeb" } } }], "conversation_type" : 0 }
+[DEBUG] At 20190401163115822 : Respond: {"code":0,"data":{"is_existed":true,"conversation_id":"5ca1c988d2dadf10ec87aef0"},"message":"SUCCESS"}
+[DEBUG] At 20190401163117153 : Client request: {"friend_id":"5ca1c8d2d2dadf10ec87aeeb","ip":"0:0:0:0:0:0:0:1","api":"start_conversation","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401163117153 : ---> { "$and" : [{ "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c905d2dadf10ec87aeec" } } }, { "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c8d2d2dadf10ec87aeeb" } } }], "conversation_type" : 0 }
+[DEBUG] At 20190401163117155 : ---> { "$and" : [{ "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c905d2dadf10ec87aeec" } } }, { "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c8d2d2dadf10ec87aeeb" } } }], "conversation_type" : 0 }
+[DEBUG] At 20190401163117156 : Respond: {"code":0,"data":{"is_existed":true,"conversation_id":"5ca1c988d2dadf10ec87aef0"},"message":"SUCCESS"}
+[DEBUG] At 20190401163127979 : Client request: {"friend_id":"5ca1c8d2d2dadf10ec87aeeb","ip":"0:0:0:0:0:0:0:1","api":"start_conversation","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401163127979 : ---> { "$and" : [{ "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c905d2dadf10ec87aeec" } } }, { "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c8d2d2dadf10ec87aeeb" } } }], "conversation_type" : 0 }
+[DEBUG] At 20190401163127981 : ---> { "$and" : [{ "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c905d2dadf10ec87aeec" } } }, { "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c8d2d2dadf10ec87aeeb" } } }], "conversation_type" : 0 }
+[DEBUG] At 20190401163127982 : Respond: {"code":0,"data":{"is_existed":true,"conversation_id":"5ca1c988d2dadf10ec87aef0"},"message":"SUCCESS"}
+[DEBUG] At 20190401163129857 : Client request: {"friend_id":"5ca1c8d2d2dadf10ec87aeeb","ip":"0:0:0:0:0:0:0:1","api":"start_conversation","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401163129857 : ---> { "$and" : [{ "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c905d2dadf10ec87aeec" } } }, { "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c8d2d2dadf10ec87aeeb" } } }], "conversation_type" : 0 }
+[DEBUG] At 20190401163129859 : ---> { "$and" : [{ "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c905d2dadf10ec87aeec" } } }, { "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c8d2d2dadf10ec87aeeb" } } }], "conversation_type" : 0 }
+[DEBUG] At 20190401163129861 : Respond: {"code":0,"data":{"is_existed":true,"conversation_id":"5ca1c988d2dadf10ec87aef0"},"message":"SUCCESS"}
+[DEBUG] At 20190401163139711 : ----> Web socket: Unauthenticated connection has connect to server
+[DEBUG] At 20190401163139743 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"get_user_info","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401163139745 : Respond: {"code":0,"data":{"gender":0,"user_id":"5ca1c905d2dadf10ec87aeec","user_name":"linh2","dob":"1996-04-01","email":"test02@gmail.com"},"message":"SUCCESS"}
+[DEBUG] At 20190401163139752 : ----> Web socket: receive message from client: {"type":"AUTH","value":"0af090df-e4b0-472e-887b-4bacd65ca051","from":"5ca1c905d2dadf10ec87aeec"}
+[DEBUG] At 20190401163139752 : ----> Web socket: socket is valid, add to POLL
+[DEBUG] At 20190401163139752 : ----> Web socket: add message to OUTBOX
+[DEBUG] At 20190401163140625 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"get_list_contact","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401163140628 : Respond: {"code":0,"data":[{"friend_name":"linh","is_added":true,"friend_id":"5ca1c8d2d2dadf10ec87aeeb","status":1}],"message":"SUCCESS"}
+[DEBUG] At 20190401163141910 : Client request: {"friend_id":"5ca1c8d2d2dadf10ec87aeeb","ip":"0:0:0:0:0:0:0:1","api":"start_conversation","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401163141910 : ---> { "$and" : [{ "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c905d2dadf10ec87aeec" } } }, { "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c8d2d2dadf10ec87aeeb" } } }], "conversation_type" : 0 }
+[DEBUG] At 20190401163141912 : ---> { "$and" : [{ "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c905d2dadf10ec87aeec" } } }, { "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c8d2d2dadf10ec87aeeb" } } }], "conversation_type" : 0 }
+[DEBUG] At 20190401163141913 : Respond: {"code":0,"data":{"is_existed":true,"conversation_id":"5ca1c988d2dadf10ec87aef0"},"message":"SUCCESS"}
+[DEBUG] At 20190401163142762 : Client request: {"friend_id":"5ca1c8d2d2dadf10ec87aeeb","ip":"0:0:0:0:0:0:0:1","api":"start_conversation","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401163142763 : ---> { "$and" : [{ "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c905d2dadf10ec87aeec" } } }, { "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c8d2d2dadf10ec87aeeb" } } }], "conversation_type" : 0 }
+[DEBUG] At 20190401163142765 : ---> { "$and" : [{ "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c905d2dadf10ec87aeec" } } }, { "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c8d2d2dadf10ec87aeeb" } } }], "conversation_type" : 0 }
+[DEBUG] At 20190401163142766 : Respond: {"code":0,"data":{"is_existed":true,"conversation_id":"5ca1c988d2dadf10ec87aef0"},"message":"SUCCESS"}
+[DEBUG] At 20190401163145299 : Client request: {"friend_id":"5ca1c8d2d2dadf10ec87aeeb","ip":"0:0:0:0:0:0:0:1","api":"start_conversation","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401163145299 : ---> { "$and" : [{ "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c905d2dadf10ec87aeec" } } }, { "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c8d2d2dadf10ec87aeeb" } } }], "conversation_type" : 0 }
+[DEBUG] At 20190401163145301 : ---> { "$and" : [{ "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c905d2dadf10ec87aeec" } } }, { "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c8d2d2dadf10ec87aeeb" } } }], "conversation_type" : 0 }
+[DEBUG] At 20190401163145302 : Respond: {"code":0,"data":{"is_existed":true,"conversation_id":"5ca1c988d2dadf10ec87aef0"},"message":"SUCCESS"}
+[DEBUG] At 20190401163146095 : Client request: {"friend_id":"5ca1c8d2d2dadf10ec87aeeb","ip":"0:0:0:0:0:0:0:1","api":"start_conversation","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401163146095 : ---> { "$and" : [{ "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c905d2dadf10ec87aeec" } } }, { "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c8d2d2dadf10ec87aeeb" } } }], "conversation_type" : 0 }
+[DEBUG] At 20190401163146097 : ---> { "$and" : [{ "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c905d2dadf10ec87aeec" } } }, { "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c8d2d2dadf10ec87aeeb" } } }], "conversation_type" : 0 }
+[DEBUG] At 20190401163146098 : Respond: {"code":0,"data":{"is_existed":true,"conversation_id":"5ca1c988d2dadf10ec87aef0"},"message":"SUCCESS"}
+[DEBUG] At 20190401163157086 : ----> Web socket: session close...
+[DEBUG] At 20190401163158342 : ----> Web socket: Unauthenticated connection has connect to server
+[DEBUG] At 20190401163158388 : ----> Web socket: receive message from client: {"type":"AUTH","value":"0af090df-e4b0-472e-887b-4bacd65ca051","from":"5ca1c905d2dadf10ec87aeec"}
+[DEBUG] At 20190401163158388 : ----> Web socket: socket is valid, add to POLL
+[DEBUG] At 20190401163158388 : ----> Web socket: session encounter error -> close...
+[DEBUG] At 20190401163158389 : ----> Web socket: session close...
+[DEBUG] At 20190401163158447 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"get_user_info","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401163158449 : Respond: {"code":0,"data":{"gender":0,"user_id":"5ca1c905d2dadf10ec87aeec","user_name":"linh2","dob":"1996-04-01","email":"test02@gmail.com"},"message":"SUCCESS"}
+[DEBUG] At 20190401163200009 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"get_list_contact","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401163200012 : Respond: {"code":0,"data":[{"friend_name":"linh","is_added":true,"friend_id":"5ca1c8d2d2dadf10ec87aeeb","status":1}],"message":"SUCCESS"}
+[DEBUG] At 20190401163201193 : Client request: {"friend_id":"5ca1c8d2d2dadf10ec87aeeb","ip":"0:0:0:0:0:0:0:1","api":"start_conversation","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401163201193 : ---> { "$and" : [{ "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c905d2dadf10ec87aeec" } } }, { "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c8d2d2dadf10ec87aeeb" } } }], "conversation_type" : 0 }
+[DEBUG] At 20190401163201195 : ---> { "$and" : [{ "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c905d2dadf10ec87aeec" } } }, { "lst_user" : { "$elemMatch" : { "user_id" : "5ca1c8d2d2dadf10ec87aeeb" } } }], "conversation_type" : 0 }
+[DEBUG] At 20190401163201196 : Respond: {"code":0,"data":{"is_existed":true,"conversation_id":"5ca1c988d2dadf10ec87aef0"},"message":"SUCCESS"}
+[DEBUG] At 20190401163222046 : ----> Web socket: Unauthenticated connection has connect to server
+[DEBUG] At 20190401163222093 : ----> Web socket: receive message from client: {"type":"AUTH","value":"0af090df-e4b0-472e-887b-4bacd65ca051","from":"5ca1c905d2dadf10ec87aeec"}
+[DEBUG] At 20190401163222094 : ----> Web socket: socket is valid, add to POLL
+[DEBUG] At 20190401163222095 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"get_user_info","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401163222095 : ----> Web socket: session close...
+[DEBUG] At 20190401163222097 : Respond: {"code":0,"data":{"gender":0,"user_id":"5ca1c905d2dadf10ec87aeec","user_name":"linh2","dob":"1996-04-01","email":"test02@gmail.com"},"message":"SUCCESS"}
+[DEBUG] At 20190401163451507 : ----> Web socket: Unauthenticated connection has connect to server
+[DEBUG] At 20190401163451538 : ----> Web socket: receive message from client: {"type":"AUTH","value":"0af090df-e4b0-472e-887b-4bacd65ca051","from":"5ca1c905d2dadf10ec87aeec"}
+[DEBUG] At 20190401163451538 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"get_user_info","token":"0af090df-e4b0-472e-887b-4bacd65ca051"}
+[DEBUG] At 20190401163451538 : ----> Web socket: socket is valid, add to POLL
+[DEBUG] At 20190401163451538 : ----> Web socket: add message to OUTBOX
+[DEBUG] At 20190401163451540 : Respond: {"code":0,"data":{"gender":0,"user_id":"5ca1c905d2dadf10ec87aeec","user_name":"linh2","dob":"1996-04-01","email":"test02@gmail.com"},"message":"SUCCESS"}

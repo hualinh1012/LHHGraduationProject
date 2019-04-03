@@ -10,7 +10,6 @@ class SideBarList extends Component {
     }
 
     render() {
-        console.log(this.props)
         const data = this.props.listElement;
         if (this.props.isListConversation) {
             return (

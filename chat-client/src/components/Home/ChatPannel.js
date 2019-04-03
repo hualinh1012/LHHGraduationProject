@@ -1,19 +1,41 @@
 import React, { Component } from 'react';
-import FriendProfile from '../Home/FriendProfile';
+import ConversationDetail from '../Home/ConversationDetail';
 
 class ChatPannel extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-
+            message_content: ''
         };
+    }
+
+    change_text = (text) => {
+        this.setState({
+            message_content: text
+        })
+    }
+
+    handle_key_down = (e) => {
+        if (e.keyCode === 13) {
+            this.send_text();
+        }
+    }
+
+    send_text = () => {
+        const { message_content } = this.state;
+        if (message_content && message_content.trim() !== '') {
+            this.setState({
+                message_content: ''
+            })
+            console.log(message_content);
+        }
     }
 
     render() {
         return (
             <div>
-                <FriendProfile />
+                <ConversationDetail />
                 <div className="messages">
                     <ul>
                         <li className="sent">
@@ -25,39 +47,16 @@ class ChatPannel extends Component {
                             <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
                             <p>When you're backed against the wall, break the god damn thing down.</p>
                         </li>
-                        <li className="replies">
-                            <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-                            <p>Excuses don't win championships.</p>
-                        </li>
-                        <li className="sent">
-                            <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
-                            <p>Oh yeah, did Michael Jordan tell you that?</p>
-                        </li>
-                        <li className="replies">
-                            <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-                            <p>No, I told him that.</p>
-                        </li>
-                        <li className="replies">
-                            <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-                            <p>What are your choices when someone puts a gun to your head?</p>
-                        </li>
-                        <li className="sent">
-                            <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
-                            <p>What are you talking about? You do what they say or they shoot you.</p>
-                        </li>
-                        <li className="replies">
-                            <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-                            <p>Wrong. You take the gun, or you pull out a bigger one. Or, you call their bluff. Or, you do
-                                any one of a
-							hundred and forty six other things.</p>
-                        </li>
                     </ul>
                 </div>
                 <div className="message-input">
                     <div className="wrap">
-                        <input type="text" placeholder="Write your message..." />
+                        <input type="text" placeholder="Write your message..."
+                            value={this.state.message_content}
+                            onChange={(e) => this.change_text(e.target.value)}
+                            onKeyDown={(e) => this.handle_key_down(e)} />
                         <i className="fa fa-paperclip attachment" aria-hidden="true"></i>
-                        <button className="submit"><i className="fa fa-paper-plane" aria-hidden="true"></i></button>
+                        <button className="submit" onClick={(e) => this.send_text()}><i className="fa fa-paper-plane" aria-hidden="true"></i></button>
                     </div>
                 </div>
             </div>

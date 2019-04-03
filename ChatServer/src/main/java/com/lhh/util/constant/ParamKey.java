@@ -35,4 +35,6 @@ public class ParamKey {
     public static final String PHONE_NUMBER = "phone_number";
     public static final String NEW_PASSWORD = "new_pwd";
     public static final String OLD_PASSWORD = "old_pwd";
+    
+    public static final String CONVERSATION_ID = "conversation_id";
 }

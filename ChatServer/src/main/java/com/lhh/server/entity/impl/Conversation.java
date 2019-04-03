@@ -6,6 +6,9 @@
 package com.lhh.server.entity.impl;
 
 import com.lhh.server.entity.IEntity;
+import com.mongodb.BasicDBList;
+import com.mongodb.BasicDBObject;
+import java.util.ArrayList;
 import java.util.List;
 import org.bson.Document;
 import org.json.simple.JSONObject;
@@ -43,8 +46,9 @@ public class Conversation implements IEntity {
 
     public static final String LAST_MESSAGE_TIME = "last_message_time";
     public String lastMessageTime;
-
+    
     public static final String USER_ID = "user_id";
+    public String userId;
     
     public static final String USER_LIST = "lst_user";
     public List<String> lstUser;
@@ -91,6 +95,13 @@ public class Conversation implements IEntity {
         conversation.lastMessageType = (String) obj.get(Conversation.LAST_MESSAGE_TYPE);
         conversation.lastMessageValue = (String) obj.get(Conversation.LAST_MESSAGE_VALUE);
         conversation.lastMessageTime = (String) obj.get(Conversation.LAST_MESSAGE_TIME);
+        conversation.lstUser = new ArrayList<>();
+        ArrayList friends = (ArrayList) obj.get(Conversation.USER_LIST);
+        for (Object o : friends){
+            Document friend = (Document) o;
+            String friendId = (String) friend.get(Conversation.USER_ID);
+            conversation.lstUser.add(friendId);
+        }
         return conversation;
     }
 }
