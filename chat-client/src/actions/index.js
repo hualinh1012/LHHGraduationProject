@@ -11,6 +11,9 @@ import { start_conversation_action } from './Communication/StartConversationActi
 import { get_friend_info_action } from './Acount/GetFriendInfoAction';
 import { load_conversation_action } from './Communication/LoadConversationAction';
 import { get_conversation_detail_action } from './Communication/GetConversationDetailAction';
+import { send_message_action } from './Communication/SendMessageAction';
+import { get_list_conversation_action } from './Communication/GetListConversationAction';
+import { get_chat_history } from './Communication/GetChatHistoryAction';
 
 export {
     clear_data,
@@ -25,5 +28,8 @@ export {
     start_conversation_action,
     get_friend_info_action,
     load_conversation_action,
-    get_conversation_detail_action
+    get_conversation_detail_action,
+    send_message_action,
+    get_list_conversation_action,
+    get_chat_history
 }

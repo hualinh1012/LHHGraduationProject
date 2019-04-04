@@ -1006,6 +1006,7 @@ ul {
     font-size: 0.9em;
     cursor: pointer;
     list-style: none;
+    height: 50px;
 }
 
 @media screen and (max-width: 735px) {
@@ -1067,6 +1068,7 @@ ul {
     border-radius: 50%;
     float: left;
     margin-right: 10px;
+    margin-top: 5px;
 }
 
 @media screen and (max-width: 735px) {
@@ -1087,6 +1089,7 @@ ul {
 
 #frame #sidepanel #contacts ul li.message .wrap .meta .name {
     font-weight: 600;
+    margin: 0;
 }
 
 #frame #sidepanel #contacts ul li.message .wrap .meta .preview {
@@ -1127,4 +1130,10 @@ ul {
     border-radius: 6px;
     min-width: 700px !important;
     min-height: 380px !important;
+}
+
+.chat-time {
+    position: absolute;
+    right: 0;
+    top: 5px;
 }

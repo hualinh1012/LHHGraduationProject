@@ -47,7 +47,6 @@ public class WebSocketWorker implements Runnable {
             Message msg = uc.inbox.poll();
             uc.session.getAsyncRemote().sendText(msg.toJsonObject().toJSONString());
             
-            UnreadConversationDAO.updateUnreadMessage(uc.userId, msg.to);
         }
     }
 
@@ -73,9 +72,12 @@ public class WebSocketWorker implements Runnable {
 
                 for (String toUserId : lstUserId) {
                     List<UserConnection> lstConnection = UserConnectionStorage.getUserConnections(toUserId);
+                    if (lstConnection == null || lstConnection.isEmpty()) continue;
                     for (UserConnection to : lstConnection){
                         to.inbox.add(msg);
                     } 
+                                        
+                    UnreadConversationDAO.updateUnreadMessage(toUserId, msg.to);
                 }
                 
                 MessageLogger.log(msg);

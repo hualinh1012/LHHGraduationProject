@@ -1,13 +1,17 @@
-import {REGISTER} from '../../types';
+import { REGISTER, CLEAR_STORE } from '../../types';
 
 const user_register_reducer = (state = {}, action) => {
 	switch (action.type) {
-        case REGISTER:
+		case REGISTER:
 			return {
 				...state,
 				data: action.payload
 			};
-
+		case CLEAR_STORE:
+			return {
+				...state,
+				data: action.payload
+			};
 		default:
 			return state;
 	}

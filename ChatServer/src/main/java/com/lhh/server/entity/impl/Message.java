@@ -7,6 +7,7 @@ package com.lhh.server.entity.impl;
 
 import com.lhh.server.entity.IEntity;
 import com.lhh.util.Util;
+import org.bson.Document;
 import org.bson.types.ObjectId;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
@@ -42,7 +43,7 @@ public class Message implements IEntity {
         jo.put(FROM, from);
         jo.put(TO, to);
         jo.put(TIME, time);
-        jo.put(TYPE, type);
+        jo.put(TYPE, type.toString());
         jo.put(VALUE, value);
         return jo;        
     }
@@ -57,6 +58,16 @@ public class Message implements IEntity {
         msg.type = MessageType.valueOf((String) json.get(TYPE));
         msg.value = (String) json.get(VALUE);
         return msg;        
+    }
+    
+    public static Message fromDBObject(Document doc) {
+        Message msg = new Message();
+        msg.msgId = (String) doc.get(MSG_ID);
+        msg.from = (String) doc.get(FROM);
+        msg.time = (String) doc.get(TIME);
+        msg.type = MessageType.valueOf((String) doc.get(TYPE));
+        msg.value = (String) doc.get(VALUE);
+        return msg;
     }
     
     public enum MessageType {

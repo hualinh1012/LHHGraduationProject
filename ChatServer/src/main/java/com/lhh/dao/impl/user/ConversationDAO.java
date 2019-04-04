@@ -41,15 +41,13 @@ public class ConversationDAO {
 
     public static List<Conversation> getListConversation(String userId, Integer skip, Integer take) {
         List<Conversation> lstConversation = new ArrayList<>();
-        Document findObj = new Document(Conversation.USER_LIST, new Document("$elemMatch", userId));
+        Document findObj = new Document(Conversation.USER_LIST, new Document("$elemMatch", new BasicDBObject(Conversation.USER_ID, userId)));
         Document sortObj = new Document(Conversation.LAST_MESSAGE_TIME, -1);
-        FindIterable result = COLLECTION.find(findObj).sort(sortObj);
-        result.skip(skip).limit(take);
-        MongoCursor cursor = result.iterator();
-        while (cursor.hasNext()) {
-//            DBObject doc = (DBObject) cursor.next();
-//            Conversation conversation = Conversation.fromDBObject(doc);
-//            lstConversation.add(conversation);
+        FindIterable<Document> docs = COLLECTION.find(findObj).sort(sortObj);
+        docs.skip(skip).limit(take);
+        for (Document doc : docs) {
+            Conversation conversation = Conversation.fromDBObject(doc);
+            lstConversation.add(conversation);
         }
         return lstConversation;
     }
@@ -102,10 +100,11 @@ public class ConversationDAO {
         BasicDBObject findObj = new BasicDBObject(Conversation.ID, new ObjectId(id));
         Document doc = (Document) COLLECTION.find(findObj).first();
         if (doc != null) {
-            BasicDBList lstUser = (BasicDBList) doc.get(Conversation.USER_LIST);
-            for (Object o : lstUser) {
-                String userId = ((BasicDBObject) o).getString(Conversation.USER_ID);
-                lstUser.add(userId);
+            ArrayList friends = (ArrayList) doc.get(Conversation.USER_LIST);
+            for (Object o : friends) {
+                Document friend = (Document) o;
+                String friendId = (String) friend.get(Conversation.USER_ID);
+                lstUserId.add(friendId);
             }
         }
         return lstUserId;
@@ -114,7 +113,8 @@ public class ConversationDAO {
     public static void updateConversation(Message msg) {
         BasicDBObject findObj = new BasicDBObject(Conversation.ID, new ObjectId(msg.to));
         BasicDBObject query = new BasicDBObject();
-        query.append(Conversation.LAST_MESSAGE_TYPE, msg.type);
+        query.append(Conversation.LAST_MESSAGE_FROM, msg.from);
+        query.append(Conversation.LAST_MESSAGE_TYPE, msg.type.toString());
         query.append(Conversation.LAST_MESSAGE_VALUE, msg.value);
         query.append(Conversation.LAST_MESSAGE_TIME, msg.time);
         BasicDBObject updObj = new BasicDBObject("$set", query);
@@ -124,11 +124,10 @@ public class ConversationDAO {
     public static Conversation getConversationDetail(String conversationId) {
         BasicDBObject findObj = new BasicDBObject(Conversation.ID, new ObjectId(conversationId));
         Document doc = (Document) COLLECTION.find(findObj).first();
-        if (doc != null){
+        if (doc != null) {
             Conversation conversation = Conversation.fromDBObject(doc);
             return conversation;
-        }
-        else {
+        } else {
             return null;
         }
     }

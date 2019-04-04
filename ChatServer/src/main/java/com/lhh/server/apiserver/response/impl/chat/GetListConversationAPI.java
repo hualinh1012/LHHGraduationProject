@@ -6,12 +6,15 @@
 package com.lhh.server.apiserver.response.impl.chat;
 
 import com.lhh.dao.impl.user.ConversationDAO;
+import com.lhh.dao.impl.user.UserDAO;
 import com.lhh.server.entity.impl.Conversation;
 import com.lhh.server.apiserver.request.ClientRequest;
 import com.lhh.server.apiserver.response.IApiAdapter;
 import com.lhh.server.apiserver.response.ServerResponse;
 import com.lhh.server.apiserver.response.common.ListEntityRespond;
+import com.lhh.server.entity.impl.User;
 import com.lhh.util.Util;
+import com.lhh.util.constant.Constant;
 import com.lhh.util.constant.ParamKey;
 import com.lhh.util.constant.ResponseCode;
 import java.util.List;
@@ -30,6 +33,15 @@ public class GetListConversationAPI implements IApiAdapter {
             Integer skip = request.getIntegerParam(ParamKey.SKIP);
             Integer take = request.getIntegerParam(ParamKey.TAKE);
             List<Conversation> lstConversation = ConversationDAO.getListConversation(userId, skip, take);
+            for (Conversation conversation : lstConversation) {
+                if (conversation != null && conversation.conversationType == Constant.ConversationType.PRIVATE) {
+                    String friendId = conversation.lstUser.get(0);
+                    friendId = friendId.equals(userId) ? conversation.lstUser.get(1) : friendId;
+                    User friend = UserDAO.getUserInfo(friendId);
+                    conversation.conversationName = friend.userName;
+                    conversation.avatarId = friend.avatarId;
+                }
+            }
             response.data = lstConversation;
             response.code = ResponseCode.SUCCESS;
         } catch (Exception ex) {

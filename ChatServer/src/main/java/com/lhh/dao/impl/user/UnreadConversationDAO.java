@@ -38,9 +38,11 @@ public class UnreadConversationDAO {
             COLLECTION.updateOne(findObj, updateObj);
         }
         else {
-            BasicDBObject insertObj = findObj;
-            insertObj.append(UnreadConversation.UNREAD_NUMBER, 1);
-            COLLECTION.insertOne(insertObj);
+            Document insObj = new Document();
+            insObj.append(UnreadConversation.CONVERSATION_ID, conversationId);
+            insObj.append(UnreadConversation.USER_ID, userId);
+            insObj.append(UnreadConversation.UNREAD_NUMBER, 1);
+            COLLECTION.insertOne(insObj);
         }
     }
 }

@@ -11,6 +11,7 @@ import com.lhh.server.chatserver.connection.UserConnection;
 import com.lhh.server.chatserver.connection.UserConnectionStorage;
 import com.lhh.server.entity.impl.Message;
 import com.lhh.server.session.SessionManager;
+import com.lhh.util.DateFormat;
 import com.lhh.util.Util;
 import java.io.IOException;
 import java.util.List;
@@ -81,14 +82,21 @@ public class WebSocketEndPoint implements Runnable {
             Message msg = Message.fromJsonObject(message);
             switch (msg.type) {
                 case AUTH: {
+                    String result = "fail";
                     if (UnAuthenticatedConnectionPool.get(userSession.getId()) != null) {
                         boolean isValid = SessionManager.isTokenExist(msg.value);
                         if (isValid) {
                             UnAuthenticatedConnectionPool.remove(userSession.getId());
                             UserConnectionStorage.addConnection(new UserConnection(msg.from, userSession));
                             Util.addDebugLog("----> Web socket: socket is valid, add to POLL");
+                            result = "success";
                         }
                     }
+                    msg.value = result;
+                    msg.to = msg.from;
+                    msg.from = "SERVER";
+                    msg.time = DateFormat.format(Util.currentTime());
+                    userSession.getAsyncRemote().sendText(msg.toJsonObject().toJSONString());
                     break;
                 }
                 default: {

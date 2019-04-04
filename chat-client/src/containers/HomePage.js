@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import $ from 'jquery';
 import Profile from '../components/Home/Profile';
 import SideBar from '../components/Home/SideBar';
-import ChatPannel from '../components/Home/ChatPannel';
+import ChatPannel from '../components/Chat/ChatPannel';
 import { load_conversation_action } from '../actions';
 import { connect } from 'react-redux';
 
@@ -49,34 +49,12 @@ class HomePage extends Component {
 			$("#status-options").removeClass("active");
 		});
 
-		// function newMessage() {
-		// 	var message = $(".message-input input").val();
-		// 	if ($.trim(message) === '') {
-		// 		return false;
-		// 	}
-		// 	$('<li class="sent"><img src="http://emilcarlsson.se/assets/mikeross.png" alt="" /><p>' + message + '</p></li>').appendTo($('.messages ul'));
-		// 	$('.message-input input').val(null);
-		// 	$('.contact.active .preview').html('<span>You: </span>' + message);
-		// 	$(".messages").animate({ scrollTop: $(document).height() }, "fast");
-		// };
-
-		// $('.submit').click(function () {
-		// 	newMessage();
-		// });
-
-		// $(window).on('keydown', function (e) {
-		// 	if (e.which === 13) {
-		// 		newMessage();
-		// 		return false;
-		// 	}
-		// });
 	}
 
 	componentWillReceiveProps(nextProps) {
-		console.log(nextProps.data)
-		if (nextProps.data) {
+		if (nextProps.load_data.data) {
 			this.setState({
-				load_conversation: nextProps.data.load_conversation
+				load_conversation: nextProps.load_data.data.load_conversation
 			})
 		}
 	}
@@ -89,10 +67,7 @@ class HomePage extends Component {
 					<Profile />
 					<SideBar />
 				</div>
-				<div className="content">
-					{load_conversation === false ? null : <ChatPannel />}
-
-				</div>
+				{(load_conversation === undefined || load_conversation === null || load_conversation === false) ? null : <ChatPannel />}
 			</div>
 		);
 	}
@@ -100,7 +75,7 @@ class HomePage extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        data: state.load_conversation_reducer
+        load_data: state.load_conversation_reducer
     }
 }
 

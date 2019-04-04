@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { clear_data, search_contact_action, get_list_contact_action } from '../../actions';
+import { search_contact_action, get_list_contact_action, get_list_conversation_action, clear_data } from '../../actions';
 import SideBarList from './SideBarList';
 
 class SideBar extends Component {
@@ -16,6 +16,7 @@ class SideBar extends Component {
 
     componentWillMount() {
         this.timer = null;
+        this.props.get_list_conversation_action();
     }
 
     on_submit(event) {
@@ -43,14 +44,19 @@ class SideBar extends Component {
         this.props.get_list_contact_action();
     }
 
+    get_list_conversation() {
+        this.props.get_list_conversation_action();
+    }
+
     componentWillReceiveProps(nextProps) {
-        if (nextProps.list_conversation) {
+        if (nextProps.list_conversation.data) {
             switch (nextProps.list_conversation.data.code) {
                 case 0: {
                     this.setState({
                         isListConversation: true,
                         listElement: nextProps.list_conversation.data.data
                     })
+                    this.props.clear_data();
                     break;
                 }
                 default: {
@@ -58,13 +64,14 @@ class SideBar extends Component {
                 }
             }
         }
-        else if (nextProps.list_contact) {
+        else if (nextProps.list_contact.data) {
             switch (nextProps.list_contact.data.code) {
                 case 0: {
                     this.setState({
                         isListConversation: false,
                         listElement: nextProps.list_contact.data.data
                     })
+                    this.props.clear_data();   
                     break;
                 }
                 default: {
@@ -85,7 +92,7 @@ class SideBar extends Component {
                     />
                 </div>
                 <div id="top-bar">
-                    <button id="addcontact">
+                    <button id="addcontact" onClick={() => this.get_list_conversation()}>
                         <i className="fa fa-weixin" aria-hidden="true"></i>
                         <span>Tin nhắn</span>
                     </button>
@@ -104,8 +111,9 @@ class SideBar extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        list_contact: state.list_contact_reducer
+        list_contact: state.list_contact_reducer,
+        list_conversation: state.list_conversation_reducer
     }
 }
 
-export default connect(mapStateToProps, { search_contact_action, get_list_contact_action, clear_data })(SideBar);
+export default connect(mapStateToProps, { search_contact_action, get_list_contact_action, get_list_conversation_action, clear_data })(SideBar);

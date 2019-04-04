@@ -14,6 +14,8 @@ import {friend_info_reducer} from './Account/FriendInfoReducer';
 import {start_conversation_reducer} from './Communication/StartConversationReducer';
 import {load_conversation_reducer} from './Communication/LoadConversationReducer';
 import {get_conversation_detail_reducer} from './Communication/GetConversationDetailReducer';
+import {send_message_reducer} from './Communication/SendMessageReducer';
+import {list_conversation_reducer} from './Communication/ListConversationReducer';
 
 const reducer = combineReducers({
     user_login_reducer,
@@ -24,7 +26,9 @@ const reducer = combineReducers({
     friend_info_reducer,
     start_conversation_reducer,
     load_conversation_reducer,
-    get_conversation_detail_reducer
+    get_conversation_detail_reducer,
+    send_message_reducer,
+    list_conversation_reducer
 });
 
 export default reducer;

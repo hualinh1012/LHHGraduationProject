@@ -30,13 +30,16 @@ public class Conversation implements IEntity {
     public Integer conversationType;
 
     public static final String CREATE_TIME = "create_time";
-    public String create_time;
+    public String createTime;
 
     public static final String AVATAR_ID = "avatar_id";
     public String avatarId;
 
     public static final String AVATAR_URL = "avatar_url";
     public String avatarUrl;
+
+    public static final String LAST_MESSAGE_FROM = "last_message_from";
+    public String lastMessageFrom;
 
     public static final String LAST_MESSAGE_TYPE = "last_message_type";
     public String lastMessageType;
@@ -71,6 +74,9 @@ public class Conversation implements IEntity {
         if (avatarUrl != null) {
             jo.put(AVATAR_URL, avatarUrl);
         }
+        if (lastMessageFrom != null) {
+            jo.put(LAST_MESSAGE_FROM, lastMessageFrom);
+        }
         if (lastMessageType != null) {
             jo.put(LAST_MESSAGE_TYPE, lastMessageType);
         }
@@ -92,6 +98,7 @@ public class Conversation implements IEntity {
         conversation.conversationName = (String) obj.get(Conversation.CONVERSATION_NAME);
         conversation.conversationType = (Integer) obj.get(Conversation.CONVERSATION_TYPE);
         conversation.avatarId = (String) obj.get(Conversation.AVATAR_ID);
+        conversation.lastMessageFrom = (String) obj.get(Conversation.LAST_MESSAGE_FROM);
         conversation.lastMessageType = (String) obj.get(Conversation.LAST_MESSAGE_TYPE);
         conversation.lastMessageValue = (String) obj.get(Conversation.LAST_MESSAGE_VALUE);
         conversation.lastMessageTime = (String) obj.get(Conversation.LAST_MESSAGE_TIME);

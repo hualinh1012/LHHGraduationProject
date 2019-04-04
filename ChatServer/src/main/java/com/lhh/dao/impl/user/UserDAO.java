@@ -19,6 +19,7 @@ import com.mongodb.client.model.Filters;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
@@ -169,6 +170,10 @@ public class UserDAO {
             BasicDBObject updateObj = new BasicDBObject("$set", query);
             COLLECTION.updateOne(findObj, updateObj);
         }
+    }
+
+    public static Map<String, User> getMapBasicInfo(List<String> lstUserId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

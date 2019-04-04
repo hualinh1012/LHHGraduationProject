@@ -16,28 +16,31 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  *
  * @author Linh Hua
  */
-public class MessageLogger implements Runnable{
-    
+public class MessageLogger implements Runnable {
+
     private static final Queue<Message> MESSAGE_QUEUE = new ConcurrentLinkedQueue<Message>();
-    
-    public static void log(Message msg){
+
+    public static void log(Message msg) {
         MESSAGE_QUEUE.add(msg);
     }
-        
+
     @Override
     public void run() {
-        while(true){
+        while (true) {
             Message msg = MESSAGE_QUEUE.poll();
-            if (msg != null){
-                ChatLogDAO.addLog(msg);
-                ConversationDAO.updateConversation(msg);
-            }
-            else {
+            if (msg != null) {
+                try {
+                    ChatLogDAO.addLog(msg);
+                    ConversationDAO.updateConversation(msg);
+                } catch (Exception e) {
+                    Util.addErrorLog(e);
+                }
+            } else {
                 sleep();
             }
         }
     }
-    
+
     private void sleep() {
         try {
             Thread.sleep(10);

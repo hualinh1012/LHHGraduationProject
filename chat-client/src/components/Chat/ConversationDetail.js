@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import { clear_data, get_conversation_detail_action } from '../../actions';
+import { get_conversation_detail_action } from '../../actions';
 import { connect } from 'react-redux';
 import { isLogin } from '../../utils';
 
@@ -16,7 +16,6 @@ class ConversationDetail extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps.conversation_detail.data)
         if (nextProps.conversation_detail.data) {
             switch (nextProps.conversation_detail.data.code) {
                 case 0:
@@ -66,4 +65,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, { get_conversation_detail_action, clear_data })(ConversationDetail);
+export default connect(mapStateToProps, { get_conversation_detail_action })(ConversationDetail);

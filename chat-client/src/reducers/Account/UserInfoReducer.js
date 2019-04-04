@@ -1,4 +1,4 @@
-import { GET_USER_INFO } from '../../types';
+import { GET_USER_INFO, CLEAR_STORE } from '../../types';
 
 const user_info_reducer = (state = {}, action) => {
 	switch (action.type) {
@@ -7,7 +7,11 @@ const user_info_reducer = (state = {}, action) => {
 				...state,
 				data: action.payload
 			};
-
+		case CLEAR_STORE:
+			return {
+				...state,
+				data: action.payload
+			};
 		default:
 			return state;
 	}

@@ -1,8 +1,8 @@
-import { GET_CONVERSATION_DETAIL, CLEAR_STORE } from '../../types';
+import { GET_LIST_CONVERSATION, CLEAR_STORE } from '../../types';
 
-const get_conversation_detail_reducer = (state = {}, action) => {
+const list_conversation_reducer = (state = {}, action) => {
     switch (action.type) {
-        case GET_CONVERSATION_DETAIL:
+        case GET_LIST_CONVERSATION:
             return {
                 ...state,
                 data: action.payload
@@ -18,5 +18,5 @@ const get_conversation_detail_reducer = (state = {}, action) => {
 }
 
 export {
-    get_conversation_detail_reducer
+    list_conversation_reducer
 }
