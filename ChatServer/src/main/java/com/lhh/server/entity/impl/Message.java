@@ -24,30 +24,40 @@ public class Message implements IEntity {
     public static final String FROM = "from";
     public String from;
 
+    public static final String FROM_INFO = "from_info";
+    public User fromInfo;
+
     public static final String TO = "to";
     public String to;
 
     public static final String TIME = "time";
-    public String time; 
+    public String time;
 
     public static final String TYPE = "type";
-    public MessageType type; 
+    public MessageType type;
 
     public static final String VALUE = "value";
-    public String value; 
-    
+    public String value;
+
+    public static final String IS_OWNED = "is_owned";
+    public Boolean isOwned;
+
     @Override
     public JSONObject toJsonObject() {
         JSONObject jo = new JSONObject();
         jo.put(MSG_ID, msgId);
         jo.put(FROM, from);
-        jo.put(TO, to);
+        if (fromInfo != null) {
+            jo.put(FROM_INFO, fromInfo.toJsonObject());
+        }
+//        jo.put(TO, to);
         jo.put(TIME, time);
         jo.put(TYPE, type.toString());
         jo.put(VALUE, value);
-        return jo;        
+        jo.put(IS_OWNED, isOwned);
+        return jo;
     }
-    
+
     public static Message fromJsonObject(String jsonString) throws ParseException {
         JSONObject json = Util.fromJSONObject(jsonString);
         Message msg = new Message();
@@ -57,9 +67,9 @@ public class Message implements IEntity {
         msg.time = (String) json.get(TIME);
         msg.type = MessageType.valueOf((String) json.get(TYPE));
         msg.value = (String) json.get(VALUE);
-        return msg;        
+        return msg;
     }
-    
+
     public static Message fromDBObject(Document doc) {
         Message msg = new Message();
         msg.msgId = (String) doc.get(MSG_ID);
@@ -69,7 +79,7 @@ public class Message implements IEntity {
         msg.value = (String) doc.get(VALUE);
         return msg;
     }
-    
+
     public enum MessageType {
         AUTH,
         TEXT,

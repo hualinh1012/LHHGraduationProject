@@ -18,6 +18,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 import java.security.MessageDigest;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.bson.Document;
@@ -97,8 +98,8 @@ public class UserDAO {
         }
     }
 
-    public static User getUserInfo(String friendId) {
-        Bson findObj = new Document(User.ID, new ObjectId(friendId));
+    public static User getUserInfo(String userId) {
+        Bson findObj = new Document(User.ID, new ObjectId(userId));
         Document doc = (Document) COLLECTION.find(findObj).first();
         User user = User.fromDBObject(doc);
         return user;
@@ -173,7 +174,14 @@ public class UserDAO {
     }
 
     public static Map<String, User> getMapBasicInfo(List<String> lstUserId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Map<String, User> result = new HashMap<>();
+        BasicDBObject findObj = new BasicDBObject(User.USER_ID, new BasicDBObject("$in", lstUserId));
+        FindIterable<Document> docs = COLLECTION.find(findObj);
+        for (Document doc : docs) {
+            User user = User.fromDBObject(doc);
+            result.put(user.userId, user);
+        }
+        return result;
     }
 
 }

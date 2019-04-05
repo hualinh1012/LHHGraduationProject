@@ -3,7 +3,7 @@ import { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { SERVER_SOCKET } from '../constant';
 import { isLogin, utc_time_local } from '../utils';
-import { send_message_action } from '../actions';
+import { send_message_action, show_message_action } from '../actions';
 
 class WebSocketConnect extends PureComponent {
     constructor(props) {
@@ -33,6 +33,7 @@ class WebSocketConnect extends PureComponent {
         }
 
         ws.onmessage = e => {
+            console.log(e.data)
             const message = JSON.parse(e.data);
             if (message) {
                 switch (message.type) {
@@ -42,6 +43,10 @@ class WebSocketConnect extends PureComponent {
                                 ws_local: ws
                             })
                         }
+                        break;
+                    }
+                    case "TEXT": {
+                        this.props.show_message_action(message);
                         break;
                     }
                     default: {
@@ -76,7 +81,7 @@ class WebSocketConnect extends PureComponent {
     componentWillReceiveProps(nextProps) {
         const { ws_local } = this.state;
         if (ws_local === null || ws_local.readyState !== 1){
-            this.initilizeWS();
+            // this.initilizeWS();
         }
         if (nextProps.send_message.data) {
             const message = nextProps.send_message.data;
@@ -98,4 +103,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, { send_message_action })(WebSocketConnect);
+export default connect(mapStateToProps, { send_message_action, show_message_action })(WebSocketConnect);

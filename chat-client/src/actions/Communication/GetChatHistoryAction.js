@@ -2,13 +2,15 @@ import axios from 'axios';
 import { SERVER_API } from '../../constant';
 import { GET_CHAT_HISTORY } from '../../types';
 
-const get_chat_history = (conversation_id) => {
+const get_chat_history_action = (conversation_id, time, take) => {
     var token = localStorage.getItem('token');
 
     const data = {
         'api': 'get_chat_history',
         'token': JSON.parse(token),
-        'conversation_id': conversation_id
+        'conversation_id': conversation_id,
+        'time_stamp': time,
+        'take': take
     }
 
     return axios({
@@ -30,4 +32,4 @@ const get_chat_history = (conversation_id) => {
     });
 }
 
-export { get_chat_history };
+export { get_chat_history_action };

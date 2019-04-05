@@ -23,8 +23,8 @@ public class ChatLogDAO {
     private static MongoCollection getCollection(String collectionName) {
         return DBLoader.getChatDB().getCollection(collectionName);
     }
-    
-    public static void addLog(Message msg){
+
+    public static void addLog(Message msg) {
         MongoCollection collection = getCollection(msg.to);
         Document doc = new Document();
         doc.append(Message.MSG_ID, msg.msgId);
@@ -35,12 +35,21 @@ public class ChatLogDAO {
         collection.insertOne(doc);
     }
 
-    public static List<Message> getChatHistory(String conversationId, Integer skip, Integer take) {
+    public static List<Message> getChatHistory(String conversationId, String timeStamp, Integer take) {
         List<Message> lstMessage = new ArrayList<>();
         MongoCollection collection = getCollection(conversationId);
+        BasicDBObject findObj = new BasicDBObject();
+        if (timeStamp != null) {
+            findObj.append(Message.TIME, new BasicDBObject("$lt", timeStamp));
+        }
         BasicDBObject sortObj = new BasicDBObject(Message.TIME, -1);
-        FindIterable<Document> docs = collection.find().sort(sortObj);
-        docs.skip(skip).limit(take);
+        FindIterable<Document> docs;
+        if (findObj.isEmpty()) {
+            docs = collection.find().sort(sortObj);
+        } else {
+            docs = collection.find(findObj).sort(sortObj);
+        }
+        docs.limit(take);
         for (Document doc : docs) {
             Message msg = Message.fromDBObject(doc);
             lstMessage.add(msg);

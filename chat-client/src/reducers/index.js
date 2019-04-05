@@ -16,6 +16,8 @@ import {load_conversation_reducer} from './Communication/LoadConversationReducer
 import {get_conversation_detail_reducer} from './Communication/GetConversationDetailReducer';
 import {send_message_reducer} from './Communication/SendMessageReducer';
 import {list_conversation_reducer} from './Communication/ListConversationReducer';
+import {get_chat_history_reducer} from './Communication/GetChatHistoryReducer';
+import {show_message_reducer} from './Communication/ShowMessageReducer';
 
 const reducer = combineReducers({
     user_login_reducer,
@@ -28,7 +30,9 @@ const reducer = combineReducers({
     load_conversation_reducer,
     get_conversation_detail_reducer,
     send_message_reducer,
-    list_conversation_reducer
+    list_conversation_reducer,
+    get_chat_history_reducer,
+    show_message_reducer
 });
 
 export default reducer;

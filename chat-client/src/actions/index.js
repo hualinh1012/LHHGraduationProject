@@ -13,7 +13,8 @@ import { load_conversation_action } from './Communication/LoadConversationAction
 import { get_conversation_detail_action } from './Communication/GetConversationDetailAction';
 import { send_message_action } from './Communication/SendMessageAction';
 import { get_list_conversation_action } from './Communication/GetListConversationAction';
-import { get_chat_history } from './Communication/GetChatHistoryAction';
+import { get_chat_history_action } from './Communication/GetChatHistoryAction';
+import { show_message_action } from './Communication/ShowMessageAction';
 
 export {
     clear_data,
@@ -31,5 +32,6 @@ export {
     get_conversation_detail_action,
     send_message_action,
     get_list_conversation_action,
-    get_chat_history
+    get_chat_history_action,
+    show_message_action
 }

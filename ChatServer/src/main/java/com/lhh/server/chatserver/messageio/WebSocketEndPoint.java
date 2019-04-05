@@ -66,6 +66,7 @@ public class WebSocketEndPoint implements Runnable {
     public void error(Session session, Throwable t) {
         try {
             Util.addDebugLog("----> Web socket: session encounter error -> close...");
+            Util.addErrorLog((Exception) t);
             UserConnectionStorage.remove(session);
             if (session.isOpen()) {
                 session.close();
@@ -100,15 +101,11 @@ public class WebSocketEndPoint implements Runnable {
                     break;
                 }
                 default: {
+                    Util.addDebugLog("----> Web socket: receive message!!!!");
                     boolean isValidSession = false;
                     List<UserConnection> users = UserConnectionStorage.getUserConnections(msg.from);
                     for (UserConnection uc : users) {
                         if (uc == null || uc.session == null || !uc.session.isOpen()) {
-                            try {
-                                UserConnectionStorage.remove(uc.session);
-                            } catch (Exception e) {
-
-                            }
                             continue;
                         }
                         if (uc.session.equals(userSession)) {

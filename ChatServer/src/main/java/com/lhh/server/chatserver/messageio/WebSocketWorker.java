@@ -7,6 +7,7 @@ package com.lhh.server.chatserver.messageio;
 
 import com.lhh.dao.impl.user.ConversationDAO;
 import com.lhh.dao.impl.user.UnreadConversationDAO;
+import com.lhh.dao.impl.user.UserDAO;
 import com.lhh.server.chatserver.connection.UserConnection;
 import com.lhh.server.chatserver.connection.UserConnectionStorage;
 import com.lhh.server.chatserver.logger.MessageLogger;
@@ -45,6 +46,8 @@ public class WebSocketWorker implements Runnable {
         }
         for (int i = 0; i < uc.inbox.size(); i++) {
             Message msg = uc.inbox.poll();
+            msg.isOwned = msg.from.equals(uc.userId);
+            msg.fromInfo = UserDAO.getUserInfo(msg.from);
             uc.session.getAsyncRemote().sendText(msg.toJsonObject().toJSONString());
             
         }
@@ -65,6 +68,8 @@ public class WebSocketWorker implements Runnable {
 
                 msg.time = DateFormat.format(Util.currentTime());
 
+//                confirmMessageSent(uc, msg);
+                
                 List<String> lstUserId = ConversationDAO.getMember(msg.to);
                 if (lstUserId == null || lstUserId.isEmpty()) {
                     continue;
@@ -83,6 +88,12 @@ public class WebSocketWorker implements Runnable {
                 MessageLogger.log(msg);
             }
         }
+    }
+    
+    public static void confirmMessageSent(UserConnection uc, Message msg){
+        msg.isOwned = true;
+        msg.fromInfo = UserDAO.getUserInfo(msg.from);
+        uc.session.getAsyncRemote().sendText(msg.toJsonObject().toJSONString());
     }
 
     private void sleep() {

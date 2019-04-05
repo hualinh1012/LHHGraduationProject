@@ -37,6 +37,8 @@ public class APIManager {
         m.put(API.START_CONVERSATION, new StartConversationAPI());
         m.put(API.GET_CONVERSATION_DETAIL, new GetConversationDetailAPI());        
         m.put(API.GET_LIST_CONVERSATION, new GetListConversationAPI());
+        
+        m.put(API.GET_CHAT_HISTORY, new GetChatHistoryAPI());
     }
     
     //init list non-token api

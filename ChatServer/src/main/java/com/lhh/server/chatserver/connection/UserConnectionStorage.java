@@ -6,6 +6,7 @@
 package com.lhh.server.chatserver.connection;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -34,7 +35,7 @@ public class UserConnectionStorage {
         }
         List<UserConnection> userConnections = CONNECTION_MAP.get(uc.userId);
         if (userConnections == null){
-            userConnections = new ArrayList<>();
+            userConnections = Collections.synchronizedList(new ArrayList<>());
         }
         userConnections.add(uc);
         
