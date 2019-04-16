@@ -15,7 +15,7 @@ public class DBLoader {
 
     private static final MongoDatabase USER_DB = MongoConnection.mongo.getDatabase("user");
     private static final MongoDatabase CHAT_DB = MongoConnection.mongo.getDatabase("chatlog");
-    private static final MongoDatabase STATIC_FILE_DB = MongoConnection.mongo.getDatabase("staticfile");
+    private static final MongoDatabase FILE_DB = MongoConnection.mongo.getDatabase("file");
 
     public static MongoDatabase getUserDB() {
         return USER_DB;
@@ -25,8 +25,8 @@ public class DBLoader {
         return CHAT_DB;
     }
 
-    public static MongoDatabase getStaticFileDB() {
-        return STATIC_FILE_DB;
+    public static MongoDatabase getFileDB() {
+        return FILE_DB;
     }
 
 }

@@ -8,6 +8,7 @@ package com.lhh.server.apiserver.response;
 import com.lhh.server.apiserver.response.impl.account.*;
 import com.lhh.server.apiserver.response.impl.activities.*;
 import com.lhh.server.apiserver.response.impl.chat.*;
+import com.lhh.server.apiserver.response.impl.upload.*;
 import com.lhh.util.constant.API;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,7 @@ public class APIManager {
     private static final List<String> n = new ArrayList<>();
 
     //init api
-    static {        
+    static {                
         m.put(API.REGISTER, new RegisterAPI());
         m.put(API.LOGIN, new LoginAPI());
         m.put(API.GET_USER_INFO, new GetUserInfoAPI());
@@ -39,6 +40,9 @@ public class APIManager {
         m.put(API.GET_LIST_CONVERSATION, new GetListConversationAPI());
         
         m.put(API.GET_CHAT_HISTORY, new GetChatHistoryAPI());
+        
+        m.put(API.UPLOAD_AVATAR, new UploadAvatarAPI());
+        m.put(API.UPLOAD_FILE, new UploadFileAPI());
     }
     
     //init list non-token api

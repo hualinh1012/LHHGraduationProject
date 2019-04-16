@@ -6,6 +6,9 @@
 package com.lhh.util;
 
 import com.lhh.util.logger.DailyLogger;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
@@ -109,5 +112,5 @@ public class Util {
         JSONParser parser = new JSONParser();
         JSONObject json = (JSONObject) parser.parse(jsonString);
         return json;
-    }
+    }    
 }

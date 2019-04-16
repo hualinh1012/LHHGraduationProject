@@ -16,6 +16,7 @@ import com.lhh.util.Util;
  */
 public class Core {
     public static void main(String[] args) throws Exception {
+        Util.addDebugLog("Server folder: " + System.getProperty("user.dir"));
         Util.addDebugLog("Initiate MongoDB connection....");
         MongoConnection.init();
         Util.addDebugLog("Server is starting....");

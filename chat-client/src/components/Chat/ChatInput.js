@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { get_conversation_detail_action, send_message_action } from '../../actions';
+import { get_conversation_detail_action, send_message_action, upload_file_action } from '../../actions';
 import { connect } from 'react-redux';
 import { isLogin } from '../../utils';
 
@@ -61,6 +61,23 @@ class ChatInput extends Component {
         }
     }
 
+    open_file_selector = () => {
+        document.getElementById('file-selector').click();
+    }
+
+    send_file = (e) => {
+        const { conversation_detail } = this.state;
+        let file = e.target.files;
+        if (file[0]) {
+            upload_file_action(file[0]).then(res => {
+                if (res && res.code === 0 && res.data) {
+                    const file_id = res.data.file_id;
+                    this.props.send_message_action(conversation_detail.conversation_id, 'FILE', file_id)
+                }
+            })
+        }
+    }
+
     render() {
         return (
             <div className="message-input">
@@ -69,7 +86,8 @@ class ChatInput extends Component {
                         value={this.state.message_content}
                         onChange={(e) => this.change_text(e.target.value)}
                         onKeyDown={(e) => this.handle_key_down(e)} />
-                    <i className="fa fa-paperclip attachment" aria-hidden="true"></i>
+                    <i className="fa fa-paperclip attachment" aria-hidden="true" onClick={(e) => this.open_file_selector()}></i>
+                    <input type="file" className="file-selector" id="file-selector" onChange={(e) => this.send_file(e)}></input>
                     <button className="submit" onClick={(e) => this.send_text()}><i className="fa fa-paper-plane" aria-hidden="true"></i></button>
                 </div>
             </div>
@@ -83,4 +101,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, { get_conversation_detail_action, send_message_action })(ChatInput);
+export default connect(mapStateToProps, { get_conversation_detail_action, send_message_action, upload_file_action })(ChatInput);

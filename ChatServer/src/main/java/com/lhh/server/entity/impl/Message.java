@@ -50,7 +50,7 @@ public class Message implements IEntity {
         if (fromInfo != null) {
             jo.put(FROM_INFO, fromInfo.toJsonObject());
         }
-//        jo.put(TO, to);
+        jo.put(TO, to);
         jo.put(TIME, time);
         jo.put(TYPE, type.toString());
         jo.put(VALUE, value);

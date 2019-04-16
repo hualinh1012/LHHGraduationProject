@@ -2,7 +2,7 @@ import axios from 'axios';
 import { SERVER_API } from '../../constant';
 import { GET_USER_INFO } from '../../types';
 
-const update_user_info_action = (username, dob, gender, phone_number) => {
+const update_user_info_action = (username, dob, gender, phone_number, avatar_id) => {
     var token = localStorage.getItem('token');
 
     const data = {
@@ -11,7 +11,8 @@ const update_user_info_action = (username, dob, gender, phone_number) => {
         'user_name': username,
         'gender': gender,
         'dob':dob,
-        'phone_number': phone_number
+        'phone_number': phone_number,
+        'avatar_id' : avatar_id
     }
 
     return axios({

@@ -34,7 +34,7 @@ public class UpdateUserInfoAPI implements IApiAdapter{
 //            String email = request.getStringParam(ParamKey.EMAIL);
             Integer gender = request.getIntegerParam(ParamKey.GENDER);
             String dateOfBirth = request.getStringParam(ParamKey.DATE_OF_BIRTH);
-            String phoneNumber = request.getStringParam(ParamKey.PASSWORD);
+            String phoneNumber = request.getStringParam(ParamKey.PHONE_NUMBER);
             String avatarId = request.getStringParam(ParamKey.AVATAR_ID);
             User userInfo = new User(userId, userName, gender, dateOfBirth, phoneNumber, avatarId);
             if (userInfo.validateUpdateUser()){

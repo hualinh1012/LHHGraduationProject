@@ -18,9 +18,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.util.Collection;
+import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.handler.AbstractHandler;
 
@@ -40,12 +43,17 @@ public class ServerHandler extends AbstractHandler {
             hsrs.addHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE, HEAD");
             hsrs.addHeader("Access-Control-Allow-Headers", "X-PINGOTHER, Origin, X-Requested-With, Content-Type, Accept");
 
-            ClientRequest request = initRequest(rqst, hsrq, hsrs);
+            ClientRequest request = null;
+            String type = rqst.getContentType();
+            if (rqst.getContentType() != null && rqst.getContentType().contains("multipart")) {
+                request = initFormRequest(rqst, hsrq, hsrs);
+            } else {
+                request = initRequest(rqst, hsrq, hsrs);
+            }
 
             if (request == null) {
                 return;
             }
-
             if (request.api == null) {
                 dataBack(hsrs, new ServerResponse(ResponseCode.WRONG_DATA_FORMAT));
                 return;
@@ -56,12 +64,11 @@ public class ServerHandler extends AbstractHandler {
                 dataBack(hsrs, new ServerResponse(ResponseCode.INVALID_TOKEN));
                 return;
             }
-
-            if (session != null){
+            if (session != null) {
                 request.put(ParamKey.USER_ID, session.userID);
                 session.resetExpire();
             }
-            
+
             ServerResponse response = null;
             IApiAdapter adapter = APIManager.getApi(request.api);
             if (adapter != null) {
@@ -128,6 +135,23 @@ public class ServerHandler extends AbstractHandler {
         }
 
         Util.addDebugLog("Client request: " + request.toString());
+        return request;
+    }
+
+    private ClientRequest initFormRequest(Request rqst, HttpServletRequest hsrq, HttpServletResponse hsrs) {
+        rqst.setAttribute(Request.__MULTIPART_CONFIG_ELEMENT, new MultipartConfigElement(System.getProperty("java.io.tmpdir"), 1000000000, 1000000000, 100000));
+        Collection<Part> partList = null;
+        try {
+            partList = hsrq.getParts();
+        } catch (Exception ex) {
+            Util.addErrorLog(ex);
+        }
+        if (partList == null){
+            return null;
+        }
+        String token = hsrq.getParameter(ParamKey.TOKEN_STRING);
+        String api = hsrq.getParameter(ParamKey.API_NAME);
+        ClientRequest request = ClientRequest.initRequest(token, api, partList);
         return request;
     }
 

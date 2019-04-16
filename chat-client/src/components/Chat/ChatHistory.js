@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { clear_data, get_chat_history_action } from '../../actions'
+import { format_yyyyMMddHHmmss } from '../../utils'
 
 class ChatHistory extends Component {
 
@@ -67,7 +68,10 @@ class ChatHistory extends Component {
                         return (
                             <li className={item.is_owned === true ? "sent" : "replies"} key={item.msg_id}>
                                 <img src={item.from_info.user_ava ? item.from_info.user_ava : '/default_ava.png'} alt="" />
-                                <p>{item.value}</p>
+                                <div className={item.is_owned === true ? "sent-content" : "replies-content"}>
+                                    <h6>{format_yyyyMMddHHmmss(item.time)}</h6>
+                                    <p>{item.value}</p>
+                                </div>
                             </li>
                         )
                     })}

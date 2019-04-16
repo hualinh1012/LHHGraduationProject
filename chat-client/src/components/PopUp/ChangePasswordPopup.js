@@ -53,7 +53,7 @@ class ChangePasswordPopup extends Component {
                                 </div>
                             </div>
                             <div className="error-message"><span>{this.state.errorMessage}</span></div>
-                            <div>
+                            <div className="popup-submit">
                                 <input type="submit" name="i_save" className="i-submit" value="Cập nhật" />
                             </div>
                         </form>

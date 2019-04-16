@@ -19,6 +19,7 @@ public class ParamKey {
     public static final String ERROR_CODE = "code";
     public static final String ERROR_MESSAGE = "message";
 
+    public static final String FILE = "file";
     public static final String SKIP = "skip";
     public static final String TAKE = "take";
     public static final String TIME_STAMP = "time_stamp";

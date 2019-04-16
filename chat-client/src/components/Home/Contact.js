@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { add_contact_action, start_conversation_action, load_conversation_action, get_conversation_detail_action } from '../../actions';
+import { isLogin } from '../../utils';
 
 class Contact extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            is_login: isLogin(),
         };
     }
 
@@ -23,7 +24,7 @@ class Contact extends Component {
         if (nextProps.start_conversation.data) {
             switch (nextProps.start_conversation.data.code) {
                 case 0:
-                    const {conversation_id} = nextProps.start_conversation.data.data;
+                    const { conversation_id } = nextProps.start_conversation.data.data;
                     this.props.get_conversation_detail_action(conversation_id)
                     break;
                 default:
