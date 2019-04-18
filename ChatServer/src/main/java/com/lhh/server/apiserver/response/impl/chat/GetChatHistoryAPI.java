@@ -6,6 +6,7 @@
 package com.lhh.server.apiserver.response.impl.chat;
 
 import com.lhh.dao.impl.chat.ChatLogDAO;
+import com.lhh.dao.impl.file.FileDAO;
 import com.lhh.dao.impl.user.UserDAO;
 import com.lhh.server.apiserver.request.ClientRequest;
 import com.lhh.server.apiserver.response.IApiAdapter;
@@ -35,25 +36,42 @@ public class GetChatHistoryAPI implements IApiAdapter {
             String conversationId = request.getStringParam(ParamKey.CONVERSATION_ID);
             String timeStamp = request.getStringParam(ParamKey.TIME_STAMP);
             Integer take = request.getIntegerParam(ParamKey.TAKE);
-            
+
             List<Message> lstMessage = ChatLogDAO.getChatHistory(conversationId, timeStamp, take);
             List<String> lstUserId = new ArrayList<>();
-            for (Message msg : lstMessage){
-                lstUserId.add(msg.from);
+            List<String> lstFileId = new ArrayList<>();
+            for (Message msg : lstMessage) {
+                if (!lstUserId.contains(msg.from)) {
+                    lstUserId.add(msg.from);
+                }
+                if (msg.type == Message.MessageType.FILE) {
+                    lstFileId.add(msg.value);
+                }
             }
             Map<String, User> mapUserInfo = UserDAO.getMapBasicInfo(lstUserId);
-            for (Message msg : lstMessage){
-                msg.isOwned = userId.equals(msg.from);
-                msg.fromInfo = mapUserInfo.get(msg.from);                
+            for (User user : mapUserInfo.values()) {
+                if (user.avatarId != null && !user.avatarId.isEmpty()) {
+                    lstFileId.add(user.avatarId);
+                }
             }
-            
+            Map<String, String> mapFilUrl = FileDAO.getListFileURL(lstFileId);
+            for (Message msg : lstMessage) {
+                msg.isOwned = userId.equals(msg.from);
+                if (msg.type == Message.MessageType.FILE) {
+                    msg.value = mapFilUrl.get(msg.value);
+                }
+                msg.fromInfo = mapUserInfo.get(msg.from);
+                if (msg.fromInfo.avatarId != null) {
+                    msg.fromInfo.avatarUrl = mapFilUrl.get(msg.fromInfo.avatarId);
+                }
+            }
+
             response.data = lstMessage;
             response.code = ResponseCode.SUCCESS;
-        }
-        catch(Exception ex){
+        } catch (Exception ex) {
             Util.addErrorLog(ex);
         }
         return response;
     }
-    
+
 }

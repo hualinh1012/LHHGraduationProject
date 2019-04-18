@@ -62,9 +62,9 @@ class FriendProfile extends Component {
                 <img src={this.state.user_info.user_ava ? this.state.user_info.user_ava : '/default_ava.png'} alt="" />
                 <p>{this.state.user_info.user_name}</p>
                 <div className="social-media">
-                    <i className="fa fa-facebook" aria-hidden="true"></i>
-                    <i className="fa fa-twitter" aria-hidden="true"></i>
-                    <i className="fa fa-instagram" aria-hidden="true"></i>
+                    <i className="fa fa-video-camera" aria-hidden="true"></i>
+                    <i className="fa fa-phone" aria-hidden="true"></i>
+                    <i class="fa fa-bars" aria-hidden="true"></i>
                 </div>
             </div>
         );

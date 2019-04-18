@@ -48,7 +48,7 @@ class ChangeUserInfoPopup extends Component {
                     <div className="popup_body">
                         <form method="post" onSubmit={this.handlerUpdateUserInfo.bind(this)}>
                             <div className="avatar">
-                                <img id="i-new_avatar" src={this.props.info.user_ava ? this.props.info.user_ava : '/default_ava.png'} alt="" />
+                                <img id="i-new_avatar" src={this.props.info.avatar_url ? this.props.info.avatar_url : '/default_ava.png'} alt="" />
                                 <input name="i_userava" type='file' />
                             </div>
                             <div className="info">

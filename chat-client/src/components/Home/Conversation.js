@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { load_conversation_action, get_conversation_detail_action } from '../../actions';
 import { format_yyyyMMddHHmmss } from '../../utils';
+import ConversationPreview from '../Home/ConversationPreview'
 
 class Conversation extends Component {
     constructor(props) {
@@ -24,12 +25,9 @@ class Conversation extends Component {
         }
         if (nextProps.new_message.data) {
             const new_msg = nextProps.new_message.data;
-            console.log("new_msg " + new_msg.to)
             let { data } = this.state;
-            console.log(data)
             for (let i in data) {
                 let c = data[i];
-                console.log(c)
                 if (c.conversation_id === new_msg.to) {
                     c.last_message_time = new_msg.time;
                     c.last_message_value = new_msg.value;
@@ -43,23 +41,33 @@ class Conversation extends Component {
     render() {
         const { data } = this.state;
         return (
-            <ul>
-                {data.map((item) => {
-                    return (
-                        <li className="message" key={item.conversation_id} onDoubleClick={() => this.load_conversation(item.conversation_id)}>
-                            <div className="wrap">
-                                {/* <span className="contact-status online"></span> */}
-                                <img src={item.avatar_url ? item.avatar_url : '/default_ava.png'} alt="" />
-                                <div className="meta">
-                                    <p className="name">{item.conversation_name}</p>
-                                    <p className="chat-time">{format_yyyyMMddHHmmss(item.last_message_time)}</p>
-                                    <p className="preview">{item.last_message_value}</p>
+            <div>
+                <div className="conversation-option">
+                    <span>Sắp xếp theo: </span>
+                    <select>
+                        <option value="1">Thời gian</option>
+                        <option value="2">Chưa đọc</option>
+                    </select>                    
+                    <button> + Tạo nhóm</button>
+                </div>
+                <ul>
+                    {data.map((item) => {
+                        return (
+                            <li className="message" key={item.conversation_id} onDoubleClick={() => this.load_conversation(item.conversation_id)}>
+                                <div className="wrap">
+                                    {/* <span className="contact-status online"></span> */}
+                                    <img src={item.avatar_url ? item.avatar_url : '/default_ava.png'} alt="" />
+                                    <div className="meta">
+                                        <p className="name">{item.conversation_name}</p>
+                                        <p className="chat-time">{format_yyyyMMddHHmmss(item.last_message_time)}</p>
+                                        <ConversationPreview conversation={item}/>
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
-                    )
-                })}
-            </ul>
+                            </li>
+                        )
+                    })}
+                </ul>
+            </div>
         );
     }
 }

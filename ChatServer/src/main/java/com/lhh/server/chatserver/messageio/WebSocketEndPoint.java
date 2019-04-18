@@ -36,7 +36,7 @@ public class WebSocketEndPoint implements Runnable {
     @Override
     public void run() {
         try {
-            Server webSocketServer = new Server(Config.WEBSOCKET_SERVER_HOST, Config.WEB_SOCKET_PORT, "/ws", null, WebSocketEndPoint.class);
+            Server webSocketServer = new Server(Config.WEBSOCKET_SERVER_HOST, Config.WEBSOCKET_SERVER_PORT, "/ws", null, WebSocketEndPoint.class);
             webSocketServer.start();
         } catch (DeploymentException e) {
             Util.addErrorLog(e);

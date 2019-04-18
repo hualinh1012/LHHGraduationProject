@@ -10,6 +10,7 @@ import com.lhh.server.entity.impl.Message;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import org.bson.Document;

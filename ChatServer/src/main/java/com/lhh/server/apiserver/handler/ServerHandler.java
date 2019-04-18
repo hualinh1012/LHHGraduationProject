@@ -44,7 +44,6 @@ public class ServerHandler extends AbstractHandler {
             hsrs.addHeader("Access-Control-Allow-Headers", "X-PINGOTHER, Origin, X-Requested-With, Content-Type, Accept");
 
             ClientRequest request = null;
-            String type = rqst.getContentType();
             if (rqst.getContentType() != null && rqst.getContentType().contains("multipart")) {
                 request = initFormRequest(rqst, hsrq, hsrs);
             } else {

@@ -47,7 +47,9 @@ public class ConversationDAO {
         docs.skip(skip).limit(take);
         for (Document doc : docs) {
             Conversation conversation = Conversation.fromDBObject(doc);
-            lstConversation.add(conversation);
+            if (conversation.lastMessageValue != null) {
+                lstConversation.add(conversation);
+            }
         }
         return lstConversation;
     }

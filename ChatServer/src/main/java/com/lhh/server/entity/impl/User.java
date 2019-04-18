@@ -50,6 +50,9 @@ public class User implements IEntity {
 
     public static final String AVATAR_ID = "avatar_id";
     public String avatarId;
+    
+    public static final String AVATAR_URL = "avatar_url";
+    public String avatarUrl;
 
     public static final String REGISTER_DATE = "register_date";
     public String registerDate;
@@ -103,8 +106,11 @@ public class User implements IEntity {
         if (dateOfBirth != null) {
             jo.put(DATE_OF_BIRTH, dateOfBirth);
         }
-        if (avatarId != null) {
-            jo.put(AVATAR_ID, avatarId);
+        if (phoneNumber != null) {
+            jo.put(PHONE_NUMBER, phoneNumber);
+        }
+        if (avatarUrl != null) {
+            jo.put(AVATAR_URL, avatarUrl);
         }
         return jo;
     }

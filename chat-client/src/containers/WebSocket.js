@@ -1,6 +1,7 @@
 // import React, { PureComponent } from 'react';
 import { PureComponent } from 'react';
 import { connect } from 'react-redux';
+import { encode, decode } from 'utf8';
 import { SERVER_SOCKET } from '../constant';
 import { isLogin, utc_time_local } from '../utils';
 import { send_message_action, show_message_action } from '../actions';
@@ -10,7 +11,8 @@ class WebSocketConnect extends PureComponent {
         super(props);
         this.state = {
             ws_local: null,
-            send_message: ''
+            send_message: '',
+            isLogin: isLogin()
         };
     }
 
@@ -45,7 +47,10 @@ class WebSocketConnect extends PureComponent {
                         }
                         break;
                     }
-                    case "TEXT": {
+                    case "TEXT":
+                    case "FILE": {
+                        console.log("---> "+message)
+                        message.value = decode(message.value);
                         this.props.show_message_action(message);
                         break;
                     }
@@ -70,7 +75,8 @@ class WebSocketConnect extends PureComponent {
 
     componentDidMount = () => {
         try {
-            if (isLogin()) {
+            const { isLogin } = this.state;
+            if (isLogin) {
                 this.initilizeWS();
             }
         } catch (error) {
@@ -80,12 +86,12 @@ class WebSocketConnect extends PureComponent {
 
     componentWillReceiveProps(nextProps) {
         const { ws_local } = this.state;
-        if (ws_local === null || ws_local.readyState !== 1){
-            // this.initilizeWS();
-        }
+        // if (ws_local === null || (!ws_local.readyState && ws_local.readyState !== 1)){
+        //     this.initilizeWS();
+        // }
         if (nextProps.send_message.data) {
             const message = nextProps.send_message.data;
-            ws_local.send(JSON.stringify(message));
+            ws_local.send(encode(JSON.stringify(message)));
         }
     }
 

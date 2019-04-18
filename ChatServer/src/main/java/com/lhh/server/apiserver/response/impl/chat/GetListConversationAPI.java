@@ -5,6 +5,7 @@
  */
 package com.lhh.server.apiserver.response.impl.chat;
 
+import com.lhh.dao.impl.file.FileDAO;
 import com.lhh.dao.impl.user.ConversationDAO;
 import com.lhh.dao.impl.user.UserDAO;
 import com.lhh.server.entity.impl.Conversation;
@@ -17,7 +18,9 @@ import com.lhh.util.Util;
 import com.lhh.util.constant.Constant;
 import com.lhh.util.constant.ParamKey;
 import com.lhh.util.constant.ResponseCode;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -33,6 +36,7 @@ public class GetListConversationAPI implements IApiAdapter {
             Integer skip = request.getIntegerParam(ParamKey.SKIP);
             Integer take = request.getIntegerParam(ParamKey.TAKE);
             List<Conversation> lstConversation = ConversationDAO.getListConversation(userId, skip, take);
+            List<String> lstAvaId = new ArrayList<>();
             for (Conversation conversation : lstConversation) {
                 if (conversation != null && conversation.conversationType == Constant.ConversationType.PRIVATE) {
                     String friendId = conversation.lstUser.get(0);
@@ -40,6 +44,13 @@ public class GetListConversationAPI implements IApiAdapter {
                     User friend = UserDAO.getUserInfo(friendId);
                     conversation.conversationName = friend.userName;
                     conversation.avatarId = friend.avatarId;
+                    lstAvaId.add(friend.avatarId);
+                }
+            }
+            Map<String, String> mapAvatar = FileDAO.getListFileURL(lstAvaId);
+            for (Conversation conversation : lstConversation) {
+                if (conversation.avatarId != null) {
+                    conversation.avatarUrl = mapAvatar.get(conversation.avatarId);
                 }
             }
             response.data = lstConversation;

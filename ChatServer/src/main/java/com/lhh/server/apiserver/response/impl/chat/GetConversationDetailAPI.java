@@ -5,6 +5,7 @@
  */
 package com.lhh.server.apiserver.response.impl.chat;
 
+import com.lhh.dao.impl.file.FileDAO;
 import com.lhh.dao.impl.user.ConversationDAO;
 import com.lhh.dao.impl.user.UserDAO;
 import com.lhh.server.apiserver.request.ClientRequest;
@@ -41,7 +42,9 @@ public class GetConversationDetailAPI implements IApiAdapter {
                 friendId = friendId.equals(userId) ? conversation.lstUser.get(1) : friendId;
                 User friend = UserDAO.getUserInfo(friendId);
                 conversation.conversationName = friend.userName;
-                conversation.avatarId = friend.avatarId;
+                if (friend.avatarId != null && !friend.avatarId.isEmpty()){
+                    conversation.avatarUrl = FileDAO.getFileUrl(friend.avatarId);
+                }
             }
             response.data = conversation;
             response.code = ResponseCode.SUCCESS;

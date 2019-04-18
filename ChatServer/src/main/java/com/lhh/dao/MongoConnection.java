@@ -20,7 +20,7 @@ public class MongoConnection {
     public static void init() {
         try {
 //            mongo = new MongoClient("210.148.155.138", Config.DB_PORT);
-            mongo = new MongoClient(Config.DB_SERVER_HOST, Config.DB_PORT);
+            mongo = new MongoClient(Config.DB_SERVER_HOST, Config.DB_SERVER_PORT);
         } catch (Exception ex) {
             Util.addErrorLog(ex);
         }

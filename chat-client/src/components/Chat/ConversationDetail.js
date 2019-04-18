@@ -50,9 +50,9 @@ class ConversationDetail extends Component {
                 <img src={this.state.conversation_detail.avatar_url ? this.state.conversation_detail.avatar_url : '/default_ava.png'} alt="" />
                 <p>{this.state.conversation_detail.conversation_name}</p>
                 <div className="social-media">
-                    <i className="fa fa-facebook" aria-hidden="true"></i>
-                    <i className="fa fa-twitter" aria-hidden="true"></i>
-                    <i className="fa fa-instagram" aria-hidden="true"></i>
+                    <i className="fa fa-video-camera" aria-hidden="true"></i>
+                    <i className="fa fa-phone" aria-hidden="true"></i>
+                    <i className="fa fa-bars" aria-hidden="true"></i>
                 </div>
             </div>
         );

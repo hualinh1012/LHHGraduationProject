@@ -68,9 +68,6 @@ public class Conversation implements IEntity {
         if (conversationName != null) {
             jo.put(CONVERSATION_NAME, conversationName);
         }
-        if (avatarId != null) {
-            jo.put(AVATAR_ID, avatarId);
-        }
         if (avatarUrl != null) {
             jo.put(AVATAR_URL, avatarUrl);
         }

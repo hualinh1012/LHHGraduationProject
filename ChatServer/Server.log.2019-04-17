@@ -1,0 +1,109 @@
+[DEBUG] At 20190417153553260 : Server folder: D:\LHHGraduationProject\ChatServer
+[DEBUG] At 20190417153553263 : Initiate MongoDB connection....
+[DEBUG] At 20190417153554444 : Server is starting....
+[DEBUG] At 20190417153554444 : Socket Server is starting....
+[DEBUG] At 20190417153554448 : API Server is starting....
+[DEBUG] At 20190417153554450 : DONE! Server is started
+[DEBUG] At 20190417153620664 : Client request: {"take":20,"ip":"0:0:0:0:0:0:0:1","skip":0,"api":"get_list_conversation","token":"5396823a-9a88-4772-a6d0-155699b2e9d7"}
+[DEBUG] At 20190417153620665 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"get_user_info","token":"5396823a-9a88-4772-a6d0-155699b2e9d7"}
+[DEBUG] At 20190417153620692 : Respond: {"code":3,"message":"INVALID_TOKEN"}
+[DEBUG] At 20190417153620692 : Respond: {"code":3,"message":"INVALID_TOKEN"}
+[DEBUG] At 20190417153625519 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"login","pwd":"123456","email":"test01@gmail.com"}
+[DEBUG] At 20190417153637094 : ----> Web socket: Unauthenticated connection has connect to server
+[DEBUG] At 20190417153637100 : ----> Web socket: receive message from client: {"type":"AUTH","value":null,"from":null}
+[DEBUG] At 20190417153637101 : ----> Web socket: session encounter error -> close...
+[ERROR] At 20190417153637101
+java.lang.NullPointerException
+	at java.util.concurrent.ConcurrentHashMap.get(ConcurrentHashMap.java:936)
+	at java.util.concurrent.ConcurrentHashMap.containsKey(ConcurrentHashMap.java:964)
+	at com.lhh.server.session.SessionManager.isTokenExist(SessionManager.java:20)
+	at com.lhh.server.chatserver.messageio.WebSocketEndPoint.onMessage(WebSocketEndPoint.java:88)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.glassfish.tyrus.core.AnnotatedEndpoint.callMethod(AnnotatedEndpoint.java:511)
+	at org.glassfish.tyrus.core.AnnotatedEndpoint.access$100(AnnotatedEndpoint.java:64)
+	at org.glassfish.tyrus.core.AnnotatedEndpoint$WholeHandler$1.onMessage(AnnotatedEndpoint.java:610)
+	at org.glassfish.tyrus.core.TyrusSession.notifyMessageHandlers(TyrusSession.java:553)
+	at org.glassfish.tyrus.core.TyrusEndpointWrapper.onMessage(TyrusEndpointWrapper.java:855)
+	at org.glassfish.tyrus.core.TyrusWebSocket.onMessage(TyrusWebSocket.java:192)
+	at org.glassfish.tyrus.core.frame.TextFrame.respond(TextFrame.java:115)
+	at org.glassfish.tyrus.core.ProtocolHandler.process(ProtocolHandler.java:783)
+	at org.glassfish.tyrus.core.TyrusWebSocketEngine$TyrusReadHandler.handle(TyrusWebSocketEngine.java:538)
+	at org.glassfish.tyrus.container.grizzly.server.GrizzlyServerFilter$ProcessTask.execute(GrizzlyServerFilter.java:355)
+	at org.glassfish.tyrus.container.grizzly.client.TaskProcessor.processTask(TaskProcessor.java:91)
+	at org.glassfish.tyrus.container.grizzly.client.TaskProcessor.processTask(TaskProcessor.java:68)
+	at org.glassfish.tyrus.container.grizzly.server.GrizzlyServerFilter.handleRead(GrizzlyServerFilter.java:191)
+	at org.glassfish.grizzly.filterchain.ExecutorResolver$9.execute(ExecutorResolver.java:95)
+	at org.glassfish.grizzly.filterchain.DefaultFilterChain.executeFilter(DefaultFilterChain.java:260)
+	at org.glassfish.grizzly.filterchain.DefaultFilterChain.executeChainPart(DefaultFilterChain.java:177)
+	at org.glassfish.grizzly.filterchain.DefaultFilterChain.execute(DefaultFilterChain.java:109)
+	at org.glassfish.grizzly.filterchain.DefaultFilterChain.process(DefaultFilterChain.java:88)
+	at org.glassfish.grizzly.ProcessorExecutor.execute(ProcessorExecutor.java:53)
+	at org.glassfish.grizzly.nio.transport.TCPNIOTransport.fireIOEvent(TCPNIOTransport.java:515)
+	at org.glassfish.grizzly.strategies.AbstractIOStrategy.fireIOEvent(AbstractIOStrategy.java:89)
+	at org.glassfish.grizzly.strategies.WorkerThreadIOStrategy.run0(WorkerThreadIOStrategy.java:94)
+	at org.glassfish.grizzly.strategies.WorkerThreadIOStrategy.access$100(WorkerThreadIOStrategy.java:33)
+	at org.glassfish.grizzly.strategies.WorkerThreadIOStrategy$WorkerThreadRunnable.run(WorkerThreadIOStrategy.java:114)
+	at org.glassfish.grizzly.threadpool.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:569)
+	at org.glassfish.grizzly.threadpool.AbstractThreadPool$Worker.run(AbstractThreadPool.java:549)
+	at java.lang.Thread.run(Thread.java:748)
+[DEBUG] At 20190417153637112 : ----> Web socket: session close...
+[DEBUG] At 20190417153640507 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"login","pwd":"123456","email":"test01@gmail.com"}
+[DEBUG] At 20190417153645215 : Client request: {"ip":"0:0:0:0:0:0:0:1","api":"login","pwd":"123456","email":"test01@gmail.com"}
+[ERROR] At 20190417153655544
+com.mongodb.MongoTimeoutException: Timed out after 30000 ms while waiting to connect. Client view of cluster state is {type=UNKNOWN, servers=[{address=128.199.116.104:27017, type=UNKNOWN, state=CONNECTING, exception={com.mongodb.MongoSocketOpenException: Exception opening socket}, caused by {java.net.SocketTimeoutException: connect timed out}}]
+	at com.mongodb.internal.connection.BaseCluster.getDescription(BaseCluster.java:179)
+	at com.mongodb.internal.connection.SingleServerCluster.getDescription(SingleServerCluster.java:41)
+	at com.mongodb.client.internal.MongoClientDelegate.getConnectedClusterDescription(MongoClientDelegate.java:136)
+	at com.mongodb.client.internal.MongoClientDelegate.createClientSession(MongoClientDelegate.java:94)
+	at com.mongodb.client.internal.MongoClientDelegate$DelegateOperationExecutor.getClientSession(MongoClientDelegate.java:249)
+	at com.mongodb.client.internal.MongoClientDelegate$DelegateOperationExecutor.execute(MongoClientDelegate.java:172)
+	at com.mongodb.client.internal.FindIterableImpl.first(FindIterableImpl.java:199)
+	at com.lhh.dao.impl.user.UserDAO.login(UserDAO.java:84)
+	at com.lhh.server.apiserver.response.impl.account.LoginAPI.execute(LoginAPI.java:35)
+	at com.lhh.server.apiserver.handler.ServerHandler.handle(ServerHandler.java:75)
+	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:132)
+	at org.eclipse.jetty.server.Server.handle(Server.java:502)
+	at org.eclipse.jetty.server.HttpChannel.handle(HttpChannel.java:364)
+	at org.eclipse.jetty.server.HttpConnection.onFillable(HttpConnection.java:260)
+	at org.eclipse.jetty.io.AbstractConnection$ReadCallback.succeeded(AbstractConnection.java:305)
+	at org.eclipse.jetty.io.FillInterest.fillable(FillInterest.java:103)
+	at org.eclipse.jetty.io.ChannelEndPoint$2.run(ChannelEndPoint.java:118)
+	at org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.runTask(EatWhatYouKill.java:333)
+	at org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.doProduce(EatWhatYouKill.java:310)
+	at org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.tryProduce(EatWhatYouKill.java:168)
+	at org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.produce(EatWhatYouKill.java:132)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:765)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$2.run(QueuedThreadPool.java:683)
+	at java.lang.Thread.run(Thread.java:748)
+[DEBUG] At 20190417153655545 : Respond: {"code":1,"message":"UNKNOWN_ERROR"}
+[ERROR] At 20190417153710509
+com.mongodb.MongoTimeoutException: Timed out after 30000 ms while waiting to connect. Client view of cluster state is {type=UNKNOWN, servers=[{address=128.199.116.104:27017, type=UNKNOWN, state=CONNECTING, exception={com.mongodb.MongoSocketOpenException: Exception opening socket}, caused by {java.net.SocketTimeoutException: connect timed out}}]
+	at com.mongodb.internal.connection.BaseCluster.getDescription(BaseCluster.java:179)
+	at com.mongodb.internal.connection.SingleServerCluster.getDescription(SingleServerCluster.java:41)
+	at com.mongodb.client.internal.MongoClientDelegate.getConnectedClusterDescription(MongoClientDelegate.java:136)
+	at com.mongodb.client.internal.MongoClientDelegate.createClientSession(MongoClientDelegate.java:94)
+	at com.mongodb.client.internal.MongoClientDelegate$DelegateOperationExecutor.getClientSession(MongoClientDelegate.java:249)
+	at com.mongodb.client.internal.MongoClientDelegate$DelegateOperationExecutor.execute(MongoClientDelegate.java:172)
+	at com.mongodb.client.internal.FindIterableImpl.first(FindIterableImpl.java:199)
+	at com.lhh.dao.impl.user.UserDAO.login(UserDAO.java:84)
+	at com.lhh.server.apiserver.response.impl.account.LoginAPI.execute(LoginAPI.java:35)
+	at com.lhh.server.apiserver.handler.ServerHandler.handle(ServerHandler.java:75)
+	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:132)
+	at org.eclipse.jetty.server.Server.handle(Server.java:502)
+	at org.eclipse.jetty.server.HttpChannel.handle(HttpChannel.java:364)
+	at org.eclipse.jetty.server.HttpConnection.onFillable(HttpConnection.java:260)
+	at org.eclipse.jetty.io.AbstractConnection$ReadCallback.succeeded(AbstractConnection.java:305)
+	at org.eclipse.jetty.io.FillInterest.fillable(FillInterest.java:103)
+	at org.eclipse.jetty.io.ChannelEndPoint$2.run(ChannelEndPoint.java:118)
+	at org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.runTask(EatWhatYouKill.java:333)
+	at org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.doProduce(EatWhatYouKill.java:310)
+	at org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.tryProduce(EatWhatYouKill.java:168)
+	at org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.run(EatWhatYouKill.java:126)
+	at org.eclipse.jetty.util.thread.ReservedThreadExecutor$ReservedThread.run(ReservedThreadExecutor.java:366)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:765)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$2.run(QueuedThreadPool.java:683)
+	at java.lang.Thread.run(Thread.java:748)
+[DEBUG] At 20190417153710510 : Respond: {"code":1,"message":"UNKNOWN_ERROR"}

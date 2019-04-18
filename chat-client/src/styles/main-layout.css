@@ -730,6 +730,13 @@ ul {
     margin-top: 10px;
 }
 
+#frame .content .messages ul li.replies .replies-content a {
+    background: #435f7a;
+    color: #f5f5f5;
+    word-break: break-word;
+    margin-top: 10px;
+}
+
 #frame .content .messages ul li.replies .replies-content h6 {
     margin: 0px 0 -10px 25px;
     font-weight: 100;
@@ -750,6 +757,12 @@ ul {
     float: right;
     word-break: break-word;
     margin-top: 10px;
+}
+
+#frame .content .messages ul li.sent .sent-content a {
+    background: #f5f5f5;
+    float: right;
+    word-break: break-word;
 }
 
 #frame .content .messages ul li.sent .sent-content h6 {
@@ -1175,4 +1188,25 @@ ul {
 
 .file-selector {
     display: none;
+}
+
+.conversation-option {
+    width: 88%;
+    margin: 10px auto;
+    height: 30px;   
+}
+
+.conversation-option select{
+    background-color: #2c3e50;
+    color: white;
+    border: none;
+    margin-top: 7px;
+}
+
+.conversation-option button {
+    float: right;
+    border-radius: 10px;
+    border-style: hidden;
+    width: 90px;
+    height: 30px;
 }

@@ -94,25 +94,9 @@ class Profile extends Component {
         return (
             <div id="profile">
                 <div className="wrap">
-                    <img id="profile-img" src={this.state.user_info.user_ava ? this.state.user_info.user_ava : '/default_ava.png'} className="online" alt="" />
+                    <img id="profile-img" src={this.state.user_info.avatar_url ? this.state.user_info.avatar_url : '/default_ava.png'} className="online" alt="" onClick={this.toggleShowUserInfoPopup.bind(this)}/>
                     <p className="user_name" onClick={this.toggleShowUserInfoPopup.bind(this)}>{this.state.user_info.user_name}</p>
                     <i className="fa fa-chevron-down expand-button" aria-hidden="true"></i>
-                    <div id="status-options">
-                        <ul>
-                            <li id="status-online" className="active"><span className="status-circle"></span>
-                                <p>Online</p>
-                            </li>
-                            <li id="status-away"><span className="status-circle"></span>
-                                <p>Away</p>
-                            </li>
-                            <li id="status-busy"><span className="status-circle"></span>
-                                <p>Busy</p>
-                            </li>
-                            <li id="status-offline"><span className="status-circle"></span>
-                                <p>Offline</p>
-                            </li>
-                        </ul>
-                    </div>
                     <div id="expanded">
                         <label onClick={this.toggleEditUserInfoPopup.bind(this)}><i className="fa fa-pencil-square-o" aria-hidden="true"></i></label>
                         <p className="setting" onClick={this.toggleEditUserInfoPopup.bind(this)}>Thay đổi thông tin cá nhân</p>

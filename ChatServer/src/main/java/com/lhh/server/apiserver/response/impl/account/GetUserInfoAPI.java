@@ -5,6 +5,7 @@
  */
 package com.lhh.server.apiserver.response.impl.account;
 
+import com.lhh.dao.impl.file.FileDAO;
 import com.lhh.dao.impl.user.UserDAO;
 import com.lhh.server.entity.impl.User;
 import com.lhh.server.apiserver.request.ClientRequest;
@@ -32,6 +33,9 @@ public class GetUserInfoAPI implements IApiAdapter {
                 user = UserDAO.getUserInfo(friendId);
             } else {
                 user = UserDAO.getUserInfo(userId);
+            }
+            if (user.avatarId != null){
+                user.avatarUrl = FileDAO.getFileUrl(user.avatarId);
             }
             response.data = user;
             response.code = ResponseCode.SUCCESS;

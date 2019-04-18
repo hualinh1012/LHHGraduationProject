@@ -5,6 +5,7 @@
  */
 package com.lhh.server.chatserver.messageio;
 
+import com.lhh.dao.impl.file.FileDAO;
 import com.lhh.dao.impl.user.ConversationDAO;
 import com.lhh.dao.impl.user.UnreadConversationDAO;
 import com.lhh.dao.impl.user.UserDAO;
@@ -47,9 +48,13 @@ public class WebSocketWorker implements Runnable {
         for (int i = 0; i < uc.inbox.size(); i++) {
             Message msg = uc.inbox.poll();
             msg.isOwned = msg.from.equals(uc.userId);
-            msg.fromInfo = UserDAO.getUserInfo(msg.from);
-            uc.session.getAsyncRemote().sendText(msg.toJsonObject().toJSONString());
+            msg.fromInfo = UserDAO.getUserInfo(msg.from);            
+            if (msg.type == Message.MessageType.FILE) {
+                msg.value = FileDAO.getFileUrl(msg.value);
+            }
             
+            uc.session.getAsyncRemote().sendText(msg.toJsonObject().toJSONString());
+
         }
     }
 
@@ -62,35 +67,32 @@ public class WebSocketWorker implements Runnable {
             if (msg == null) {
                 continue;
             }
-            if (msg.type == Message.MessageType.TEXT
-                || msg.type == Message.MessageType.FILE
-                || msg.type == Message.MessageType.EMOJI) {
 
-                msg.time = DateFormat.format(Util.currentTime());
+            msg.time = DateFormat.format(Util.currentTime());
+            
+            List<String> lstUserId = ConversationDAO.getMember(msg.to);
+            if (lstUserId == null || lstUserId.isEmpty()) {
+                continue;
+            }
 
-//                confirmMessageSent(uc, msg);
-                
-                List<String> lstUserId = ConversationDAO.getMember(msg.to);
-                if (lstUserId == null || lstUserId.isEmpty()) {
+            for (String toUserId : lstUserId) {
+                List<UserConnection> lstConnection = UserConnectionStorage.getUserConnections(toUserId);
+                if (lstConnection == null || lstConnection.isEmpty()) {
                     continue;
                 }
-
-                for (String toUserId : lstUserId) {
-                    List<UserConnection> lstConnection = UserConnectionStorage.getUserConnections(toUserId);
-                    if (lstConnection == null || lstConnection.isEmpty()) continue;
-                    for (UserConnection to : lstConnection){
-                        to.inbox.add(msg);
-                    } 
-                                        
-                    UnreadConversationDAO.updateUnreadMessage(toUserId, msg.to);
+                for (UserConnection to : lstConnection) {
+                    to.inbox.add(msg);
                 }
-                
-                MessageLogger.log(msg);
+
+                UnreadConversationDAO.updateUnreadMessage(toUserId, msg.to);
             }
+
+            MessageLogger.log(msg);
+
         }
     }
-    
-    public static void confirmMessageSent(UserConnection uc, Message msg){
+
+    public static void confirmMessageSent(UserConnection uc, Message msg) {
         msg.isOwned = true;
         msg.fromInfo = UserDAO.getUserInfo(msg.from);
         uc.session.getAsyncRemote().sendText(msg.toJsonObject().toJSONString());
