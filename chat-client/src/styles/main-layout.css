@@ -35,7 +35,7 @@
 
 #frame #sidepanel {
     float: left;
-    min-width: 280px;
+    min-width: 330px;
     max-width: 340px;
     width: 40%;
     height: 100%;
@@ -67,7 +67,7 @@
 }
 
 #frame #sidepanel #profile.expanded .wrap {
-    height: 210px;
+    height: 175px;
     line-height: initial;
 }
 
@@ -130,16 +130,8 @@
     border: 2px solid #2ecc71;
 }
 
-#frame #sidepanel #profile .wrap img.away {
-    border: 2px solid #f1c40f;
-}
-
-#frame #sidepanel #profile .wrap img.busy {
-    border: 2px solid #e74c3c;
-}
-
-#frame #sidepanel #profile .wrap img.offline {
-    border: 2px solid #95a5a6;
+.online {
+    border: 2px solid #2ecc71;
 }
 
 #frame #sidepanel #profile .wrap p {
@@ -321,7 +313,7 @@
 }
 
 #frame #sidepanel #profile .wrap #expanded {
-    padding: 100px 0 0 0;
+    padding: 80px 0 0 0;
     display: block;
     line-height: initial !important;
 }
@@ -878,6 +870,7 @@ ul {
     bottom: 0;
     margin: auto;
     background-color: rgba(0, 0, 0, 0.5);
+    line-height: normal !important;
 }
 
 .popup_change_info {
@@ -960,6 +953,9 @@ ul {
     font-size: 1em;
     font-weight: 700;
     float: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .popup .i-row-input {
@@ -998,6 +994,37 @@ ul {
     float: left;
 }
 
+.popup_show_user_info .popup_body {
+    padding: 30px 30px 30px 30px;
+    height: 250px;
+}
+
+.popup_show_user_info .popup_body .avatar {
+    float: left;
+    width: 200px;
+}
+
+.popup_show_user_info .popup_body .avatar img {
+    width: 95% !important;
+    border-radius: 5px !important;
+    padding: 3px !important;
+    height: auto !important;
+    cursor: pointer !important;
+    border: 2px solid #95a5a6 !important;
+}
+
+.popup_show_user_info .popup_body .info {
+    float: left;
+    margin-left: 70px;
+    width: calc(100% - 280px);
+}
+
+.popup_show_user_info .i-row-info {
+    margin-bottom: 15px;
+    height: 40px;
+    width: 300px;
+}
+
 .popup .i-submit {
     background: #2c3e50;
     border-radius: 5px;
@@ -1030,7 +1057,7 @@ ul {
 }
 
 .popup_change_password .popup_body {
-    padding: 30px 30px 10px 30px;
+    padding: 30px 30px 30px 30px;
     height: 250px;
 }
 
@@ -1166,13 +1193,12 @@ ul {
     position: absolute;
     left: 25%;
     right: 25%;
-    top: 20%;
-    bottom: 20%;
+    top: 25%;
+    height: 340px;
+    width: 700px;
     margin: auto;
     background: white;
     border-radius: 6px;
-    min-width: 700px !important;
-    min-height: 380px !important;
 }
 
 .chat-time {
@@ -1201,12 +1227,22 @@ ul {
     color: white;
     border: none;
     margin-top: 7px;
+    cursor: pointer;
 }
 
 .conversation-option button {
     float: right;
     border-radius: 10px;
     border-style: hidden;
-    width: 90px;
+    width: 95px;
     height: 30px;
+    cursor: pointer;
+}
+
+.contact-profile img {
+    cursor: pointer;
+}
+
+.contact-profile p {
+    cursor: pointer;
 }

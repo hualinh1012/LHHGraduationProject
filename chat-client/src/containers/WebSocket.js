@@ -1,7 +1,7 @@
 // import React, { PureComponent } from 'react';
 import { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { encode, decode } from 'utf8';
+// import { encode, decode } from 'utf8';
 import { SERVER_SOCKET } from '../constant';
 import { isLogin, utc_time_local } from '../utils';
 import { send_message_action, show_message_action } from '../actions';
@@ -50,7 +50,7 @@ class WebSocketConnect extends PureComponent {
                     case "TEXT":
                     case "FILE": {
                         console.log("---> "+message)
-                        message.value = decode(message.value);
+                        message.value = message.value;
                         this.props.show_message_action(message);
                         break;
                     }
@@ -91,7 +91,7 @@ class WebSocketConnect extends PureComponent {
         // }
         if (nextProps.send_message.data) {
             const message = nextProps.send_message.data;
-            ws_local.send(encode(JSON.stringify(message)));
+            ws_local.send(JSON.stringify(message));
         }
     }
 

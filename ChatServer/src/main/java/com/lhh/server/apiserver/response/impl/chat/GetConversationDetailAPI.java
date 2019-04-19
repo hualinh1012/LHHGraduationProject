@@ -40,6 +40,7 @@ public class GetConversationDetailAPI implements IApiAdapter {
             if (conversation != null && conversation.conversationType == Constant.ConversationType.PRIVATE){
                 String friendId = conversation.lstUser.get(0);
                 friendId = friendId.equals(userId) ? conversation.lstUser.get(1) : friendId;
+                conversation.userId = friendId;
                 User friend = UserDAO.getUserInfo(friendId);
                 conversation.conversationName = friend.userName;
                 if (friend.avatarId != null && !friend.avatarId.isEmpty()){

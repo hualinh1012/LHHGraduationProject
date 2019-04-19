@@ -4,14 +4,19 @@ class UserInfoPopup extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            checked: true
+            gender: null
         };
     }
 
     componentWillMount() {
-        if (this.props.info) {
+        if (this.props.info.gender === 0) {
             this.setState({
-                checked: (this.props.info === 0)
+                gender: 'Nam'
+            })
+        }
+        else {
+            this.setState({
+                gender: 'Nữ'
             })
         }
     }
@@ -25,29 +30,27 @@ class UserInfoPopup extends Component {
                         <label className="close"><i className="fa fa-times" aria-hidden="true" onClick={this.props.close}></i></label>
                     </div>
                     <div className="popup_body">
-                                                  
-                            <div className="info">
-                                <div className="i-row-info">
-                                    <label className="i-row-label">Mật khẩu mới</label>
-                                    <input className="i-row-input" name="change_new_pwd" type="password" required></input>
-                                </div>
+                        <div className="avatar">
+                            <img id="i-new_avatar" src={this.props.info.avatar_url ? this.props.info.avatar_url : '/default_ava.png'} alt="" />
+                        </div>
+                        <div className="info">
+                            <div className="i-row-info">
+                                <label className="i-row-label">Tên người dùng:</label>
+                                <label className="i-row-label">{this.props.info.user_name}</label>
                             </div>
-                            <div className="info">
-                                <div className="i-row-info">
-                                    <label className="i-row-label">Xác nhận</label>
-                                    <input className="i-row-input" name="change_cfm_new_pwd" type="password" required></input>
-                                </div>
+                            <div className="i-row-info">
+                                <label className="i-row-label">Ngày sinh:</label>
+                                <label className="i-row-label">{this.props.info.dob}</label>
                             </div>
-                            <div className="info">
-                                <div className="i-row-info">
-                                    <label className="i-row-label">Mật khẩu cũ</label>
-                                    <input className="i-row-input" name="change_old_pwd" type="password" required></input>
-                                </div>
+                            <div className="i-row-info">
+                                <label className="i-row-label">Giới tính:</label>
+                                <label className="i-row-label">{this.state.gender}</label>
                             </div>
-                            <div className="error-message"><span>{this.state.errorMessage}</span></div>
-                            <div>
-                                <input type="submit" name="i_save" className="i-submit" value="Cập nhật" />
+                            <div className="i-row-info">
+                                <label className="i-row-label">Số điện thoại:</label>
+                                <label className="i-row-label">{this.props.info.phone_number}</label>
                             </div>
+                        </div>
                     </div>
                 </div>
             </div>

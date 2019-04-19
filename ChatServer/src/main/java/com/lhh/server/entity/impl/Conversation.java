@@ -68,6 +68,9 @@ public class Conversation implements IEntity {
         if (conversationName != null) {
             jo.put(CONVERSATION_NAME, conversationName);
         }
+        if (conversationType != null) {
+            jo.put(CONVERSATION_TYPE, conversationType);
+        }
         if (avatarUrl != null) {
             jo.put(AVATAR_URL, avatarUrl);
         }
@@ -85,6 +88,12 @@ public class Conversation implements IEntity {
         }
         if (isExisted != null) {
             jo.put(IS_EXISTED, isExisted);
+        }
+        if (lstUser != null) {
+            jo.put(USER_LIST, lstUser);
+        }
+        if (userId != null) {
+            jo.put(USER_ID, userId);
         }
         return jo;
     }

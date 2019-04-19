@@ -48,7 +48,7 @@ class Conversation extends Component {
                         <option value="1">Thời gian</option>
                         <option value="2">Chưa đọc</option>
                     </select>                    
-                    <button> + Tạo nhóm</button>
+                    <button><i className="fa fa-plus" aria-hidden="true"></i> Trò chuyện</button>
                 </div>
                 <ul>
                     {data.map((item) => {
@@ -56,7 +56,7 @@ class Conversation extends Component {
                             <li className="message" key={item.conversation_id} onDoubleClick={() => this.load_conversation(item.conversation_id)}>
                                 <div className="wrap">
                                     {/* <span className="contact-status online"></span> */}
-                                    <img src={item.avatar_url ? item.avatar_url : '/default_ava.png'} alt="" />
+                                    <img src={item.avatar_url ? item.avatar_url : '/default_ava.png'} alt=""/>
                                     <div className="meta">
                                         <p className="name">{item.conversation_name}</p>
                                         <p className="chat-time">{format_yyyyMMddHHmmss(item.last_message_time)}</p>

@@ -92,7 +92,7 @@ class Profile extends Component {
             this.getUserInfo();
         }
         return (
-            <div id="profile">
+            <div id="profile" className="expanded">
                 <div className="wrap">
                     <img id="profile-img" src={this.state.user_info.avatar_url ? this.state.user_info.avatar_url : '/default_ava.png'} className="online" alt="" onClick={this.toggleShowUserInfoPopup.bind(this)}/>
                     <p className="user_name" onClick={this.toggleShowUserInfoPopup.bind(this)}>{this.state.user_info.user_name}</p>

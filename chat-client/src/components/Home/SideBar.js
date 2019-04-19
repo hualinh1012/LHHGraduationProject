@@ -101,7 +101,7 @@ class SideBar extends Component {
                         <span>Danh bạ</span>
                     </button>
                 </div>
-                <div id="contacts">
+                <div id="contacts" className="expanded">
                     <SideBarList isListConversation={this.state.isListConversation} listElement={this.state.listElement} />
                 </div>
             </div>

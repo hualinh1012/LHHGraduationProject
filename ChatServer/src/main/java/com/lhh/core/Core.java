@@ -9,6 +9,7 @@ import com.lhh.dao.MongoConnection;
 import com.lhh.server.apiserver.WebAPIServer;
 import com.lhh.server.chatserver.WebSocketServer;
 import com.lhh.util.Util;
+import java.nio.charset.Charset;
 
 /**
  *
@@ -17,6 +18,7 @@ import com.lhh.util.Util;
 public class Core {
     public static void main(String[] args) throws Exception {
         Util.addDebugLog("Server folder: " + System.getProperty("user.dir"));
+        Util.addDebugLog("Default charset: " + Charset.defaultCharset().name());
         Config.initConfig();
         Util.addDebugLog("Initiate MongoDB connection....");
         MongoConnection.init();

@@ -87,7 +87,7 @@ public class ServerHandler extends AbstractHandler {
     private void dataBack(HttpServletResponse hsrs, ServerResponse response) {
         try {
             String message = response.toString();
-            Util.addDebugLog("Respond: " + message);
+            Util.addDebugLog("Kết quả trả về: " + message);
             hsrs.setContentType(UTF8);
             try (OutputStream out = hsrs.getOutputStream()) {
                 out.write(message.getBytes());
@@ -133,7 +133,7 @@ public class ServerHandler extends AbstractHandler {
             request.put(ParamKey.IP, Util.getClientIpAddr(hsrq));
         }
 
-        Util.addDebugLog("Client request: " + request.toString());
+        Util.addDebugLog("Yêu cầu: " + request.toString());
         return request;
     }
 

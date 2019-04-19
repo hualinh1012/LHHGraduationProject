@@ -42,7 +42,7 @@ class Contact extends Component {
                         <li className="contact" key={item.friend_id} onDoubleClick={() => this.start_conversation(item.friend_id)}>
                             <div className="wrap">
                                 {/* <span className="contact-status online"></span> */}
-                                <img src={item.friend_ava ? item.friend_ava : '/default_ava.png'} alt="" />
+                                <img src={item.friend_ava ? item.friend_ava : '/default_ava.png'} alt="" className="online"/>
                                 <div className="meta">
                                     <p className="name" key={item.friend_id}>{item.friend_name}</p>
                                 </div>
