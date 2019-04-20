@@ -17,6 +17,9 @@ import { get_list_conversation_action } from './Communication/GetListConversatio
 import { get_chat_history_action } from './Communication/GetChatHistoryAction';
 import { show_message_action } from './Communication/ShowMessageAction';
 import { upload_file_action } from './Communication/UploadFileAction';
+import { load_more_history } from './Communication/LoadMoreHistoryAction';
+import { get_list_available_contact_action } from './Communication/GetListAvailableContact';
+import { create_conversation_action } from './Communication/CreateConversationAction';
 
 export {
     clear_data,
@@ -37,5 +40,8 @@ export {
     get_chat_history_action,
     show_message_action,
     update_avatar_action,
-    upload_file_action
+    upload_file_action,
+    load_more_history,
+    get_list_available_contact_action,
+    create_conversation_action
 }

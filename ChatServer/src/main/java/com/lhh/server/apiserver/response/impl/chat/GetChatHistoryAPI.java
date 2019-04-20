@@ -60,9 +60,10 @@ public class GetChatHistoryAPI implements IApiAdapter {
                 if (msg.type == Message.MessageType.FILE) {
                     msg.value = mapFilUrl.get(msg.value);
                 }
-                msg.fromInfo = mapUserInfo.get(msg.from);
-                if (msg.fromInfo.avatarId != null) {
-                    msg.fromInfo.avatarUrl = mapFilUrl.get(msg.fromInfo.avatarId);
+                User friend = mapUserInfo.get(msg.from);
+                if (friend != null) {
+                    friend.avatarUrl = mapFilUrl.get(friend.avatarId);
+                    msg.fromInfo = friend.toJsonObject();
                 }
             }
 

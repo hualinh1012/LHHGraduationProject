@@ -86,7 +86,7 @@ class SideBar extends Component {
             <div>
                 <div id="search">
                     <label htmlFor=""><i className="fa fa-search" aria-hidden="true"></i></label>
-                    <input name="search_bar" type="text" placeholder="Tìm kiếm..."
+                    <input name="search_bar" type="text" placeholder="Tìm kiếm bạn bè..."
                         onChange={(e) => this.on_change_text(e.target.value)}
                         onKeyDown={(e) => this.handle_keydown(e)}
                     />

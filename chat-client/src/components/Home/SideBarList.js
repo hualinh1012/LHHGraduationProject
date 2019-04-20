@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Contact from './Contact';
 import Conversation from './Conversation';
+import CreateConversationPopup from '../PopUp/CreateConversationPopup'
 
 class SideBarList extends Component {
     constructor(props) {
@@ -10,16 +11,36 @@ class SideBarList extends Component {
         };
     }
 
+
+    toggleCreateConversationPopup() {
+        this.setState({
+            create_conversation_popup: !this.state.create_conversation_popup
+        });
+    }
+
     render() {
         const data = this.props.listElement;
         if (this.props.isListConversation) {
             return (
-                <Conversation data={data}/>
+                <div>
+                    <div className="conversation-option">
+                        <span>Sắp xếp theo: </span>
+                        <select>
+                            <option value="1">Thời gian</option>
+                            <option value="2">Chưa đọc</option>
+                        </select>
+                        <button onClick={this.toggleCreateConversationPopup.bind(this)}><i className="fa fa-plus" aria-hidden="true"></i> Trò chuyện</button>
+                    </div>
+                    <Conversation data={data} />
+                    {this.state.create_conversation_popup ?
+                        <CreateConversationPopup close={this.toggleCreateConversationPopup.bind(this)} /> : null
+                    }
+                </div>
             );
         }
         else {
             return (
-                <Contact data={data}/>
+                <Contact data={data} />
             );
         }
     }

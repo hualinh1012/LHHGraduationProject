@@ -20,7 +20,7 @@ class ConversationPreview extends Component {
                     <p className="preview">Tệp đính kèm</p>
                 );
             default:
-                return null;
+                return <p className="preview">Hãy bắt đầu trò chuyện ngay</p>;
         }
         
     }

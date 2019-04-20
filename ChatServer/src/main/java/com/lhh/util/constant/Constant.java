@@ -17,6 +17,6 @@ public class Constant {
     
     public static class ConversationType {
         public static final int PRIVATE = 0;
-        public static final int GROUP = 0;
+        public static final int GROUP = 1;
     }
 }

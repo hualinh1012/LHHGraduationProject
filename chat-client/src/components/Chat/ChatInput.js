@@ -10,7 +10,8 @@ class ChatInput extends Component {
         this.state = {
             is_login: isLogin(),
             conversation_detail: '',
-            message_content: ''
+            message_content: '',
+            is_typing: false
         };
     }
 
@@ -40,8 +41,22 @@ class ChatInput extends Component {
     }
 
     change_text = (text) => {
+        let { is_typing, conversation_detail } = this.state
+        if (is_typing){
+            if (text === ''){
+                this.props.send_message_action(conversation_detail.conversation_id, 'PRC', 'swt');  
+                is_typing = !is_typing;              
+            }
+        }
+        else {
+            if (text !== ''){
+                this.props.send_message_action(conversation_detail.conversation_id, 'PRC', 'wt');
+                is_typing = !is_typing;
+            }
+        }
         this.setState({
-            message_content: text
+            message_content: text,
+            is_typing: is_typing
         })
     }
 
@@ -52,11 +67,12 @@ class ChatInput extends Component {
     }
 
     send_text = () => {
-        const { message_content, conversation_detail } = this.state;
+        const { message_content, conversation_detail, is_typing } = this.state;
         if (message_content && message_content.trim() !== '') {
             this.props.send_message_action(conversation_detail.conversation_id, 'TEXT', message_content)
             this.setState({
-                message_content: ''
+                message_content: '',
+                is_typing: !is_typing
             })
         }
     }
@@ -85,7 +101,9 @@ class ChatInput extends Component {
                     <input type="text" placeholder="Write your message..."
                         value={this.state.message_content}
                         onChange={(e) => this.change_text(e.target.value)}
-                        onKeyDown={(e) => this.handle_key_down(e)} />
+                        onKeyDown={(e) => this.handle_key_down(e)}
+
+                    />
                     <i className="fa fa-paperclip attachment" aria-hidden="true" onClick={(e) => this.open_file_selector()}></i>
                     <input type="file" className="file-selector" id="file-selector" onChange={(e) => this.send_file(e)}></input>
                     <button className="submit" onClick={(e) => this.send_text()}><i className="fa fa-paper-plane" aria-hidden="true"></i></button>

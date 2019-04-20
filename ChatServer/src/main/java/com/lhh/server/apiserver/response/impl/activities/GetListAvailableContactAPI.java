@@ -5,7 +5,6 @@
  */
 package com.lhh.server.apiserver.response.impl.activities;
 
-import com.lhh.dao.impl.file.FileDAO;
 import com.lhh.dao.impl.user.ContactDAO;
 import com.lhh.dao.impl.user.UserDAO;
 import com.lhh.server.apiserver.request.ClientRequest;
@@ -19,49 +18,37 @@ import com.lhh.util.constant.ParamKey;
 import com.lhh.util.constant.ResponseCode;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  *
  * @author Linh Hua
  */
-public class SearchContactAPI implements IApiAdapter {
+public class GetListAvailableContactAPI implements IApiAdapter {
 
     @Override
     public ServerResponse execute(ClientRequest request) {
         ListEntityRespond response = new ListEntityRespond();
         try {
             String userId = request.getStringParam(ParamKey.USER_ID);
-            String search = request.getStringParam(ParamKey.SEARCH);
-            List<User> lstUser = UserDAO.searchUser(userId, search);
-            List<String> lstContact = ContactDAO.getListContact(userId);
-            List<Contact> result = new ArrayList<>();
-            List<String> lstAvaId = new ArrayList<>();
-            lstUser.forEach((user) -> {
+            String conversationId = request.getStringParam(ParamKey.CONVERSATION_ID);
+            List<Contact> lstContact = new ArrayList<>();
+            List<String> lstContactId = ContactDAO.getListContact(userId);
+            if (conversationId != null && !conversationId.isEmpty()) {
+                // do something here
+            }
+            List<User> lstUserInfo = UserDAO.getUserInfo(lstContactId);
+            for (User user : lstUserInfo) {
                 Contact contact = new Contact();
                 contact.friendId = user.userId;
                 contact.friendName = user.userName;
-                contact.friendAvaId = user.avatarId;
-                contact.status = 1;
-                contact.isAdded = lstContact.contains(user.userId);
-                result.add(contact);
-                if (contact.friendAvaId != null){
-                    lstAvaId.add(contact.friendAvaId);
-                }
-            });
-            Map<String, String> lstAvaUrl = FileDAO.getListFileURL(lstAvaId);
-            for (Contact contact : result){
-                if (contact.friendAvaId != null && !contact.friendAvaId.isEmpty()){
-                    contact.friendAva = lstAvaUrl.get(contact.friendAvaId);
-                }
+                contact.friendAva = null;
+                lstContact.add(contact);
             }
-            
-            response.data = result;
+            response.data = lstContact;
             response.code = ResponseCode.SUCCESS;
         } catch (Exception e) {
             Util.addErrorLog(e);
         }
         return response;
     }
-    
 }

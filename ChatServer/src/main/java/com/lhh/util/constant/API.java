@@ -24,4 +24,6 @@ public class API {
     public static final String GET_CHAT_HISTORY = "get_chat_history";
     public static final String UPLOAD_AVATAR = "upl_avatar";
     public static final String UPLOAD_FILE = "upl_file";
+    public static final String GET_LIST_AVAILABLE_CONTACT = "get_list_available_contact";
+    public static final String CREATE_CONVERSATION = "create_conversation";
 }

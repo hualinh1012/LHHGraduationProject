@@ -25,7 +25,10 @@ public class Contact implements IEntity {
     public static final String FRIEND_NAME = "friend_name";
     public String friendName;
     
-    public static final String FRIEND_AVA = "friend_ava";
+    public static final String FRIEND_AVA_ID = "avatar_id";
+    public String friendAvaId;
+    
+    public static final String FRIEND_AVA = "avatar_url";
     public String friendAva;
     
     public static final String STATUS = "status";

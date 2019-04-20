@@ -36,22 +36,24 @@ class Contact extends Component {
     render() {
         const data = this.props.data
         return (
-            <ul>
-                {data.map((item) => {
-                    return (
-                        <li className="contact" key={item.friend_id} onDoubleClick={() => this.start_conversation(item.friend_id)}>
-                            <div className="wrap">
-                                {/* <span className="contact-status online"></span> */}
-                                <img src={item.friend_ava ? item.friend_ava : '/default_ava.png'} alt="" className="online"/>
-                                <div className="meta">
-                                    <p className="name" key={item.friend_id}>{item.friend_name}</p>
+            <div className="sidebar-list-contacts">
+                <ul>
+                    {data.map((item) => {
+                        return (
+                            <li className="contact" key={item.friend_id} onDoubleClick={() => this.start_conversation(item.friend_id)}>
+                                <div className="wrap">
+                                    {/* <span className="contact-status online"></span> */}
+                                    <img src={item.avatar_url ? item.avatar_url : '/default_ava.png'} alt="" className="online" />
+                                    <div className="meta">
+                                        <p className="name" key={item.friend_id}>{item.friend_name}</p>
+                                    </div>
+                                    {item.is_added ? null : <i onClick={() => this.add_friend(item.friend_id)} className="fa fa-user-plus add-contact" aria-hidden="true"></i>}
                                 </div>
-                                {item.is_added ? null : <i onClick={() => this.add_friend(item.friend_id)} className="fa fa-user-plus add-contact" aria-hidden="true"></i>}
-                            </div>
-                        </li>
-                    )
-                })}
-            </ul>
+                            </li>
+                        )
+                    })}
+                </ul>
+            </div>
         );
     }
 }

@@ -64,11 +64,10 @@ class ConversationDetail extends Component {
         if (this.state.conversation_detail.conversation_type === 1) {
             return (
                 <div className="contact-profile">
-                    <img src={this.state.conversation_detail.avatar_url ? this.state.conversation_detail.avatar_url : '/default-group-avatar.png'} alt="" />
-                    <p>{this.state.conversation_detail.conversation_name}</p>
+                    <img src={this.state.conversation_detail.avatar_url ? this.state.conversation_detail.avatar_url : '/default-group-avatar.png'} alt="" 
+                    onClick={this.toggleShowGroupInfoPopup.bind(this)}/>
+                    <p onClick={this.toggleShowGroupInfoPopup.bind(this)}>{this.state.conversation_detail.conversation_name ? this.state.conversation_detail.conversation_name : "Nhóm không tên"}</p>
                     <div className="social-media">
-                        <i className="fa fa-video-camera" aria-hidden="true"></i>
-                        <i className="fa fa-phone" aria-hidden="true"></i>
                         <i className="fa fa-bars" aria-hidden="true"></i>
                     </div>
                 </div>

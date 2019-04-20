@@ -48,11 +48,10 @@ public class WebSocketWorker implements Runnable {
         for (int i = 0; i < uc.inbox.size(); i++) {
             Message msg = uc.inbox.poll();
             msg.isOwned = msg.from.equals(uc.userId);
-            msg.fromInfo = UserDAO.getUserInfo(msg.from);            
             if (msg.type == Message.MessageType.FILE) {
                 msg.value = FileDAO.getFileUrl(msg.value);
             }
-            
+
             uc.session.getAsyncRemote().sendText(msg.toJsonObject().toJSONString());
 
         }
@@ -69,7 +68,7 @@ public class WebSocketWorker implements Runnable {
             }
 
             msg.time = DateFormat.format(Util.currentTime());
-            
+
             List<String> lstUserId = ConversationDAO.getMember(msg.to);
             if (lstUserId == null || lstUserId.isEmpty()) {
                 continue;
@@ -87,15 +86,11 @@ public class WebSocketWorker implements Runnable {
                 UnreadConversationDAO.updateUnreadMessage(toUserId, msg.to);
             }
 
-            MessageLogger.log(msg);
-
+            if (msg.type == Message.MessageType.FILE
+                    || msg.type == Message.MessageType.TEXT) {
+                MessageLogger.log(msg);
+            }
         }
-    }
-
-    public static void confirmMessageSent(UserConnection uc, Message msg) {
-        msg.isOwned = true;
-        msg.fromInfo = UserDAO.getUserInfo(msg.from);
-        uc.session.getAsyncRemote().sendText(msg.toJsonObject().toJSONString());
     }
 
     private void sleep() {

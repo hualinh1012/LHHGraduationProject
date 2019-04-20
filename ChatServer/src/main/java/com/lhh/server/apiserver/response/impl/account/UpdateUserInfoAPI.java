@@ -5,6 +5,7 @@
  */
 package com.lhh.server.apiserver.response.impl.account;
 
+import com.lhh.dao.impl.file.FileDAO;
 import com.lhh.dao.impl.user.UserDAO;
 import com.lhh.server.apiserver.request.ClientRequest;
 import com.lhh.server.apiserver.response.IApiAdapter;
@@ -38,7 +39,10 @@ public class UpdateUserInfoAPI implements IApiAdapter{
             String avatarId = request.getStringParam(ParamKey.AVATAR_ID);
             User userInfo = new User(userId, userName, gender, dateOfBirth, phoneNumber, avatarId);
             if (userInfo.validateUpdateUser()){
-                User user = UserDAO.updateUserInfo(userInfo); 
+                User user = UserDAO.updateUserInfo(userInfo);
+                if (user.avatarId != null){
+                    user.avatarUrl = FileDAO.getFileUrl(user.avatarId);
+                }
                 response.data = user;
                 response.code = ResponseCode.SUCCESS;
             }

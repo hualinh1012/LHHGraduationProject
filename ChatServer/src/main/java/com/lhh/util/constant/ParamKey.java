@@ -39,4 +39,5 @@ public class ParamKey {
     public static final String OLD_PASSWORD = "old_pwd";
     
     public static final String CONVERSATION_ID = "conversation_id";
+    public static final String LIST_FRIEND_ID = "lst_friend_id";
 }

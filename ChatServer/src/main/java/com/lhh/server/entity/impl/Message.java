@@ -25,7 +25,7 @@ public class Message implements IEntity {
     public String from;
 
     public static final String FROM_INFO = "from_info";
-    public User fromInfo;
+    public JSONObject fromInfo;
 
     public static final String TO = "to";
     public String to;
@@ -48,7 +48,7 @@ public class Message implements IEntity {
         jo.put(MSG_ID, msgId);
         jo.put(FROM, from);
         if (fromInfo != null) {
-            jo.put(FROM_INFO, fromInfo.toJsonObject());
+            jo.put(FROM_INFO, fromInfo);
         }
         jo.put(TO, to);
         jo.put(TIME, time);
@@ -67,6 +67,7 @@ public class Message implements IEntity {
         msg.time = (String) json.get(TIME);
         msg.type = MessageType.valueOf((String) json.get(TYPE));
         msg.value = (String) json.get(VALUE);
+        msg.fromInfo = (JSONObject) json.get(FROM_INFO);
         return msg;
     }
 
@@ -85,6 +86,7 @@ public class Message implements IEntity {
         TEXT,
         FILE,
         EMOJI,
+        PRC
     }
 
 }

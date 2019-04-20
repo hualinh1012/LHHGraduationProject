@@ -43,6 +43,8 @@ public class APIManager {
         
         m.put(API.UPLOAD_AVATAR, new UploadAvatarAPI());
         m.put(API.UPLOAD_FILE, new UploadFileAPI());
+        m.put(API.GET_LIST_AVAILABLE_CONTACT, new GetListAvailableContactAPI());
+        m.put(API.CREATE_CONVERSATION, new CreateConversationAPI());
     }
     
     //init list non-token api

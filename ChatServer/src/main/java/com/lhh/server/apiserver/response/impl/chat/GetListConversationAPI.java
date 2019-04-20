@@ -38,7 +38,7 @@ public class GetListConversationAPI implements IApiAdapter {
             List<Conversation> lstConversation = ConversationDAO.getListConversation(userId, skip, take);
             List<String> lstAvaId = new ArrayList<>();
             for (Conversation conversation : lstConversation) {
-                if (conversation != null && conversation.conversationType == Constant.ConversationType.PRIVATE) {
+                if (conversation.conversationType == Constant.ConversationType.PRIVATE) {
                     String friendId = conversation.lstUser.get(0);
                     friendId = friendId.equals(userId) ? conversation.lstUser.get(1) : friendId;
                     User friend = UserDAO.getUserInfo(friendId);

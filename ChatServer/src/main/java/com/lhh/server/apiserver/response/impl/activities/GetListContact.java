@@ -5,6 +5,7 @@
  */
 package com.lhh.server.apiserver.response.impl.activities;
 
+import com.lhh.dao.impl.file.FileDAO;
 import com.lhh.dao.impl.user.ContactDAO;
 import com.lhh.dao.impl.user.UserDAO;
 import com.lhh.server.apiserver.request.ClientRequest;
@@ -18,6 +19,7 @@ import com.lhh.util.constant.ParamKey;
 import com.lhh.util.constant.ResponseCode;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -34,14 +36,24 @@ public class GetListContact implements IApiAdapter {
             List<String> lstContactId = ContactDAO.getListContact(userId);
             List<User> lstUserInfo = UserDAO.getUserInfo(lstContactId);
             List<Contact> lstContact = new ArrayList<>();
+            List<String> lstAvaId = new ArrayList<>();
             for (User user : lstUserInfo){
                 Contact contact = new Contact();
                 contact.friendId = user.userId;
                 contact.friendName = user.userName;
-                contact.friendAva = null;
+                contact.friendAvaId = user.avatarId;
                 contact.status = 1;
                 contact.isAdded = true;
                 lstContact.add(contact);
+                if (contact.friendAvaId != null){
+                    lstAvaId.add(contact.friendAvaId);
+                }
+            }
+            Map<String, String> lstAvaUrl = FileDAO.getListFileURL(lstAvaId);
+            for (Contact contact : lstContact){
+                if (contact.friendAvaId != null && !contact.friendAvaId.isEmpty()){
+                    contact.friendAva = lstAvaUrl.get(contact.friendAvaId);
+                }
             }
             response.data = lstContact;
             response.code = ResponseCode.SUCCESS;

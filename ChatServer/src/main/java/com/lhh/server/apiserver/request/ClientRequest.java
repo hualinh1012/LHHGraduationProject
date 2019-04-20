@@ -7,8 +7,11 @@ package com.lhh.server.apiserver.request;
 
 import com.lhh.util.Util;
 import com.lhh.util.constant.ParamKey;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import javax.servlet.http.Part;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -20,7 +23,7 @@ public class ClientRequest {
 
     public JSONObject reqObj;
     public Part file;
-    
+
     public String api;
     public String token;
     public String userAgent;
@@ -44,14 +47,14 @@ public class ClientRequest {
             return null;
         }
     }
-            
+
     public static ClientRequest initRequest(String token, String api, Collection<Part> partList) {
         ClientRequest request = new ClientRequest();
         request.api = api;
         request.token = token;
         request.reqObj = new JSONObject();
-        for (Part part : partList){
-            if (part.getName().equals(ParamKey.FILE)){
+        for (Part part : partList) {
+            if (part.getName().equals(ParamKey.FILE)) {
                 request.file = part;
                 break;
             }
@@ -75,35 +78,45 @@ public class ClientRequest {
     public String toString() {
         return toJson();
     }
-    
-    public String getStringParam(String paramKey){
-        Object value = this.reqObj.get(paramKey);
-        if (value == null){
+
+    public List<String> getListStringParam(String paramKey) {
+        JSONArray value = (JSONArray) this.reqObj.get(paramKey);
+        if (value != null) {
+            List<String> list = new ArrayList<>();
+            for (Object o : value) {
+                list.add(o.toString());
+            }
+            return list;
+        } else {
             return null;
         }
-        else {
+    }
+
+    public String getStringParam(String paramKey) {
+        Object value = this.reqObj.get(paramKey);
+        if (value == null) {
+            return null;
+        } else {
             return String.valueOf(value);
         }
     }
-    
-    public Integer getIntegerParam(String paramKey){
+
+    public Integer getIntegerParam(String paramKey) {
         Object value = this.reqObj.get(paramKey);
-        if (value == null){
+        if (value == null) {
             return null;
-        }
-        else {
+        } else {
             return Integer.valueOf(String.valueOf(value));
         }
     }
-    
-    public Double getDoubleParam(String paramKey){
+
+    public Double getDoubleParam(String paramKey) {
         Object value = this.reqObj.get(paramKey);
-        if (value == null){
+        if (value == null) {
             return null;
-        }
-        else {
+        } else {
             return Double.valueOf(String.valueOf(value));
         }
     }
-    
+
 }

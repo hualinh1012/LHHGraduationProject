@@ -44,10 +44,13 @@ public class ConversationDAO {
         Document findObj = new Document(Conversation.USER_LIST, new Document("$elemMatch", new BasicDBObject(Conversation.USER_ID, userId)));
         Document sortObj = new Document(Conversation.LAST_MESSAGE_TIME, -1);
         FindIterable<Document> docs = COLLECTION.find(findObj).sort(sortObj);
-        docs.skip(skip).limit(take);
+//        docs.skip(skip).limit(take);
         for (Document doc : docs) {
             Conversation conversation = Conversation.fromDBObject(doc);
-            if (conversation.lastMessageValue != null) {
+            if (conversation.conversationType == Constant.ConversationType.PRIVATE && conversation.lastMessageValue != null) {
+                lstConversation.add(conversation);
+            }
+            else if (conversation.conversationType == Constant.ConversationType.GROUP){
                 lstConversation.add(conversation);
             }
         }
@@ -74,6 +77,21 @@ public class ConversationDAO {
         insObj.append(Conversation.USER_LIST, lstUser);
         insObj.append(Conversation.CONVERSATION_TYPE, Constant.ConversationType.PRIVATE);
         insObj.append(Conversation.CREATE_TIME, DateFormat.format(Util.currentTime()));
+        COLLECTION.insertOne(insObj);
+        Conversation conversation = Conversation.fromDBObject(insObj);
+        return conversation;
+    }
+
+    public static Conversation createGroupConversation(List<String> lstUserId) {
+        Document insObj = new Document();
+        BasicDBList lstUser = new BasicDBList();
+        for (String id : lstUserId) {
+            lstUser.add(new BasicDBObject(Conversation.USER_ID, id));
+        }
+        insObj.append(Conversation.USER_LIST, lstUser);
+        insObj.append(Conversation.CONVERSATION_TYPE, Constant.ConversationType.GROUP);
+        insObj.append(Conversation.CREATE_TIME, DateFormat.format(Util.currentTime()));
+        insObj.append(Conversation.LAST_MESSAGE_TIME, DateFormat.format(Util.currentTime()));
         COLLECTION.insertOne(insObj);
         Conversation conversation = Conversation.fromDBObject(insObj);
         return conversation;

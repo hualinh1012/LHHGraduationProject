@@ -4,13 +4,13 @@ class MessageContent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            
+
         };
     }
 
     render() {
         const data = this.props.message;
-        switch (data.type){
+        switch (data.type) {
             case "TEXT":
                 return (
                     <p>{data.value}</p>
@@ -20,10 +20,17 @@ class MessageContent extends Component {
                 return (
                     <p><i className="fa fa-paperclip attachment" aria-hidden="true"></i> <a href={data.value}>{file_name}</a></p>
                 );
+            case "PRC":
+                if (data.value === 'wt'){
+                    return (
+                        <p>...</p>
+                    );
+                }    
+                break;            
             default:
                 return null;
         }
-        
+
     }
 }
 

@@ -8,13 +8,18 @@ class Conversation extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: []
+            data: [],
+            create_conversation_popup: false,
+            active_conversation: ''
         };
     }
 
     load_conversation = (conversation_id) => {
         this.props.load_conversation_action();
         this.props.get_conversation_detail_action(conversation_id)
+        this.setState({
+            active_conversation: conversation_id
+        })
     }
 
     componentWillReceiveProps = (nextProps) => {
@@ -25,46 +30,58 @@ class Conversation extends Component {
         }
         if (nextProps.new_message.data) {
             const new_msg = nextProps.new_message.data;
-            let { data } = this.state;
-            for (let i in data) {
-                let c = data[i];
-                if (c.conversation_id === new_msg.to) {
-                    c.last_message_time = new_msg.time;
-                    c.last_message_value = new_msg.value;
-                    data.sort((a, b) => (a.last_message_time > b.last_message_time) ? -1 : 1)
-                    this.setState({ data })
+            if (new_msg.type !== 'PRC') {
+                let { data } = this.state;
+                for (let i in data) {
+                    let c = data[i];
+                    if (c.conversation_id === new_msg.to) {
+                        c.last_message_time = new_msg.time;
+                        c.last_message_value = new_msg.value;
+                        data.sort((a, b) => (a.last_message_time > b.last_message_time) ? -1 : 1)
+                        this.setState({ data })
+                    }
                 }
             }
         }
     }
 
     render() {
-        const { data } = this.state;
+        const { data, active_conversation } = this.state;
         return (
-            <div>
-                <div className="conversation-option">
-                    <span>Sắp xếp theo: </span>
-                    <select>
-                        <option value="1">Thời gian</option>
-                        <option value="2">Chưa đọc</option>
-                    </select>                    
-                    <button><i className="fa fa-plus" aria-hidden="true"></i> Trò chuyện</button>
-                </div>
+            <div className="sidebar-list-messages">
                 <ul>
                     {data.map((item) => {
-                        return (
-                            <li className="message" key={item.conversation_id} onDoubleClick={() => this.load_conversation(item.conversation_id)}>
-                                <div className="wrap">
-                                    {/* <span className="contact-status online"></span> */}
-                                    <img src={item.avatar_url ? item.avatar_url : '/default_ava.png'} alt=""/>
-                                    <div className="meta">
-                                        <p className="name">{item.conversation_name}</p>
-                                        <p className="chat-time">{format_yyyyMMddHHmmss(item.last_message_time)}</p>
-                                        <ConversationPreview conversation={item}/>
+                        if (item.conversation_type === 0) {
+                            return (
+                                <li className={item.conversation_id === active_conversation ? "message active" : "message"} key={item.conversation_id} onDoubleClick={() => this.load_conversation(item.conversation_id)}>
+                                    <div className="wrap">
+                                        <img src={item.avatar_url ? item.avatar_url : '/default_ava.png'} alt="" />
+                                        <div className="meta">
+                                            <p className="name">{item.conversation_name}</p>
+                                            <p className="chat-time">{format_yyyyMMddHHmmss(item.last_message_time)}</p>
+                                            <ConversationPreview conversation={item} />
+                                        </div>
                                     </div>
-                                </div>
-                            </li>
-                        )
+                                </li>
+                            )
+                        }
+                        else if (item.conversation_type === 1) {
+                            return (
+                                <li className={item.conversation_id === active_conversation ? "message active" : "message"} key={item.conversation_id} onDoubleClick={() => this.load_conversation(item.conversation_id)}>
+                                    <div className="wrap">
+                                        <img src={item.avatar_url ? item.avatar_url : '/default-group-avatar.png'} alt="" />
+                                        <div className="meta">
+                                            <p className="name">{item.conversation_name ? item.conversation_name : "Nhóm không tên"}</p>
+                                            <p className="chat-time">{format_yyyyMMddHHmmss(item.last_message_time)}</p>
+                                            <ConversationPreview conversation={item} />
+                                        </div>
+                                    </div>
+                                </li>
+                            )
+                        }
+                        else {
+                            return null;
+                        }
                     })}
                 </ul>
             </div>

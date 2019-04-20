@@ -12,7 +12,8 @@ class WebSocketConnect extends PureComponent {
         this.state = {
             ws_local: null,
             send_message: '',
-            isLogin: isLogin()
+            isLogin: isLogin(),
+            user_info: false
         };
     }
 
@@ -49,8 +50,10 @@ class WebSocketConnect extends PureComponent {
                     }
                     case "TEXT":
                     case "FILE": {
-                        console.log("---> "+message)
-                        message.value = message.value;
+                        this.props.show_message_action(message);
+                        break;
+                    }
+                    case "PRC": {
                         this.props.show_message_action(message);
                         break;
                     }
@@ -90,8 +93,21 @@ class WebSocketConnect extends PureComponent {
         //     this.initilizeWS();
         // }
         if (nextProps.send_message.data) {
-            const message = nextProps.send_message.data;
+            console.log("my info => "+ this.state.user_info.user_name + " " + this.state.user_info.avatar_url)
+            let message = nextProps.send_message.data;
+            message.from_info = this.state.user_info;
             ws_local.send(JSON.stringify(message));
+        }
+        if (nextProps.user_info.data) {
+            switch (nextProps.user_info.data.code) {
+                case 0:
+                    this.setState({
+                        user_info: nextProps.user_info.data.data
+                    });
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
@@ -105,7 +121,8 @@ class WebSocketConnect extends PureComponent {
 
 const mapStateToProps = (state) => {
     return {
-        send_message: state.send_message_reducer
+        send_message: state.send_message_reducer,
+        user_info: state.user_info_reducer
     }
 }
 
