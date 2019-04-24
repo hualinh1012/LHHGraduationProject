@@ -7,6 +7,7 @@ package com.lhh.server.apiserver.response.impl.chat;
 
 import com.lhh.dao.impl.file.FileDAO;
 import com.lhh.dao.impl.user.ConversationDAO;
+import com.lhh.dao.impl.user.UnreadConversationDAO;
 import com.lhh.dao.impl.user.UserDAO;
 import com.lhh.server.entity.impl.Conversation;
 import com.lhh.server.apiserver.request.ClientRequest;
@@ -39,19 +40,27 @@ public class GetListConversationAPI implements IApiAdapter {
             List<String> lstAvaId = new ArrayList<>();
             for (Conversation conversation : lstConversation) {
                 if (conversation.conversationType == Constant.ConversationType.PRIVATE) {
-                    String friendId = conversation.lstUser.get(0);
-                    friendId = friendId.equals(userId) ? conversation.lstUser.get(1) : friendId;
+                    String friendId = conversation.lstUserId.get(0);
+                    friendId = friendId.equals(userId) ? conversation.lstUserId.get(1) : friendId;
                     User friend = UserDAO.getUserInfo(friendId);
                     conversation.conversationName = friend.userName;
                     conversation.avatarId = friend.avatarId;
-                    lstAvaId.add(friend.avatarId);
+                    if (conversation.avatarId != null) {
+                        lstAvaId.add(friend.avatarId);
+                    }
+                } else if (conversation.conversationType == Constant.ConversationType.GROUP) {
+                    if (conversation.avatarId != null) {
+                        lstAvaId.add(conversation.avatarId);
+                    }
                 }
             }
             Map<String, String> mapAvatar = FileDAO.getListFileURL(lstAvaId);
+            Map<String, Integer> mapUnread = UnreadConversationDAO.getUnreadNumber(userId);
             for (Conversation conversation : lstConversation) {
                 if (conversation.avatarId != null) {
                     conversation.avatarUrl = mapAvatar.get(conversation.avatarId);
                 }
+                conversation.unreadNumber = mapUnread.get(conversation.conversationId);
             }
             response.data = lstConversation;
             response.code = ResponseCode.SUCCESS;

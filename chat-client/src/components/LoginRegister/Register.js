@@ -40,6 +40,7 @@ class Register extends Component {
 			switch (nextProps.user_register.data.code) {
 				case 0:
 					this.setState({ is_login: true });
+					this.props.set_connect_socket_status_action(true);
 					break;
 
 				case 1:

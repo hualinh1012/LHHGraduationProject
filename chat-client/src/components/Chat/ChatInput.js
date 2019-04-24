@@ -44,13 +44,13 @@ class ChatInput extends Component {
         let { is_typing, conversation_detail } = this.state
         if (is_typing){
             if (text === ''){
-                this.props.send_message_action(conversation_detail.conversation_id, 'PRC', 'swt');  
+                this.props.send_message_action(null, conversation_detail.conversation_id, 'PRC', 'swt');  
                 is_typing = !is_typing;              
             }
         }
         else {
             if (text !== ''){
-                this.props.send_message_action(conversation_detail.conversation_id, 'PRC', 'wt');
+                this.props.send_message_action(null, conversation_detail.conversation_id, 'PRC', 'wt');
                 is_typing = !is_typing;
             }
         }
@@ -69,7 +69,7 @@ class ChatInput extends Component {
     send_text = () => {
         const { message_content, conversation_detail, is_typing } = this.state;
         if (message_content && message_content.trim() !== '') {
-            this.props.send_message_action(conversation_detail.conversation_id, 'TEXT', message_content)
+            this.props.send_message_action(null, conversation_detail.conversation_id, 'TEXT', message_content)
             this.setState({
                 message_content: '',
                 is_typing: !is_typing
@@ -88,7 +88,7 @@ class ChatInput extends Component {
             upload_file_action(file[0]).then(res => {
                 if (res && res.code === 0 && res.data) {
                     const file_id = res.data.file_id;
-                    this.props.send_message_action(conversation_detail.conversation_id, 'FILE', file_id)
+                    this.props.send_message_action(null, conversation_detail.conversation_id, 'FILE', file_id)
                 }
             })
         }

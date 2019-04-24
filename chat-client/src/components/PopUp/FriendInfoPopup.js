@@ -58,7 +58,6 @@ class FriendInfoPopup extends Component {
             return null;
         }
         else {
-            console.log("--> " + friend_info.user_name)
             return (
                 <div className='popup'>
                     <div className='popup_show_user_info'>

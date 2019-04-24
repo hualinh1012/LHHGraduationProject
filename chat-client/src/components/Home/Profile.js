@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import { clear_data, get_user_info_action } from '../../actions';
+import { clear_data, get_user_info_action, set_connect_socket_status_action } from '../../actions';
 import { connect } from 'react-redux';
 import { isLogin } from '../../utils';
 import ChangeUserInfoPopup from '../PopUp/ChangeUserInfoPopup';
@@ -11,7 +11,6 @@ class Profile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            is_login: isLogin(),
             loading: true,
             user_info: '',
             show_profile_popup: false,
@@ -28,9 +27,7 @@ class Profile extends Component {
 
     signOut = () => {
         localStorage.clear();
-        this.setState({
-            is_login: false
-        })
+        this.props.set_connect_socket_status_action(false);
     }
 
     toggleShowUserInfoPopup() {
@@ -53,6 +50,7 @@ class Profile extends Component {
 
     componentWillMount() {
         this.props.clear_data();
+        this.getUserInfo();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -84,12 +82,12 @@ class Profile extends Component {
     }
 
     render() {
-        var { loading, is_login } = this.state;
-        if (!is_login) {
+        var { loading } = this.state;
+        if (!isLogin()) {
             return (<Redirect to='/' />);
         }
         if (loading) {
-            this.getUserInfo();
+            return null;
         }
         return (
             <div id="profile" className="expanded">
@@ -125,4 +123,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, { get_user_info_action, clear_data })(Profile);
+export default connect(mapStateToProps, { get_user_info_action, clear_data, set_connect_socket_status_action })(Profile);

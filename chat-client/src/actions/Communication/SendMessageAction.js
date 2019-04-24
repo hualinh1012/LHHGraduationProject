@@ -1,9 +1,10 @@
 import { SEND_MESSAGE } from '../../types';
 
-const send_message_action = (to, msg_type, msg_content) => {
+const send_message_action = (msg_id, to, msg_type, msg_content) => {
     var user_id = localStorage.getItem('user_id');
 
     const data = {
+        'msg_id': msg_id,
         'from': JSON.parse(user_id),
         'to': to,
         'type': msg_type,

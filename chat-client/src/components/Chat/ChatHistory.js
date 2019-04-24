@@ -67,10 +67,13 @@ class ChatHistory extends Component {
             }
             else {
                 if (nextProps.new_message.data.value === 'wt') {
-                    chat_history.push(nextProps.new_message.data)
-                    this.setState({
-                        chat_history
-                    });
+                    const { conversation_detail } = this.state;
+                    if (conversation_detail.conversation_id === nextProps.new_message.data.to) {
+                        chat_history.push(nextProps.new_message.data)
+                        this.setState({
+                            chat_history
+                        });
+                    }
                 }
                 else {
                     for (let x in chat_history) {

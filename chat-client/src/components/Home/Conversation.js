@@ -17,8 +17,16 @@ class Conversation extends Component {
     load_conversation = (conversation_id) => {
         this.props.load_conversation_action();
         this.props.get_conversation_detail_action(conversation_id)
+        let { data } = this.state;
+        for (let x in data) {
+            let c = data[x];
+            if (c.conversation_id === conversation_id) {
+                c.unread_number = null;
+            }
+        }
         this.setState({
-            active_conversation: conversation_id
+            active_conversation: conversation_id,
+            data
         })
     }
 
@@ -35,6 +43,14 @@ class Conversation extends Component {
                 for (let i in data) {
                     let c = data[i];
                     if (c.conversation_id === new_msg.to) {
+                        if (new_msg.is_owned === false) {
+                            if (c.unread_number === null || c.unread_number === undefined) {
+                                c.unread_number = 1;
+                            }
+                            else {
+                                c.unread_number += 1;
+                            }
+                        }
                         c.last_message_time = new_msg.time;
                         c.last_message_value = new_msg.value;
                         data.sort((a, b) => (a.last_message_time > b.last_message_time) ? -1 : 1)
@@ -53,13 +69,18 @@ class Conversation extends Component {
                     {data.map((item) => {
                         if (item.conversation_type === 0) {
                             return (
-                                <li className={item.conversation_id === active_conversation ? "message active" : "message"} key={item.conversation_id} onDoubleClick={() => this.load_conversation(item.conversation_id)}>
+                                <li className={item.conversation_id === active_conversation ? "message active" : "message"} key={item.conversation_id}
+                                    onDoubleClick={() => this.load_conversation(item.conversation_id)}>
                                     <div className="wrap">
                                         <img src={item.avatar_url ? item.avatar_url : '/default_ava.png'} alt="" />
                                         <div className="meta">
                                             <p className="name">{item.conversation_name}</p>
                                             <p className="chat-time">{format_yyyyMMddHHmmss(item.last_message_time)}</p>
                                             <ConversationPreview conversation={item} />
+                                            {item.unread_number ?
+                                                <div className="unread_number"><h6>{item.unread_number > 99 ? "99+" : item.unread_number}</h6></div>
+                                                :
+                                                null}
                                         </div>
                                     </div>
                                 </li>
@@ -67,13 +88,18 @@ class Conversation extends Component {
                         }
                         else if (item.conversation_type === 1) {
                             return (
-                                <li className={item.conversation_id === active_conversation ? "message active" : "message"} key={item.conversation_id} onDoubleClick={() => this.load_conversation(item.conversation_id)}>
+                                <li className={item.conversation_id === active_conversation ? "message active" : "message"} key={item.conversation_id}
+                                    onDoubleClick={() => this.load_conversation(item.conversation_id)}>
                                     <div className="wrap">
                                         <img src={item.avatar_url ? item.avatar_url : '/default-group-avatar.png'} alt="" />
                                         <div className="meta">
                                             <p className="name">{item.conversation_name ? item.conversation_name : "Nhóm không tên"}</p>
                                             <p className="chat-time">{format_yyyyMMddHHmmss(item.last_message_time)}</p>
                                             <ConversationPreview conversation={item} />
+                                            {item.unread_number ?
+                                                <div className="unread_number"><h6>{item.unread_number > 99 ? "99+" : item.unread_number}</h6></div>
+                                                :
+                                                null}
                                         </div>
                                     </div>
                                 </li>

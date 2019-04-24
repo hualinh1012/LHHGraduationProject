@@ -8,6 +8,7 @@ import './styles/lr-layout.css';
 import LoginRegisterPage from './containers/LoginRegisterPage';
 import HomePage from './containers/HomePage';
 import WebSocket from './containers/WebSocket';
+import VoiceVideoCall from './containers/VoiceVideoCall';
 
 const supportsHistory = 'pushState' in window.history;
 
@@ -21,7 +22,7 @@ class Routers extends Component {
 					<Switch onUpdate={() => window.scrollTo(0, 0)}>
 
 						<Route exact path="/home" component={HomePage} />
-
+						<Route exact path="/call" component={VoiceVideoCall} />
 						<Route path="/" component={LoginRegisterPage} />
 					</Switch>
 					

@@ -8,9 +8,15 @@ package com.lhh.dao.impl.user;
 import com.lhh.dao.DBLoader;
 import com.lhh.server.entity.impl.UnreadConversation;
 import com.lhh.util.Util;
+import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import org.bson.Document;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -44,5 +50,24 @@ public class UnreadConversationDAO {
             insObj.append(UnreadConversation.UNREAD_NUMBER, 1);
             COLLECTION.insertOne(insObj);
         }
+    }
+
+    public static Map<String, Integer> getUnreadNumber(String userId) {
+        Map<String, Integer> result = new HashMap<>();        
+        BasicDBObject findObj = new BasicDBObject(UnreadConversation.USER_ID, userId);
+        FindIterable<Document> docs = COLLECTION.find(findObj);
+        for (Document doc : docs) {
+            String conversationId = doc.getString(UnreadConversation.CONVERSATION_ID);
+            Integer unreadNumber = doc.getInteger(UnreadConversation.UNREAD_NUMBER);
+            result.put(conversationId, unreadNumber);
+        }
+        return result;
+    }
+
+    public static void markRead(String userId, String conversationId) {
+        BasicDBObject findObj = new BasicDBObject(UnreadConversation.USER_ID, userId);
+        findObj.append(UnreadConversation.CONVERSATION_ID, conversationId);
+        BasicDBObject updateObj = new BasicDBObject("$unset", new BasicDBObject(UnreadConversation.UNREAD_NUMBER, 1));
+        COLLECTION.updateOne(findObj, updateObj);
     }
 }

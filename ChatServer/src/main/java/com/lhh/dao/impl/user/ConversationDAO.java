@@ -16,6 +16,7 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
+import com.mongodb.client.result.UpdateResult;
 import java.util.ArrayList;
 import java.util.List;
 import org.bson.Document;
@@ -150,5 +151,48 @@ public class ConversationDAO {
         } else {
             return null;
         }
+    }
+    
+    public static Conversation getGroupConversationDetail(String userId, String conversationId) {
+        BasicDBObject findObj = new BasicDBObject(Conversation.ID, new ObjectId(conversationId));
+        findObj.append(Conversation.CONVERSATION_TYPE, Constant.ConversationType.GROUP);
+        findObj.append(Conversation.USER_LIST, new BasicDBObject("$elemMatch", new BasicDBObject(Conversation.USER_ID, userId)));
+        Document doc = (Document) COLLECTION.find(findObj).first();
+        if (doc != null) {
+            Conversation conversation = Conversation.fromDBObject(doc);
+            return conversation;
+        } else {
+            return null;
+        }
+    }
+
+    public static boolean updateConversationName(String userId, String conversationId, String conversationName) {
+        BasicDBObject findObj = new BasicDBObject(Conversation.ID, new ObjectId(conversationId));
+        findObj.append(Conversation.USER_LIST, new BasicDBObject("$elemMatch", new BasicDBObject(Conversation.USER_ID, userId)));
+        BasicDBObject updateObj = new BasicDBObject("$set", new BasicDBObject(Conversation.CONVERSATION_NAME, conversationName));
+        UpdateResult result = COLLECTION.updateOne(findObj, updateObj);
+        return result.getModifiedCount() > 0;
+    }
+
+    public static boolean updateConversationAvatar(String userId, String conversationId, String avatarId) {
+        BasicDBObject findObj = new BasicDBObject(Conversation.ID, new ObjectId(conversationId));
+        findObj.append(Conversation.CONVERSATION_TYPE, Constant.ConversationType.GROUP);
+        findObj.append(Conversation.USER_LIST, new BasicDBObject("$elemMatch", new BasicDBObject(Conversation.USER_ID, userId)));
+        BasicDBObject updateObj = new BasicDBObject("$set", new BasicDBObject(Conversation.AVATAR_ID, avatarId));
+        UpdateResult result = COLLECTION.updateOne(findObj, updateObj);
+        return result.getModifiedCount() > 0;
+    }
+
+    public static void addFriend(String userId, String conversationId, List<String> lstFriendId) {
+        BasicDBObject findObj = new BasicDBObject(Conversation.ID, new ObjectId(conversationId));
+        findObj.append(Conversation.CONVERSATION_TYPE, Constant.ConversationType.GROUP);
+        findObj.append(Conversation.USER_LIST, new BasicDBObject("$elemMatch", new BasicDBObject(Conversation.USER_ID, userId)));
+        BasicDBList lstFriend = new BasicDBList();
+        for (String id : lstFriendId){
+            lstFriend.add(new BasicDBObject(Conversation.USER_ID, id));
+        }
+        BasicDBObject query = new BasicDBObject(Conversation.USER_LIST, new BasicDBObject("$each", lstFriend));
+        BasicDBObject updateObj = new BasicDBObject("$push", query);
+        COLLECTION.updateOne(findObj, updateObj);
     }
 }

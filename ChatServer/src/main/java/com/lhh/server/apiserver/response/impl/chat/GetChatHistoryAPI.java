@@ -7,6 +7,7 @@ package com.lhh.server.apiserver.response.impl.chat;
 
 import com.lhh.dao.impl.chat.ChatLogDAO;
 import com.lhh.dao.impl.file.FileDAO;
+import com.lhh.dao.impl.user.UnreadConversationDAO;
 import com.lhh.dao.impl.user.UserDAO;
 import com.lhh.server.apiserver.request.ClientRequest;
 import com.lhh.server.apiserver.response.IApiAdapter;
@@ -65,6 +66,10 @@ public class GetChatHistoryAPI implements IApiAdapter {
                     friend.avatarUrl = mapFilUrl.get(friend.avatarId);
                     msg.fromInfo = friend.toJsonObject();
                 }
+            }
+            
+            if (timeStamp == null || timeStamp.isEmpty()){
+                UnreadConversationDAO.markRead(userId, conversationId);
             }
 
             response.data = lstMessage;

@@ -1,4 +1,6 @@
 import { clear_data } from './ClearData';
+import { set_connect_socket_status_action } from './ConnectSocketAction';
+import { connect_socket_status_action } from './ConnectSocketStatusAction';
 import { login_action } from './Acount/LoginAction';
 import { register_action } from './Acount/RegisterAction';
 import { get_user_info_action } from './Acount/GetUserInfoAction';
@@ -20,9 +22,16 @@ import { upload_file_action } from './Communication/UploadFileAction';
 import { load_more_history } from './Communication/LoadMoreHistoryAction';
 import { get_list_available_contact_action } from './Communication/GetListAvailableContact';
 import { create_conversation_action } from './Communication/CreateConversationAction';
+import { get_group_conversation_detail_action } from './Communication/GetGroupConversationInfoAction';
+import { change_group_conversation_name_action } from './Communication/ChangeGroupConversationNameAction';
+import { change_group_conversation_avatar_action } from './Communication/ChangeGroupConversationAvatarAction';
+import { add_friend_to_conversation_action } from './Communication/AddFriendToConversationAction';
+import { start_video_call_action } from './Call/StartVideoCallAction';
+import { start_call_action } from './Call/StartCallAction';
 
 export {
     clear_data,
+    set_connect_socket_status_action,
     login_action,
     register_action,
     get_user_info_action,
@@ -43,5 +52,12 @@ export {
     upload_file_action,
     load_more_history,
     get_list_available_contact_action,
-    create_conversation_action
+    create_conversation_action,
+    get_group_conversation_detail_action,
+    change_group_conversation_name_action,
+    change_group_conversation_avatar_action,
+    add_friend_to_conversation_action,
+    start_video_call_action,
+    start_call_action,
+    connect_socket_status_action
 }

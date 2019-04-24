@@ -4,6 +4,8 @@ import { get_conversation_detail_action } from '../../actions';
 import { connect } from 'react-redux';
 import { isLogin } from '../../utils';
 import FriendInfoPopup from '../PopUp/FriendInfoPopup';
+import GroupInfoPopup from '../PopUp/GroupInfoPopup';
+import AddFriendToConversationPopup from '../PopUp/AddFriendToConversationPopup';
 
 class ConversationDetail extends Component {
 
@@ -14,7 +16,8 @@ class ConversationDetail extends Component {
             conversation_detail: '',
             show_conversation_detail_popup: false,
             friend_profile_popup: false,
-            group_profile_popup: false
+            group_info_popup: false,
+            add_friend_to_group_popup: false
         };
     }
 
@@ -26,10 +29,19 @@ class ConversationDetail extends Component {
 
     toggleShowGroupInfoPopup() {
         this.setState({
-            group_profile_popup: !this.state.group_profile_popup
+            group_info_popup: !this.state.group_info_popup
         });
     }
 
+    toggleAddFriendPopup() {
+        this.setState({
+            add_friend_to_group_popup: !this.state.add_friend_to_group_popup
+        });
+    }
+
+    open_call_window = (conversation_id) => {
+        window.open('call?id=' + conversation_id + '&is_caller=1', '_blank', 'toolbar=no,width=1200,height=800');
+    }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.conversation_detail.data) {
@@ -61,27 +73,34 @@ class ConversationDetail extends Component {
         if (!is_login) {
             return (<Redirect to='/' />);
         }
-        if (this.state.conversation_detail.conversation_type === 1) {
+        const { conversation_detail } = this.state;
+        if (conversation_detail.conversation_type === 1) {
             return (
                 <div className="contact-profile">
-                    <img src={this.state.conversation_detail.avatar_url ? this.state.conversation_detail.avatar_url : '/default-group-avatar.png'} alt="" 
-                    onClick={this.toggleShowGroupInfoPopup.bind(this)}/>
-                    <p onClick={this.toggleShowGroupInfoPopup.bind(this)}>{this.state.conversation_detail.conversation_name ? this.state.conversation_detail.conversation_name : "Nhóm không tên"}</p>
+                    <img src={conversation_detail.avatar_url ? conversation_detail.avatar_url : '/default-group-avatar.png'} alt=""
+                        onClick={this.toggleShowGroupInfoPopup.bind(this)} />
+                    <p onClick={this.toggleShowGroupInfoPopup.bind(this)}>{conversation_detail.conversation_name ? conversation_detail.conversation_name : "Nhóm không tên"}</p>
                     <div className="social-media">
-                        <i className="fa fa-bars" aria-hidden="true"></i>
+                        <i className="fa fa-plus" aria-hidden="true" onClick={this.toggleAddFriendPopup.bind(this)}></i>
                     </div>
+                    {this.state.group_info_popup ?
+                        <GroupInfoPopup conversation_id={conversation_detail.conversation_id} close={this.toggleShowGroupInfoPopup.bind(this)} /> : null
+                    }
+                    {this.state.add_friend_to_group_popup ?
+                        <AddFriendToConversationPopup conversation_id={conversation_detail.conversation_id} close={this.toggleAddFriendPopup.bind(this)} /> : null
+                    }
                 </div>
             );
         }
         else {
             return (
                 <div className="contact-profile">
-                    <img src={this.state.conversation_detail.avatar_url ? this.state.conversation_detail.avatar_url : '/default_ava.png'} alt=""
-                    onClick={this.toggleShowFriendInfoPopup.bind(this)}/>
-                    <p onClick={this.toggleShowFriendInfoPopup.bind(this)}>{this.state.conversation_detail.conversation_name}</p>
+                    <img src={conversation_detail.avatar_url ? conversation_detail.avatar_url : '/default_ava.png'} alt=""
+                        onClick={this.toggleShowFriendInfoPopup.bind(this)} />
+                    <p onClick={this.toggleShowFriendInfoPopup.bind(this)}>{conversation_detail.conversation_name}</p>
                     <div className="social-media">
-                        <i className="fa fa-video-camera" aria-hidden="true"></i>
-                        <i className="fa fa-phone" aria-hidden="true"></i>
+                        <i className="fa fa-video-camera" aria-hidden="true" onClick={() => this.open_call_window(conversation_detail.conversation_id)}></i>
+                        {/* <i className="fa fa-phone" aria-hidden="true"></i> */}
                         <i className="fa fa-bars" aria-hidden="true"></i>
                     </div>
                     {this.state.friend_profile_popup ?

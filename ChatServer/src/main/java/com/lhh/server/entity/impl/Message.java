@@ -80,13 +80,16 @@ public class Message implements IEntity {
         msg.value = (String) doc.get(VALUE);
         return msg;
     }
-
+    
     public enum MessageType {
         AUTH,
         TEXT,
         FILE,
-        EMOJI,
-        PRC
+        PRC,
+        CMD,
+        CALL,
+        SDP,
+        ICE
     }
 
 }

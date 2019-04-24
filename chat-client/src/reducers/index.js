@@ -5,6 +5,8 @@
 */
 import { combineReducers } from 'redux';
 
+import {connect_socket_reducer} from './ConnectSocketReducer';
+import {connect_socket_status_reducer} from './ConnectSocketStatusReducer';
 import {user_login_reducer} from './Account/LoginReducer';
 import {user_register_reducer} from './Account/RegisterReducer';
 import {user_info_reducer} from './Account/UserInfoReducer';
@@ -21,8 +23,13 @@ import {show_message_reducer} from './Communication/ShowMessageReducer';
 import {load_more_chat_history_reducer} from './Communication/LoadMoreHistoryReducer';
 import {get_list_available_contact_reducer} from './Communication/GetListAvailableContactReducer';
 import {create_conversation_reducer} from './Communication/CreateConversationReducer';
+import {get_group_conversation_detail_reducer} from './Communication/GetGroupConversationDetailReducer';
+import {start_video_call_reducer} from './Call/StartVideoCallReducer';
+import {start_call_reducer} from './Call/StartCallReducer';
 
 const reducer = combineReducers({
+    connect_socket_reducer,
+    connect_socket_status_reducer,
     user_login_reducer,
     user_register_reducer,
     user_info_reducer,
@@ -38,7 +45,10 @@ const reducer = combineReducers({
     show_message_reducer,
     load_more_chat_history_reducer,
     get_list_available_contact_reducer,
-    create_conversation_reducer
+    create_conversation_reducer,
+    get_group_conversation_detail_reducer,
+    start_video_call_reducer,
+    start_call_reducer
 });
 
 export default reducer;

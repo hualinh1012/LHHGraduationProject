@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import { clear_data, login_action } from '../../actions';
+import { clear_data, login_action, set_connect_socket_status_action } from '../../actions';
 import { connect } from 'react-redux';
 import { isLogin } from '../../utils';
 
@@ -33,6 +33,7 @@ class Login extends Component {
             switch (nextProps.user_login.data.code) {
                 case 0:
                     this.setState({ is_login: true });
+                    this.props.set_connect_socket_status_action(true);
                     break;
 
                 case 1:
@@ -89,4 +90,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, { login_action, clear_data })(Login);
+export default connect(mapStateToProps, { login_action, clear_data, set_connect_socket_status_action })(Login);

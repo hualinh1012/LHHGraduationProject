@@ -6,6 +6,7 @@
 package com.lhh.server.apiserver.response.impl.activities;
 
 import com.lhh.dao.impl.user.ContactDAO;
+import com.lhh.dao.impl.user.ConversationDAO;
 import com.lhh.dao.impl.user.UserDAO;
 import com.lhh.server.apiserver.request.ClientRequest;
 import com.lhh.server.apiserver.response.IApiAdapter;
@@ -34,7 +35,8 @@ public class GetListAvailableContactAPI implements IApiAdapter {
             List<Contact> lstContact = new ArrayList<>();
             List<String> lstContactId = ContactDAO.getListContact(userId);
             if (conversationId != null && !conversationId.isEmpty()) {
-                // do something here
+                List<String> inGroupList = ConversationDAO.getMember(conversationId);
+                lstContactId.removeAll(inGroupList);
             }
             List<User> lstUserInfo = UserDAO.getUserInfo(lstContactId);
             for (User user : lstUserInfo) {

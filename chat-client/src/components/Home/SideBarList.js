@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
+import { isLogin } from '../../utils';
 import Contact from './Contact';
 import Conversation from './Conversation';
 import CreateConversationPopup from '../PopUp/CreateConversationPopup'
@@ -19,6 +21,9 @@ class SideBarList extends Component {
     }
 
     render() {
+        if (!isLogin()) {
+            return (<Redirect to='/' />);
+        }
         const data = this.props.listElement;
         if (this.props.isListConversation) {
             return (

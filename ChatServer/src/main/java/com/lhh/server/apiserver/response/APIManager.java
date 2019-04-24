@@ -45,6 +45,10 @@ public class APIManager {
         m.put(API.UPLOAD_FILE, new UploadFileAPI());
         m.put(API.GET_LIST_AVAILABLE_CONTACT, new GetListAvailableContactAPI());
         m.put(API.CREATE_CONVERSATION, new CreateConversationAPI());
+        m.put(API.GET_GROUP_CONVERSATION_DETAIL, new GetGroupConversationDetailAPI());
+        m.put(API.CHANGE_GROUP_CONVERSATION_NAME, new ChangeConversationNameAPI());
+        m.put(API.CHANGE_GROUP_CONVERSATION_AVATAR, new ChangeConversationAvatarAPI());
+        m.put(API.ADD_FRIEND_TO_CONVERSATION, new AddFriendToConversationAPI());
     }
     
     //init list non-token api
