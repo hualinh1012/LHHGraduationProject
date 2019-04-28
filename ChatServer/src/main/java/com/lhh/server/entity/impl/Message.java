@@ -61,7 +61,12 @@ public class Message implements IEntity {
     public static Message fromJsonObject(String jsonString) throws ParseException {
         JSONObject json = Util.fromJSONObject(jsonString);
         Message msg = new Message();
-        msg.msgId = new ObjectId().toString();
+        String msgId = (String) json.get(MSG_ID);
+        if (msgId == null) {
+            msg.msgId = new ObjectId().toString();
+        } else {
+            msg.msgId = msgId;
+        }
         msg.from = (String) json.get(FROM);
         msg.to = (String) json.get(TO);
         msg.time = (String) json.get(TIME);
@@ -80,7 +85,7 @@ public class Message implements IEntity {
         msg.value = (String) doc.get(VALUE);
         return msg;
     }
-    
+
     public enum MessageType {
         AUTH,
         TEXT,

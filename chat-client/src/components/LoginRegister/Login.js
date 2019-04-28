@@ -35,13 +35,26 @@ class Login extends Component {
                     this.setState({ is_login: true });
                     this.props.set_connect_socket_status_action(true);
                     break;
-
                 case 1:
                     this.setState({
                         errorMessage: 'Lỗi không xác định'
                     });
                     break;
-
+                case 12:
+                    this.setState({
+                        errorMessage: 'E-mail không hợp lệ'
+                    });
+                    break;
+                case 15:
+                    this.setState({
+                        errorMessage: 'Không thể tìm thấy E-mail này'
+                    });
+                    break;
+                case 16:
+                    this.setState({
+                        errorMessage: 'Mật khẩu không chính xác'
+                    });
+                    break;
                 default:
                     this.setState({
                         disabled_btn_login: false,

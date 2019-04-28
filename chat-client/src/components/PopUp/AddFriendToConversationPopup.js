@@ -7,6 +7,7 @@ class AddFriendToConversationPopup extends Component {
         super(props);
         this.state = {
             list_contact: [],
+            show_list: [],
             list_checked: []
         };
     }
@@ -20,7 +21,8 @@ class AddFriendToConversationPopup extends Component {
             switch (nextProps.list_available.data.code) {
                 case 0:
                     this.setState({
-                        list_contact: nextProps.list_available.data.data
+                        list_contact: nextProps.list_available.data.data,
+                        show_list: nextProps.list_available.data.data
                     })
                     break;
                 default:
@@ -69,8 +71,31 @@ class AddFriendToConversationPopup extends Component {
         this.props.close();
     }
 
+    find_contact = (text) => {
+        let {list_contact} = this.state;
+        let show_list = []
+        const t = text.toLowerCase()
+        if (text !== ''){
+            for (let x in list_contact){
+                let contact = list_contact[x]
+                const sort_name = contact.friend_name.toLowerCase()
+                if (sort_name.includes(t)){
+                    show_list.push(contact)
+                }
+            }
+            this.setState({
+                show_list
+            })
+        }
+        else {
+            this.setState({
+                show_list:list_contact
+            })
+        }
+    }
+
     render() {
-        const { list_contact } = this.state;
+        const { show_list } = this.state;
         return (
             <div className='popup'>
                 <div className='popup_create_conversation'>
@@ -80,9 +105,9 @@ class AddFriendToConversationPopup extends Component {
                     </div>
                     <div className="popup_body">
                         <h2>Danh sách liên lạc</h2>
-                        <input type="text" className="find_contact" placeholder="Tìm kiếm..."></input>
+                        <input type="text" className="find_contact" placeholder="Tìm kiếm..." onChange={(e) => this.find_contact(e.target.value)}></input>
                         <ul className="list_available_contact">
-                            {list_contact.map((item) => {
+                            {show_list.map((item) => {
                                 return (
                                     <li className="available_contact add_to_group" key={item.friend_id}>
                                         <img src={item.avatar_url ? item.avatar_url : '/default_ava.png'} alt="" className="online" />

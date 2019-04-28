@@ -28,6 +28,7 @@ import { change_group_conversation_avatar_action } from './Communication/ChangeG
 import { add_friend_to_conversation_action } from './Communication/AddFriendToConversationAction';
 import { start_video_call_action } from './Call/StartVideoCallAction';
 import { start_call_action } from './Call/StartCallAction';
+import { receive_call_signal_action } from './Call/ReceiveCallSignalAction';
 
 export {
     clear_data,
@@ -59,5 +60,6 @@ export {
     add_friend_to_conversation_action,
     start_video_call_action,
     start_call_action,
-    connect_socket_status_action
+    connect_socket_status_action,
+    receive_call_signal_action
 }

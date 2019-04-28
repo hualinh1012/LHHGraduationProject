@@ -38,6 +38,9 @@ public class LoginAPI implements IApiAdapter {
                 response.data = new LoginData(session.token, user.userId);
                 response.code = ResponseCode.SUCCESS;
             }
+            else {
+                throw new ServerException(ResponseCode.INVALID_EMAIL);
+            }
         } catch (ServerException ex) {
             response.code = ex.getErrorCode();
             Util.addErrorLog(ex);

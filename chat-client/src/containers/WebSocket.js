@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 // import { encode, decode } from 'utf8';
 import { SERVER_SOCKET } from '../constant';
 import { isLogin, utc_time_local } from '../utils';
-import { show_message_action, clear_data, start_video_call_action, connect_socket_status_action } from '../actions';
+import { show_message_action, clear_data, start_video_call_action, connect_socket_status_action, receive_call_signal_action } from '../actions';
 import CallRequestPopup from '../components/PopUp/CallRequestPopup'
 
 class WebSocketConnect extends PureComponent {
@@ -69,15 +69,20 @@ class WebSocketConnect extends PureComponent {
                         break;
                     }
                     case "CALL": {
-                        if (message.value === 'start_call' && !message.is_owned) {
+                        if (message.value === 'make_call' && !message.is_owned) {
                             this.setState({
                                 show_call_request: true,
                                 call_request_info: message
                             })
                         }
-                        else if (message.value === 'make_call' && !message.is_owned) {
-                            this.props.start_video_call_action(true)
+                        else if (message.value === 'start_call' && !message.is_owned) {
+                            this.props.start_video_call_action(message)
                         }
+                        break;
+                    }
+                    case "ICE":
+                    case "SDP": {
+                        this.props.receive_call_signal_action(message)
                         break;
                     }
                     default: {
@@ -173,4 +178,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, { show_message_action, clear_data, start_video_call_action, connect_socket_status_action })(WebSocketConnect);
+export default connect(mapStateToProps, { show_message_action, clear_data, start_video_call_action, connect_socket_status_action, receive_call_signal_action })(WebSocketConnect);

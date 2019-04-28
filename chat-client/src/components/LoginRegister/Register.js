@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import { clear_data, register_action } from '../../actions';
+import { clear_data, register_action, set_connect_socket_status_action } from '../../actions';
 import { connect } from 'react-redux';
 import { isLogin } from '../../utils';
 
@@ -42,13 +42,36 @@ class Register extends Component {
 					this.setState({ is_login: true });
 					this.props.set_connect_socket_status_action(true);
 					break;
-
 				case 1:
 					this.setState({
 						errorMessage: 'Lỗi không xác định'
 					});
 					break;
-
+				case 2:
+					this.setState({
+						errorMessage: 'Dữ liệu không hợp lệ, vui lòng thử lại'
+					});
+					break;
+				case 11:
+					this.setState({
+						errorMessage: 'Tên người dùng không thể nhiều hơn 32 ký tự'
+					});
+					break;
+				case 12:
+					this.setState({
+						errorMessage: 'E-mail không hợp lệ'
+					});
+					break;
+				case 13:
+					this.setState({
+						errorMessage: 'Bạn phải đủ 16 tuổi mới có thể truy cập vào trang'
+					});
+					break;
+				case 14:
+					this.setState({
+						errorMessage: 'E-mail đã được đăng ký'
+					});
+					break;
 				default:
 					this.setState({
 						disabled_btn_login: false,
@@ -126,4 +149,4 @@ const mapStateToProps = (state) => {
 	}
 }
 
-export default connect(mapStateToProps, { register_action, clear_data })(Register);
+export default connect(mapStateToProps, { register_action, clear_data, set_connect_socket_status_action })(Register);

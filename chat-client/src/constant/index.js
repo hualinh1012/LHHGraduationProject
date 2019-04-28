@@ -1,6 +1,6 @@
 // Server config
-export const SERVER_API = 'http://localhost:8080';
-export const SERVER_SOCKET = 'ws://localhost:8081/ws/chat';
+export const SERVER_API = 'https://linhh.dev:4080';
+export const SERVER_SOCKET = 'wss://linhh.dev:4081/ws/chat';
 
 export const PEER_CONFIG = {
     'iceServers': [
@@ -18,4 +18,3 @@ export const PEER_CONFIG = {
 //production: 
     // https://linhh.dev:4080
     // wss://linhh.dev:4081/ws/chat
-    // wss://linhh.dev:8443

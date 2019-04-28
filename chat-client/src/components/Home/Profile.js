@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import { clear_data, get_user_info_action, set_connect_socket_status_action } from '../../actions';
+import { clear_data, get_user_info_action, set_connect_socket_status_action, load_conversation_action } from '../../actions';
 import { connect } from 'react-redux';
 import { isLogin } from '../../utils';
 import ChangeUserInfoPopup from '../PopUp/ChangeUserInfoPopup';
@@ -94,7 +94,7 @@ class Profile extends Component {
                 <div className="wrap">
                     <img id="profile-img" src={this.state.user_info.avatar_url ? this.state.user_info.avatar_url : '/default_ava.png'} className="online" alt="" onClick={this.toggleShowUserInfoPopup.bind(this)}/>
                     <p className="user_name" onClick={this.toggleShowUserInfoPopup.bind(this)}>{this.state.user_info.user_name}</p>
-                    <i className="fa fa-chevron-down expand-button" aria-hidden="true"></i>
+                    <i className="fa fa-home expand-button" aria-hidden="true" onClick={() => {this.props.load_conversation_action(false)}}></i>
                     <div id="expanded">
                         <label onClick={this.toggleEditUserInfoPopup.bind(this)}><i className="fa fa-pencil-square-o" aria-hidden="true"></i></label>
                         <p className="setting" onClick={this.toggleEditUserInfoPopup.bind(this)}>Thay đổi thông tin cá nhân</p>
@@ -123,4 +123,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, { get_user_info_action, clear_data, set_connect_socket_status_action })(Profile);
+export default connect(mapStateToProps, { get_user_info_action, clear_data, set_connect_socket_status_action, load_conversation_action })(Profile);

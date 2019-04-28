@@ -33,14 +33,12 @@ class VoiceVideoCall extends PureComponent {
     }
 
     componentDidMount = () => {
-        this.pageReady();
+        // this.pageReady();
     }
 
-    pageReady = () => {
+    async pageReady() {
         localVideo = document.getElementById('localVideo');
         remoteVideo = document.getElementById('remoteVideo');
-        // serverConnection = new WebSocket(MEDIA_SOCKET);
-        // serverConnection.onmessage = (event) => this.gotMessageFromServer(event);
 
         var constraints = {
             video: true,
@@ -52,7 +50,6 @@ class VoiceVideoCall extends PureComponent {
                 navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
                     localStream = stream;
                     localVideo.srcObject = stream;
-
                 });
             } catch (err) {
                 this.errorHandler(err)
@@ -65,7 +62,6 @@ class VoiceVideoCall extends PureComponent {
     gotIceCandidate = (event) => {
         if (event.candidate != null) {
             this.props.send_message_action(null, to, 'ICE', JSON.stringify(event.candidate))
-            // serverConnection.send(JSON.stringify({ 'ice': event.candidate, 'uuid': uuid }));
         }
     }
 
@@ -94,19 +90,29 @@ class VoiceVideoCall extends PureComponent {
             }
         }
     }
+   
+    createdDescription = (description) => {
+        peerConnection.setLocalDescription(description).then(() => {
+            try {
+                this.props.send_message_action(null, to, 'SDP', JSON.stringify(peerConnection.localDescription))
+            }
+            catch (err) {
+                this.errorHandler(err)
+            }
+        })
+
+    }
 
     gotMessageFromServer = (message) => {
         if (!peerConnection) this.start(false);
 
-        var signal = JSON.parse(message.data);
-
         // Ignore messages from ourself
-        if (signal.uuid === from) return;
-
-        if (signal.sdp) {
+        if (message.from === from) return;
+        if (message.type === 'SDP') {
             try {
-                peerConnection.setRemoteDescription(new RTCSessionDescription(signal.sdp)).then(() => {
-                    if (signal.sdp.type === 'offer') {
+                let signal = JSON.parse(message.value)
+                peerConnection.setRemoteDescription(new RTCSessionDescription(signal)).then(() => {
+                    if (signal.type === 'offer') {
                         try {
                             peerConnection.createAnswer().then((description) => this.createdDescription(description));
                         }
@@ -119,44 +125,33 @@ class VoiceVideoCall extends PureComponent {
             catch (err) {
                 this.errorHandler(err)
             }
-        } else if (signal.ice) {
+        } else if (message.type === 'ICE') {
             try {
-                peerConnection.addIceCandidate(new RTCIceCandidate(signal.ice));
+                let signal = JSON.parse(message.value)
+                peerConnection.addIceCandidate(new RTCIceCandidate(signal));
             }
             catch (err) {
                 this.errorHandler(err)
             }
         }
     }
-
-    createdDescription = (description) => {
-        peerConnection.setLocalDescription(description).then(() => {
-            try {
-                this.props.send_message_action(null, to, 'SDP', JSON.stringify(peerConnection.localDescription))
-                // serverConnection.send(JSON.stringify({ 'sdp': peerConnection.localDescription, 'uuid': from }));
-            }
-            catch (err) {
-                this.errorHandler(err)
-            }
-        })
-
-    }
-
+    
     componentWillReceiveProps(nextProps) {
-        console.log(isCaller)
         if (nextProps.connect_status.data) {
+            this.pageReady();
             if (isCaller === '1') {
-                console.log("callerrrrrrrrrr")
-                this.props.send_message_action(null, to, 'CALL', 'start_call');
+                this.props.send_message_action(null, to, 'CALL', 'make_call');
             }
             else {
-                console.log("receiverrrrrrrr")
-                this.props.send_message_action(msgId, to, 'CALL', 'make_call');
+                this.props.send_message_action(msgId, to, 'CALL', 'start_call');
             }
         }
         if (nextProps.start_video.data){
-            console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-            // this.gotMessageFromServer()
+            this.start(true)
+        }
+        if (nextProps.call_signal.data){
+            this.gotMessageFromServer(nextProps.call_signal.data)
+            this.props.clear_data()
         }
     }
 
@@ -164,8 +159,8 @@ class VoiceVideoCall extends PureComponent {
     render() {
         return (
             <div id="video_call">
-                <video id="localVideo" autoPlay muted /*srcobject={this.localVideo ? this.localVideo.srcObject : null}*/></video>
                 <video id="remoteVideo" autoPlay /*srcobject={this.remoteVideo ? this.remoteVideo.srcObject : null}*/></video>
+                <video id="localVideo" autoPlay muted /*srcobject={this.localVideo ? this.localVideo.srcObject : null}*/></video>
 
                 {/* <br />
 
@@ -178,7 +173,8 @@ class VoiceVideoCall extends PureComponent {
 const mapStateToProps = (state) => {
     return {
         connect_status: state.connect_socket_status_reducer,
-        start_video: state.start_video_call_reducer
+        start_video: state.start_video_call_reducer,
+        call_signal: state.receive_call_signal_reducer
     }
 }
 

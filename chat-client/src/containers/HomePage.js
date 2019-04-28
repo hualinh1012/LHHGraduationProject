@@ -3,6 +3,7 @@ import $ from 'jquery';
 import Profile from '../components/Home/Profile';
 import SideBar from '../components/Home/SideBar';
 import ChatPannel from '../components/Chat/ChatPannel';
+import Home from '../components/Home/Home';
 import { load_conversation_action } from '../actions';
 import { connect } from 'react-redux';
 
@@ -34,7 +35,7 @@ class HomePage extends Component {
 					<Profile />
 					<SideBar />
 				</div>
-				{(load_conversation === undefined || load_conversation === null || load_conversation === false) ? null : <ChatPannel />}
+				{(load_conversation === undefined || load_conversation === null || load_conversation === false) ? <Home/> : <ChatPannel />}
 			</div>
 		);
 	}

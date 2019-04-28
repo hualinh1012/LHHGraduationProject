@@ -22,7 +22,7 @@ import java.util.List;
  * @author Linh Hua
  */
 public class WebSocketWorker implements Runnable {
-
+    
     @Override
     public void run() {
         while (true) {
@@ -40,7 +40,7 @@ public class WebSocketWorker implements Runnable {
             }
         }
     }
-
+    
     private void processInBox(UserConnection uc) {
         if (uc.inbox.isEmpty()) {
             return;
@@ -51,15 +51,15 @@ public class WebSocketWorker implements Runnable {
             if (msg.type == Message.MessageType.FILE) {
                 msg.value = FileDAO.getFileUrl(msg.value);
             }
-            if (msg.fromInfo == null){
+            if (msg.fromInfo == null) {
                 msg.fromInfo = UserDAO.getUserInfo(msg.from).toJsonObject();
             }
-
+            
             uc.session.getAsyncRemote().sendText(msg.toJsonObject().toJSONString());
-
+            
         }
     }
-
+    
     private void processOutBox(UserConnection uc) {
         if (uc.outbox.isEmpty()) {
             return;
@@ -69,14 +69,14 @@ public class WebSocketWorker implements Runnable {
             if (msg == null) {
                 continue;
             }
-
+            
             msg.time = DateFormat.format(Util.currentTime());
-
+            
             List<String> lstUserId = ConversationDAO.getMember(msg.to);
             if (lstUserId == null || lstUserId.isEmpty()) {
                 continue;
             }
-
+            
             for (String toUserId : lstUserId) {
                 Util.addDebugLog("to: " + toUserId);
                 List<UserConnection> lstConnection = UserConnectionStorage.getUserConnections(toUserId);
@@ -86,22 +86,23 @@ public class WebSocketWorker implements Runnable {
                 for (UserConnection to : lstConnection) {
                     to.inbox.add(msg);
                 }
-
+                
                 if (!toUserId.equals(msg.from)
-                        && (msg.type != Message.MessageType.PRC
-                        || msg.type != Message.MessageType.SDP
-                        || msg.type != Message.MessageType.ICE)) {
+                        && (msg.type == Message.MessageType.FILE
+                        || msg.type == Message.MessageType.CALL
+                        || msg.type == Message.MessageType.TEXT)) {
                     UnreadConversationDAO.updateUnreadMessage(toUserId, msg.to);
                 }
             }
-
+            
             if (msg.type == Message.MessageType.FILE
+                    || msg.type == Message.MessageType.CALL
                     || msg.type == Message.MessageType.TEXT) {
                 MessageLogger.log(msg);
             }
         }
     }
-
+    
     private void sleep() {
         try {
             Thread.sleep(10);
@@ -109,5 +110,5 @@ public class WebSocketWorker implements Runnable {
             Util.addErrorLog(ex);
         }
     }
-
+    
 }

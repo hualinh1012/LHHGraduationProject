@@ -80,14 +80,14 @@
     cursor: pointer;
 }
 
-#frame #sidepanel #profile.expanded .wrap i.expand-button {
+/* #frame #sidepanel #profile.expanded .wrap i.expand-button {
     -moz-transform: scaleY(-1);
     -o-transform: scaleY(-1);
     -webkit-transform: scaleY(-1);
     transform: scaleY(-1);
     filter: FlipH;
     -ms-filter: "FlipH";
-}
+} */
 
 #frame #sidepanel #profile .wrap {
     height: 60px;
@@ -1526,14 +1526,6 @@ ul {
     font-size: 12px;
 }
 
-#video_call #localVideo {
-    width:40%;
-}
-
-#video_call #localVideo {
-    width:40%;
-}
-
 .popup_call_request {
     position: absolute;
     left: 40%;
@@ -1591,4 +1583,31 @@ ul {
     background: red;
     color: white;
     margin-left: 120px;
+}
+
+.welcome {
+    text-align: center;
+    margin: 250px auto;
+}
+
+#video_call {
+    background-color: #000000
+}
+
+#video_call #localVideo {
+    width:20%;
+}
+
+#video_call #remoteVideo {
+    height: 100vh; 
+    min-height: 100%;
+    width:80%;
+}
+
+.miss_call {
+    color: #f95503 !important;
+}
+
+.receive_call {
+    color: #02ab02 !important;
 }

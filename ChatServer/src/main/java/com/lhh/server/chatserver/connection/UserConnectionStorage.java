@@ -5,6 +5,7 @@
  */
 package com.lhh.server.chatserver.connection;
 
+import com.lhh.util.Util;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -55,11 +56,11 @@ public class UserConnectionStorage {
     }
     
     public static void remove(Session session){
-        CONNECTION_QUEUE.stream().filter((uc) -> (session.equals(uc.session))).map((uc) -> {
-            CONNECTION_MAP.get(uc.userId).remove(uc);
-            return uc;
-        }).forEachOrdered((uc) -> {
-            CONNECTION_QUEUE.remove(uc);
-        });
+        for (UserConnection uc : CONNECTION_QUEUE){
+            if (session.getId().equals(uc.session.getId())){
+                CONNECTION_MAP.get(uc.userId).remove(uc);
+                CONNECTION_QUEUE.remove(uc);
+            }
+        }
     }
 }

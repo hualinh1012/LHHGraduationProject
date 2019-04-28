@@ -20,5 +20,5 @@ public class ResponseCode {
     public static final int INVALID_DATE_OF_BIRTH = 13;
     public static final int EMAIL_REGISTED = 14;
     public static final int EMAIL_NOTE_FOUND = 15;
-    public static final int PASSWORD_NOT_MATCH = 15;
+    public static final int PASSWORD_NOT_MATCH = 16;
 }

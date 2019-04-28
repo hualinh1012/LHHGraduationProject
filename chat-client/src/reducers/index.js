@@ -26,6 +26,8 @@ import {create_conversation_reducer} from './Communication/CreateConversationRed
 import {get_group_conversation_detail_reducer} from './Communication/GetGroupConversationDetailReducer';
 import {start_video_call_reducer} from './Call/StartVideoCallReducer';
 import {start_call_reducer} from './Call/StartCallReducer';
+import {receive_call_signal_reducer} from './Call/ReceiveCallSignalReducer';
+import {change_group_name_reducer} from './Communication/ChangeGroupConversationNameReducer';
 
 const reducer = combineReducers({
     connect_socket_reducer,
@@ -48,7 +50,9 @@ const reducer = combineReducers({
     create_conversation_reducer,
     get_group_conversation_detail_reducer,
     start_video_call_reducer,
-    start_call_reducer
+    start_call_reducer,
+    receive_call_signal_reducer,
+    change_group_name_reducer
 });
 
 export default reducer;

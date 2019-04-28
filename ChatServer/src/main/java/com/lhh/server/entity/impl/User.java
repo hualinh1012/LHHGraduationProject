@@ -183,7 +183,7 @@ public class User implements IEntity {
             return false;
         }
         int age = Util.convertBirthdayToAge(dob);
-        return age < 100 && age > 0;
+        return age < 100 && age >= 16;
     }
 
 }

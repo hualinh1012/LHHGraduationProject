@@ -51,19 +51,18 @@ class ConversationDetail extends Component {
                         conversation_detail: nextProps.conversation_detail.data.data
                     });
                     break;
-
-                case 1:
-                    this.setState({
-                        errorMessage: 'Lỗi không xác định'
-                    });
-                    break;
-
                 default:
-                    this.setState({
-                        disabled_btn_login: false,
-                        message_error: 'Không thể kết nối tới máy chủ!'
-                    });
                     break;
+            }
+        }
+        if (nextProps.change_conversation_name.data) {
+            let { conversation_detail } = this.state
+            const conversation_info = nextProps.change_conversation_name.data.data
+            if (conversation_detail.conversation_id === conversation_info.conversation_id) {
+                conversation_detail.conversation_name = conversation_info.conversation_name
+                this.setState({
+                    conversation_detail
+                });
             }
         }
     }
@@ -114,7 +113,8 @@ class ConversationDetail extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        conversation_detail: state.get_conversation_detail_reducer
+        conversation_detail: state.get_conversation_detail_reducer,
+        change_conversation_name: state.change_group_name_reducer
     }
 }
 

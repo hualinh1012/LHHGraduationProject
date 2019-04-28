@@ -8,19 +8,40 @@ class Contact extends Component {
         super(props);
         this.state = {
             is_login: isLogin(),
+            data: []
         };
+    }
+
+    componentWillMount() {
+        this.setState({
+            data: this.props.data
+        })
     }
 
     add_friend = (friendId) => {
         this.props.add_contact_action(friendId);
+        let { data } = this.state;
+        for (let x in data) {
+            let contact = data[x];
+            if (contact.friend_id === friendId) {
+                contact.is_added = true;
+                break;
+            }
+        }
+        this.setState({ data })
     }
 
     start_conversation = (friendId) => {
         this.props.start_conversation_action(friendId);
-        this.props.load_conversation_action();
+        this.props.load_conversation_action(true);
     }
 
     componentWillReceiveProps(nextProps) {
+        if (this.props.data){
+            this.setState({
+                data: this.props.data
+            })
+        }
         if (nextProps.start_conversation.data) {
             switch (nextProps.start_conversation.data.code) {
                 case 0:
@@ -34,13 +55,13 @@ class Contact extends Component {
     }
 
     render() {
-        const data = this.props.data
+        const { data } = this.state
         return (
             <div className="sidebar-list-contacts">
                 <ul>
                     {data.map((item) => {
                         return (
-                            <li className="contact" key={item.friend_id} onDoubleClick={() => this.start_conversation(item.friend_id)}>
+                            <li className="contact" key={item.friend_id} onClick={() => this.start_conversation(item.friend_id)}>
                                 <div className="wrap">
                                     {/* <span className="contact-status online"></span> */}
                                     <img src={item.avatar_url ? item.avatar_url : '/default_ava.png'} alt="" className="online" />
