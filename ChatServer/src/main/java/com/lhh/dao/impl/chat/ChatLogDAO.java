@@ -29,6 +29,7 @@ public class ChatLogDAO {
         MongoCollection collection = getCollection(msg.to);
         Document doc = new Document();
         doc.append(Message.MSG_ID, msg.msgId);
+        collection.findOneAndDelete(doc);
         doc.append(Message.FROM, msg.from);
         doc.append(Message.TYPE, msg.type.toString());
         doc.append(Message.VALUE, msg.value);
