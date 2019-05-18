@@ -7,24 +7,42 @@ class ChangePasswordPopup extends Component {
         super(props);
         this.state = {
             errorMessage: '',
-            successMessage: ''
+            success: false
         };
     }
 
     handlerChangePassword = (event) => {
         event.preventDefault();
-        const {change_new_pwd, change_cfm_new_pwd, change_old_pwd } = event.target;
-        if (change_new_pwd.value === change_cfm_new_pwd.value){
-            this.props.change_password_action(change_new_pwd.value, change_cfm_new_pwd.value, change_old_pwd.value)
-            }
-            else {
+        const { change_new_pwd, change_cfm_new_pwd, change_old_pwd } = event.target;
+        if (change_new_pwd.value === change_cfm_new_pwd.value) {
+            this.props.change_password_action(change_new_pwd.value, change_old_pwd.value)
+        }
+        else {
+            this.setState({
+                errorMessage: "Mật khẩu xác nhận không khớp"
+            })
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.change_pass.data) {
+            if (nextProps.change_pass.data.code === 16){
                 this.setState({
-                    errorMessage: "Mật khẩu xác nhận không khớp"
+                    errorMessage: "Mật khẩu không chính xác"
+                })
+            }
+            else if (nextProps.change_pass.data.code === 0){
+                this.setState({
+                    success: true
                 })
             }
         }
+    }
 
     render() {
+        if (this.state.success){
+            this.props.close();
+        }
         return (
             <div className='popup'>
                 <div className='popup_change_password'>
@@ -33,7 +51,7 @@ class ChangePasswordPopup extends Component {
                         <label className="close"><i className="fa fa-times" aria-hidden="true" onClick={this.props.close}></i></label>
                     </div>
                     <div className="popup_body">
-                        <form method="post" onSubmit={this.handlerChangePassword.bind(this)}>                            
+                        <form method="post" onSubmit={this.handlerChangePassword.bind(this)}>
                             <div className="info">
                                 <div className="i-row-info">
                                     <label className="i-row-label">Mật khẩu mới</label>

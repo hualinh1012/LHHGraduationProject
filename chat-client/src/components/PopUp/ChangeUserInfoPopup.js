@@ -30,9 +30,9 @@ class ChangeUserInfoPopup extends Component {
     }
 
     componentWillMount() {
-        if (this.props.info) {
+        if (this.props.info.gender) {
             this.setState({
-                checked: (this.props.info === 0)
+                checked: (this.props.info.gender === 0)
             })
         }
     }

@@ -32,7 +32,7 @@ class SideBarList extends Component {
                         <span>Sắp xếp theo: </span>
                         <select>
                             <option value="1">Thời gian</option>
-                            <option value="2">Chưa đọc</option>
+                            {/* <option value="2">Chưa đọc</option> */}
                         </select>
                         <button onClick={this.toggleCreateConversationPopup.bind(this)}><i className="fa fa-plus" aria-hidden="true"></i> Trò chuyện</button>
                     </div>

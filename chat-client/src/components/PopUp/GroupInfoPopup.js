@@ -21,7 +21,8 @@ class GroupInfoPopup extends Component {
             switch (nextProps.group_detail.data.code) {
                 case 0:
                     this.setState({
-                        group_info: nextProps.group_detail.data.data
+                        group_info: nextProps.group_detail.data.data,
+                        new_group_name: nextProps.group_detail.data.data.conversation_name
                     })
                     break;
                 default:
@@ -31,7 +32,7 @@ class GroupInfoPopup extends Component {
     }
 
     on_change_group_name(text) {
-        if (text !== ''){
+        if (text !== '') {
             this.setState({
                 new_group_name: text
             })
@@ -40,8 +41,8 @@ class GroupInfoPopup extends Component {
 
     change_group_name = () => {
         const { edit, group_info, new_group_name } = this.state;
-        this.setState({ 
-            edit: !edit 
+        this.setState({
+            edit: !edit
         });
         this.props.change_group_conversation_name_action(group_info.conversation_id, new_group_name);
     }
@@ -65,6 +66,7 @@ class GroupInfoPopup extends Component {
 
     render() {
         const { edit, group_info } = this.state;
+        console.log(group_info)
         if (!group_info) {
             return null;
         }
@@ -78,7 +80,7 @@ class GroupInfoPopup extends Component {
                     <div className="popup_body">
                         <div className="avatar">
                             <img id="group_avatar" src={group_info.avatar_url ? group_info.avatar_url : '/default-group-avatar.png'} alt="" />
-                            <div id="edit_group_avatar"onClick={(e) => this.choose_new_avatar()}>
+                            <div id="edit_group_avatar" onClick={(e) => this.choose_new_avatar()}>
                                 <span id="edit_group_avatar_img"><i className="fa fa-pencil" aria-hidden="true" /></span>
                                 <span id="edit_group_avatar_label">edit</span>
                             </div>
@@ -87,13 +89,14 @@ class GroupInfoPopup extends Component {
                         {edit === true ?
                             <div id="edit_group">
                                 <input type="text" defaultValue={group_info.conversation_name ? group_info.conversation_name : "Nhóm không tên"}
-                                onChange={(e) => this.on_change_group_name(e.target.value)}></input>
+                                    onChange={(e) => this.on_change_group_name(e.target.value)}></input>
                                 <label><i className="fa fa-check" aria-hidden="true" onClick={(e) => this.change_group_name()}></i></label>
                             </div>
                             :
                             <div id="group_info">
                                 <input type="text" defaultValue={group_info.conversation_name ? group_info.conversation_name : "Nhóm không tên"} disabled></input>
                                 <label><i className="fa fa-pencil" aria-hidden="true" onClick={(e) => {
+                                    console.log(group_info.conversation_name)
                                     this.setState({ edit: !edit });
                                 }}></i></label>
                             </div>

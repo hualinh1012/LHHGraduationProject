@@ -33,6 +33,7 @@ public class ChangePasswordAPI implements IApiAdapter{
             String newPwd = request.getStringParam(ParamKey.NEW_PASSWORD);
             String oldPwd = request.getStringParam(ParamKey.OLD_PASSWORD);
             UserDAO.updatePassword(userId, oldPwd, newPwd);
+            response.code = ResponseCode.SUCCESS;
         }
         catch (ServerException ex){
             response.code = ex.getErrorCode();

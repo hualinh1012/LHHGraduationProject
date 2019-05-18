@@ -6,7 +6,7 @@ const change_password_action = (new_pwd, old_pwd) => {
     var token = localStorage.getItem('token');
 
     const data = {
-        'api': 'change_pwd',
+        'api': 'change_password',
         'token': JSON.parse(token),
         'new_pwd': new_pwd,
         'old_pwd':old_pwd

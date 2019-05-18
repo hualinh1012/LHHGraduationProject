@@ -16,7 +16,7 @@ import org.json.simple.parser.ParseException;
  *
  * @author Linh
  */
-public class Message implements IEntity {
+public class Message implements IEntity, Cloneable {
 
     public static final String MSG_ID = "msg_id";
     public String msgId;
@@ -97,4 +97,18 @@ public class Message implements IEntity {
         ICE
     }
 
+    @Override
+    public Message clone() throws CloneNotSupportedException {
+        return (Message) super.clone();
+//        Message msg = new Message();
+//        msg.msgId = this.msgId;
+//        msg.from = this.from;
+//        msg.fromInfo = this.fromInfo;
+//        msg.to = this.to;
+//        msg.time = this.time;
+//        msg.type = this.type;
+//        msg.value = this.value;
+//        msg.isOwned = this.isOwned;
+//        return msg;
+    }
 }

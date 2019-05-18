@@ -41,12 +41,13 @@ public class WebSocketWorker implements Runnable {
         }
     }
     
-    private void processInBox(UserConnection uc) {
+    private void processInBox(UserConnection uc) throws CloneNotSupportedException {
         if (uc.inbox.isEmpty()) {
             return;
         }
         for (int i = 0; i < uc.inbox.size(); i++) {
-            Message msg = uc.inbox.poll();
+            Message originalMsg = uc.inbox.poll();
+            Message msg = originalMsg.clone();
             msg.isOwned = msg.from.equals(uc.userId);
             if (msg.type == Message.MessageType.FILE) {
                 msg.value = FileDAO.getFileUrl(msg.value);

@@ -1487,6 +1487,7 @@ ul {
 .group_member p {
     margin-top: 20px !important;
     margin-left: 20px !important;
+    font-weight: bold !important;
 }
 
 #group-avatar-selector {

@@ -171,7 +171,7 @@ public class ConversationDAO {
         findObj.append(Conversation.USER_LIST, new BasicDBObject("$elemMatch", new BasicDBObject(Conversation.USER_ID, userId)));
         BasicDBObject updateObj = new BasicDBObject("$set", new BasicDBObject(Conversation.CONVERSATION_NAME, conversationName));
         UpdateResult result = COLLECTION.updateOne(findObj, updateObj);
-        return result.getModifiedCount() > 0;
+        return true;
     }
 
     public static boolean updateConversationAvatar(String userId, String conversationId, String avatarId) {
@@ -180,7 +180,7 @@ public class ConversationDAO {
         findObj.append(Conversation.USER_LIST, new BasicDBObject("$elemMatch", new BasicDBObject(Conversation.USER_ID, userId)));
         BasicDBObject updateObj = new BasicDBObject("$set", new BasicDBObject(Conversation.AVATAR_ID, avatarId));
         UpdateResult result = COLLECTION.updateOne(findObj, updateObj);
-        return result.getModifiedCount() > 0;
+        return true;
     }
 
     public static void addFriend(String userId, String conversationId, List<String> lstFriendId) {

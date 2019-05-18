@@ -39,7 +39,8 @@ public class UpdateUserInfoAPI implements IApiAdapter{
             String avatarId = request.getStringParam(ParamKey.AVATAR_ID);
             User userInfo = new User(userId, userName, gender, dateOfBirth, phoneNumber, avatarId);
             if (userInfo.validateUpdateUser()){
-                User user = UserDAO.updateUserInfo(userInfo);
+                UserDAO.updateUserInfo(userInfo);
+                User user = UserDAO.getUserInfo(userId);
                 if (user.avatarId != null){
                     user.avatarUrl = FileDAO.getFileUrl(user.avatarId);
                 }
