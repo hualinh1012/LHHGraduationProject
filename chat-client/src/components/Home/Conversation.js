@@ -53,6 +53,7 @@ class Conversation extends Component {
                             }
                         }
                         c.last_message_time = new_msg.time;
+                        c.last_message_type = new_msg.type;
                         c.last_message_value = new_msg.value;
                         data.sort((a, b) => (a.last_message_time > b.last_message_time) ? -1 : 1)
                         is_new_conversation = false

@@ -6,7 +6,8 @@ class ChangeUserInfoPopup extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            checked: true
+            checked: true,
+            new_avatar: false
         };
     }
 
@@ -29,6 +30,13 @@ class ChangeUserInfoPopup extends Component {
         }
     }
 
+    changeAvatar = (event) => {
+        let file = event.target.files[0];
+        this.setState({
+            new_avatar: URL.createObjectURL(file)
+        })
+    }
+
     componentWillMount() {
         if (this.props.info.gender) {
             this.setState({
@@ -38,6 +46,7 @@ class ChangeUserInfoPopup extends Component {
     }
 
     render() {
+        const {new_avatar} = this.state
         return (
             <div className='popup'>
                 <div className='popup_change_info'>
@@ -48,8 +57,8 @@ class ChangeUserInfoPopup extends Component {
                     <div className="popup_body">
                         <form method="post" onSubmit={this.handlerUpdateUserInfo.bind(this)}>
                             <div className="avatar">
-                                <img id="i-new_avatar" src={this.props.info.avatar_url ? this.props.info.avatar_url : '/default_ava.png'} alt="" />
-                                <input name="i_userava" type='file' />
+                                <img id="i-new_avatar" src={new_avatar ? new_avatar : (this.props.info.avatar_url ? this.props.info.avatar_url : '/default_ava.png')} alt="" />
+                                <input name="i_userava" type='file' onChange={(e) => this.changeAvatar(e)}/>
                             </div>
                             <div className="info">
                                 <div className="i-row-info">

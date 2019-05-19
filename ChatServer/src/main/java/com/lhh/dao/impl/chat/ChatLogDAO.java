@@ -29,12 +29,22 @@ public class ChatLogDAO {
         MongoCollection collection = getCollection(msg.to);
         Document doc = new Document();
         doc.append(Message.MSG_ID, msg.msgId);
-        collection.findOneAndDelete(doc);
-        doc.append(Message.FROM, msg.from);
-        doc.append(Message.TYPE, msg.type.toString());
-        doc.append(Message.VALUE, msg.value);
-        doc.append(Message.TIME, msg.time);
-        collection.insertOne(doc);
+        Document oldMsg = (Document) collection.find(doc).first();
+        if (oldMsg == null) {
+            doc.append(Message.FROM, msg.from);
+            doc.append(Message.TYPE, msg.type.toString());
+            doc.append(Message.VALUE, msg.value);
+            doc.append(Message.TIME, msg.time);
+            collection.insertOne(doc);
+        } else {
+            BasicDBObject findObj = new BasicDBObject(Message.MSG_ID, msg.msgId);
+            BasicDBObject query = new BasicDBObject();
+            query.append(Message.TYPE, msg.type.toString());
+            query.append(Message.VALUE, msg.value);
+            query.append(Message.TIME, msg.time);
+            BasicDBObject updateObj = new BasicDBObject("$set", query);
+            collection.updateOne(findObj, updateObj);
+        }
     }
 
     public static List<Message> getChatHistory(String conversationId, String timeStamp, Integer take) {
