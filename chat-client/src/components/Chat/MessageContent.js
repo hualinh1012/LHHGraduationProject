@@ -16,7 +16,8 @@ class MessageContent extends Component {
                     <p>{data.value}</p>
                 );
             case "FILE":
-                let file_name = data.value.slice(data.value.lastIndexOf("\\") + 1);
+                let file_name = data.value.slice(data.value.lastIndexOf("/") + 1);
+                console.log(file_name)
                 return (
                     <p><i className="fa fa-paperclip attachment" aria-hidden="true"></i> <a href={data.value}>{file_name}</a></p>
                 );
